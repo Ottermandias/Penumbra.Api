@@ -1,5 +1,8 @@
 namespace Penumbra.Api.Enums;
 
+/// <summary>
+/// Error codes returned by some Penumbra.Api calls.
+/// </summary>
 public enum PenumbraApiEc
 {
     Success            = 0,

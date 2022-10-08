@@ -7,6 +7,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.PreSettingsPanelDraw"/>
     public static class PreSettingsDraw
     {
         public const string Label = $"Penumbra.{nameof( PreSettingsDraw )}";
@@ -19,6 +20,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.PostSettingsPanelDraw"/>
     public static class PostSettingsDraw
     {
         public const string Label = $"Penumbra.{nameof( PostSettingsDraw )}";
@@ -31,6 +33,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.ChangedItemTooltip"/>
     public static class ChangedItemTooltip
     {
         public const string Label = $"Penumbra.{nameof( ChangedItemTooltip )}";
@@ -42,6 +45,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.ChangedItemClicked"/>
     public static class ChangedItemClick
     {
         public const string Label = $"Penumbra.{nameof( ChangedItemClick )}";

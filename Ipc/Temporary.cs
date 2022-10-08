@@ -8,6 +8,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.CreateTemporaryCollection"/>
     public static class CreateTemporaryCollection
     {
         public const string Label = $"Penumbra.{nameof( CreateTemporaryCollection )}";
@@ -20,6 +21,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RemoveTemporaryCollection"/>
     public static class RemoveTemporaryCollection
     {
         public const string Label = $"Penumbra.{nameof( RemoveTemporaryCollection )}";
@@ -32,6 +34,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.AddTemporaryModAll"/>
     public static class AddTemporaryModAll
     {
         public const string Label = $"Penumbra.{nameof( AddTemporaryModAll )}";
@@ -44,6 +47,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.AddTemporaryMod"/>
     public static class AddTemporaryMod
     {
         public const string Label = $"Penumbra.{nameof( AddTemporaryMod )}";
@@ -57,6 +61,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RemoveTemporaryModAll"/>
     public static class RemoveTemporaryModAll
     {
         public const string Label = $"Penumbra.{nameof( RemoveTemporaryModAll )}";
@@ -69,6 +74,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RemoveTemporaryMod"/>
     public static class RemoveTemporaryMod
     {
         public const string Label = $"Penumbra.{nameof( RemoveTemporaryMod )}";

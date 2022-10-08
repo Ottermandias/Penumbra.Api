@@ -1,12 +1,37 @@
 namespace Penumbra.Api.Enums;
 
-// Different types a mod setting can change:
+/// <summary>
+/// Describes the way a mod can change its settings.
+/// </summary>
 public enum ModSettingChange
 {
-    Inheritance,      // it was set to inherit from other collections or not inherit anymore
-    EnableState,      // it was enabled or disabled
-    Priority,         // its priority was changed
-    Setting,          // a specific setting was changed
-    MultiInheritance, // multiple mods were set to inherit from other collections or not inherit anymore.
-    MultiEnableState, // multiple mods were enabled or disabled at once.
+    /// <summary>
+    /// It was set to inherit from other collections or not to inherit anymore.
+    /// </summary>
+    Inheritance,
+
+    /// <summary>
+    /// It was enabled or disabled.
+    /// </summary>
+    EnableState,
+
+    /// <summary>
+    /// Its priority was changed.
+    /// </summary>
+    Priority,
+
+    /// <summary>
+    /// A specific setting for an option group was changed.
+    /// </summary>
+    Setting,
+
+    /// <summary>
+    /// Multiple mods were set to inherit from other collections or not inherit anymore at once.
+    /// </summary>
+    MultiInheritance,
+
+    /// <summary>
+    /// Multiple mods were enabled or disabled at once.
+    /// </summary>
+    MultiEnableState,
 }

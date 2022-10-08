@@ -7,6 +7,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.GetCollections"/>
     public static class GetCollections
     {
         public const string Label = $"Penumbra.{nameof( GetCollections )}";
@@ -18,6 +19,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetCurrentCollection"/>
     public static class GetCurrentCollectionName
     {
         public const string Label = $"Penumbra.{nameof( GetCurrentCollectionName )}";
@@ -29,6 +31,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetDefaultCollection"/>
     public static class GetDefaultCollectionName
     {
         public const string Label = $"Penumbra.{nameof( GetDefaultCollectionName )}";
@@ -40,6 +43,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetInterfaceCollection"/>
     public static class GetInterfaceCollectionName
     {
         public const string Label = $"Penumbra.{nameof( GetInterfaceCollectionName )}";
@@ -51,6 +55,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetCharacterCollection"/>
     public static class GetCharacterCollectionName
     {
         public const string Label = $"Penumbra.{nameof( GetCharacterCollectionName )}";
@@ -62,6 +67,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetChangedItemsForCollection"/>
     public static class GetChangedItems
     {
         public const string Label = $"Penumbra.{nameof( GetChangedItems )}";

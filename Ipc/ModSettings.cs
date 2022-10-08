@@ -10,6 +10,7 @@ using CurrentSettings = ValueTuple< PenumbraApiEc, (bool, int, IDictionary< stri
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.GetAvailableModSettings"/>
     public static class GetAvailableModSettings
     {
         public const string Label = $"Penumbra.{nameof( GetAvailableModSettings )}";
@@ -23,6 +24,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetCurrentModSettings"/>
     public static class GetCurrentModSettings
     {
         public const string Label = $"Penumbra.{nameof( GetCurrentModSettings )}";
@@ -36,6 +38,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.TryInheritMod"/>
     public static class TryInheritMod
     {
         public const string Label = $"Penumbra.{nameof( TryInheritMod )}";
@@ -49,6 +52,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.TrySetMod"/>
     public static class TrySetMod
     {
         public const string Label = $"Penumbra.{nameof( TrySetMod )}";
@@ -62,6 +66,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.TrySetModPriority"/>
     public static class TrySetModPriority
     {
         public const string Label = $"Penumbra.{nameof( TrySetModPriority )}";
@@ -75,6 +80,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.TrySetModSetting"/>
     public static class TrySetModSetting
     {
         public const string Label = $"Penumbra.{nameof( TrySetModSetting )}";
@@ -88,6 +94,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.TrySetModSettings"/>
     public static class TrySetModSettings
     {
         public const string Label = $"Penumbra.{nameof( TrySetModSettings )}";
@@ -102,6 +109,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.ModSettingChanged"/>
     public static class ModSettingChanged
     {
         public const string Label = $"Penumbra.{nameof( ModSettingChanged )}";

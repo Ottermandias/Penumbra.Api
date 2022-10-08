@@ -6,6 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.GetPlayerMetaManipulations"/>
     public static class GetPlayerMetaManipulations
     {
         public const string Label = $"Penumbra.{nameof( GetPlayerMetaManipulations )}";
@@ -17,6 +18,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetMetaManipulations"/>
     public static class GetMetaManipulations
     {
         public const string Label = $"Penumbra.{nameof( GetMetaManipulations )}";

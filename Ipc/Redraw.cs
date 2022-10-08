@@ -8,6 +8,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.RedrawAll"/>
     public static class RedrawAll
     {
         public const string Label = $"Penumbra.{nameof( RedrawAll )}";
@@ -19,6 +20,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RedrawObject(GameObject, RedrawType)"/>
     public static class RedrawObject
     {
         public const string Label = $"Penumbra.{nameof( RedrawObject )}";
@@ -30,6 +32,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RedrawObject(int, RedrawType)"/>
     public static class RedrawObjectByIndex
     {
         public const string Label = $"Penumbra.{nameof( RedrawObjectByIndex )}";
@@ -41,6 +44,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.RedrawObject(string, RedrawType)"/>
     public static class RedrawObjectByName
     {
         public const string Label = $"Penumbra.{nameof( RedrawObjectByName )}";
@@ -52,6 +56,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GameObjectRedrawn"/>
     public static class GameObjectRedrawn
     {
         public const string Label = $"Penumbra.{nameof( GameObjectRedrawn )}";

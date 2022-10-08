@@ -6,6 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <summary>Triggered when the Penumbra API is initialized and ready.</summary>
     public static class Initialized
     {
         public const string Label = $"Penumbra.{nameof( Initialized )}";
@@ -25,6 +26,7 @@ public static partial class Ipc
         }
     }
 
+    /// <summary>Triggered when the Penumbra API is fully disposed and unavailable.</summary>
     public static class Disposed
     {
         public const string Label = $"Penumbra.{nameof( Disposed )}";
@@ -44,6 +46,7 @@ public static partial class Ipc
         }
     }
 
+    /// <summary>Triggered when the Penumbra API is initialized and ready.</summary>
     public static class ApiVersion
     {
         public const string Label = $"Penumbra.{nameof( ApiVersion )}";
@@ -55,6 +58,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
     public static class ApiVersions
     {
         public const string Label = $"Penumbra.{nameof( ApiVersions )}";

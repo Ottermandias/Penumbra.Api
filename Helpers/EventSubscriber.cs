@@ -6,6 +6,11 @@ using Dalamud.Plugin.Ipc;
 
 namespace Penumbra.Api.Helpers;
 
+/// <summary>
+/// Specialized disposable Subscriber for Events.<para />
+/// Subscriptions are wrapped to be individually exception-safe.<para/>
+/// Can be enabled and disabled.<para/>
+/// </summary>
 public sealed class EventSubscriber : IDisposable
 {
     private readonly string                          _label;
@@ -33,6 +38,10 @@ public sealed class EventSubscriber : IDisposable
         }
     }
 
+    /// <summary>
+    /// Enable all currently subscribed actions registered with this EventSubscriber.
+    /// Does nothing if it is already enabled.
+    /// </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -46,6 +55,11 @@ public sealed class EventSubscriber : IDisposable
         }
     }
 
+    /// <summary>
+    /// Disable all subscribed actions registered with this EventSubscriber.
+    /// Does nothing if it is already disabled.
+    /// Does not forget the actions, only disables them.
+    /// </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -62,6 +76,9 @@ public sealed class EventSubscriber : IDisposable
         }
     }
 
+    /// <summary>
+    /// Add or remove an action to the IPC event, if it is valid.
+    /// </summary>
     public event Action Event
     {
         add
@@ -106,6 +123,7 @@ public sealed class EventSubscriber : IDisposable
         => Dispose();
 }
 
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
 public sealed class EventSubscriber< T1 > : IDisposable
 {
     private readonly string                                   _label;
@@ -133,6 +151,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -146,6 +165,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -162,6 +182,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
     public event Action< T1 > Event
     {
         add
@@ -206,6 +227,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
         => Dispose();
 }
 
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
 public sealed class EventSubscriber< T1, T2 > : IDisposable
 {
     private readonly string                                           _label;
@@ -233,6 +255,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -246,6 +269,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -262,6 +286,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
     public event Action< T1, T2 > Event
     {
         add
@@ -306,6 +331,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
         => Dispose();
 }
 
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
 public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
 {
     private readonly string                                                   _label;
@@ -333,6 +359,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -346,6 +373,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -362,6 +390,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
     public event Action< T1, T2, T3 > Event
     {
         add
@@ -406,6 +435,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
         => Dispose();
 }
 
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
 public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
 {
     private readonly string                                                           _label;
@@ -433,6 +463,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -446,6 +477,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -462,6 +494,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
     public event Action< T1, T2, T3, T4 > Event
     {
         add
@@ -506,6 +539,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
         => Dispose();
 }
 
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
 public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
 {
     private readonly string                                                                   _label;
@@ -533,6 +567,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
         if( _disabled && _subscriber != null )
@@ -546,6 +581,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
         if( !_disabled )
@@ -562,6 +598,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
         }
     }
 
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
     public event Action< T1, T2, T3, T4, T5 > Event
     {
         add

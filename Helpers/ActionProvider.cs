@@ -5,6 +5,9 @@ using Dalamud.Plugin.Ipc;
 
 namespace Penumbra.Api.Helpers;
 
+/// <summary>
+/// Specialized disposable Provider for Actions.
+/// </summary>
 public sealed class ActionProvider<T1> : IDisposable
 {
     private ICallGateProvider<T1, object?>? _provider;
@@ -35,6 +38,9 @@ public sealed class ActionProvider<T1> : IDisposable
         => Dispose();
 }
 
+/// <summary>
+/// <inheritdoc cref="ActionProvider{T1}"/>
+/// </summary>
 public sealed class ActionProvider< T1, T2 > : IDisposable
 {
     private          ICallGateProvider< T1, T2, object? >? _provider;

@@ -6,6 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.GetDrawObjectInfo"/>
     public static class GetDrawObjectInfo
     {
         public const string Label = $"Penumbra.{nameof( GetDrawObjectInfo )}";
@@ -17,6 +18,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GetCutsceneParentIndex"/>
     public static class GetCutsceneParentIndex
     {
         public const string Label = $"Penumbra.{nameof( GetCutsceneParentIndex )}";
@@ -28,6 +30,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.CreatingCharacterBase"/>
     public static class CreatingCharacterBase
     {
         public const string Label = $"Penumbra.{nameof( CreatingCharacterBase )}";
@@ -39,6 +42,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.CreatedCharacterBase"/>
     public static class CreatedCharacterBase
     {
         public const string Label = $"Penumbra.{nameof( CreatedCharacterBase )}";
@@ -50,6 +54,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.GameObjectResourceResolved"/>
     public static class GameObjectResourcePathResolved
     {
         public const string Label = $"Penumbra.{nameof( GameObjectResourcePathResolved )}";

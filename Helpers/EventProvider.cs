@@ -5,6 +5,11 @@ using Dalamud.Plugin.Ipc;
 
 namespace Penumbra.Api.Helpers;
 
+/// <summary>
+/// Specialized disposable Provider for Events.<para />
+/// Will execute the unsubscriber action on dispose if any is provided.<para />
+/// Can only be invoked and disposed.
+/// </summary>
 public sealed class EventProvider : IDisposable
 {
     private ICallGateProvider< object? >? _provider;
@@ -42,6 +47,7 @@ public sealed class EventProvider : IDisposable
         }
     }
 
+    /// <summary> Invoke the event.</summary>
     public void Invoke()
         => _provider?.SendMessage();
 
@@ -66,6 +72,7 @@ public sealed class EventProvider : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="EventProvider"/>
 public sealed class EventProvider< T1 > : IDisposable
 {
     private ICallGateProvider< T1, object? >? _provider;
@@ -103,6 +110,7 @@ public sealed class EventProvider< T1 > : IDisposable
         }
     }
 
+    /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a )
         => _provider?.SendMessage( a );
 
@@ -127,6 +135,7 @@ public sealed class EventProvider< T1 > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="EventProvider"/> 
 public sealed class EventProvider< T1, T2 > : IDisposable
 {
     private ICallGateProvider< T1, T2, object? >? _provider;
@@ -165,6 +174,7 @@ public sealed class EventProvider< T1, T2 > : IDisposable
         }
     }
 
+    /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b )
         => _provider?.SendMessage( a, b );
 
@@ -189,6 +199,7 @@ public sealed class EventProvider< T1, T2 > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="EventProvider"/> 
 public sealed class EventProvider< T1, T2, T3 > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, object? >? _provider;
@@ -227,6 +238,7 @@ public sealed class EventProvider< T1, T2, T3 > : IDisposable
         }
     }
 
+    /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c )
         => _provider?.SendMessage( a, b, c );
 
@@ -251,6 +263,7 @@ public sealed class EventProvider< T1, T2, T3 > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="EventProvider"/> 
 public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, T4, object? >? _provider;
@@ -289,6 +302,7 @@ public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
         }
     }
 
+    /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c, T4 d )
         => _provider?.SendMessage( a, b, c, d );
 
@@ -313,6 +327,7 @@ public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="EventProvider"/> 
 public sealed class EventProvider< T1, T2, T3, T4, T5 > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, T4, T5, object? >? _provider;
@@ -351,6 +366,7 @@ public sealed class EventProvider< T1, T2, T3, T4, T5 > : IDisposable
         }
     }
 
+    /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c, T4 d, T5 e )
         => _provider?.SendMessage( a, b, c, d, e );
 

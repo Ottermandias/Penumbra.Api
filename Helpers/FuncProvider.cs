@@ -5,6 +5,9 @@ using Dalamud.Plugin.Ipc;
 
 namespace Penumbra.Api.Helpers;
 
+/// <summary>
+/// Specialized disposable Provider for Funcs.
+/// </summary>
 public sealed class FuncProvider< TRet > : IDisposable
 {
     private ICallGateProvider< TRet >? _provider;
@@ -35,6 +38,7 @@ public sealed class FuncProvider< TRet > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="FuncProvider{TRet}"/>
 public sealed class FuncProvider< T1, TRet > : IDisposable
 {
     private ICallGateProvider< T1, TRet >? _provider;
@@ -65,6 +69,7 @@ public sealed class FuncProvider< T1, TRet > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="FuncProvider{TRet}"/>
 public sealed class FuncProvider< T1, T2, TRet > : IDisposable
 {
     private ICallGateProvider< T1, T2, TRet >? _provider;
@@ -95,6 +100,7 @@ public sealed class FuncProvider< T1, T2, TRet > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="FuncProvider{TRet}"/>
 public sealed class FuncProvider< T1, T2, T3, TRet > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, TRet >? _provider;
@@ -125,6 +131,7 @@ public sealed class FuncProvider< T1, T2, T3, TRet > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="FuncProvider{TRet}"/>
 public sealed class FuncProvider< T1, T2, T3, T4, TRet > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, T4, TRet >? _provider;
@@ -155,6 +162,7 @@ public sealed class FuncProvider< T1, T2, T3, T4, TRet > : IDisposable
         => Dispose();
 }
 
+/// <inheritdoc cref="FuncProvider{TRet}"/>
 public sealed class FuncProvider< T1, T2, T3, T4, T5, TRet > : IDisposable
 {
     private ICallGateProvider< T1, T2, T3, T4, T5, TRet >? _provider;
