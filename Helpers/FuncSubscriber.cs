@@ -43,7 +43,6 @@ public readonly struct FuncSubscriber< T1, TRet >
     private readonly string                           _label;
     private readonly ICallGateSubscriber< T1, TRet >? _subscriber;
 
-
     /// <inheritdoc cref="FuncSubscriber{TRet}.Valid"/>
     public bool Valid
         => _subscriber != null;

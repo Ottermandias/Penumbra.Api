@@ -46,7 +46,7 @@ public sealed class EventSubscriber : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -66,7 +66,7 @@ public sealed class EventSubscriber : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
@@ -156,7 +156,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -172,7 +172,7 @@ public sealed class EventSubscriber< T1 > : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
@@ -260,7 +260,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -276,7 +276,7 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
@@ -364,7 +364,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -380,7 +380,7 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
@@ -468,7 +468,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -484,7 +484,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
@@ -572,7 +572,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
     {
         if( _disabled && _subscriber != null )
         {
-            foreach( var action in _delegates.Keys )
+            foreach( var action in _delegates.Values )
             {
                 _subscriber.Subscribe( action );
             }
@@ -588,7 +588,7 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
         {
             if( _subscriber != null )
             {
-                foreach( var action in _delegates.Keys )
+                foreach( var action in _delegates.Values )
                 {
                     _subscriber.Unsubscribe( action );
                 }
