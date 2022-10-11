@@ -46,7 +46,8 @@ public static partial class Ipc
         }
     }
 
-    /// <summary>Triggered when the Penumbra API is initialized and ready.</summary>
+    /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
+    /// <remarks>Deprecated, please use <see cref="Ipc.ApiVersions"/> instead.</remarks>
     public static class ApiVersion
     {
         public const string Label = $"Penumbra.{nameof( ApiVersion )}";
@@ -68,5 +69,29 @@ public static partial class Ipc
 
         public static FuncSubscriber< (int Breaking, int Features) > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.GetEnabledState"/>
+    public static class GetEnabledState
+    {
+        public const string Label = $"Penumbra.{nameof( GetEnabledState )}";
+
+        public static FuncProvider< bool > Provider( DalamudPluginInterface pi, Func< bool > func )
+            => new(pi, Label, func);
+
+        public static FuncSubscriber< bool > Subscriber( DalamudPluginInterface pi )
+            => new(pi, Label);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.EnabledChange"/>
+    public static class EnabledChange
+    {
+        public const string Label = $"Penumbra.{nameof( EnabledChange )}";
+
+        public static EventProvider< bool > Provider( DalamudPluginInterface pi, Action add, Action del )
+            => new(pi, Label, add, del);
+
+        public static EventSubscriber< bool > Subscriber( DalamudPluginInterface pi, params Action< bool >[] actions )
+            => new(pi, Label, actions);
     }
 }

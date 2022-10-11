@@ -8,7 +8,7 @@ namespace Penumbra.Api;
 
 public interface IPenumbraApi : IPenumbraApiBase
 {
-    #region Game State
+    #region Plugin State
 
     /// <returns>The current penumbra root directory.</returns>
     public string GetModDirectory();
@@ -21,6 +21,15 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// </summary>
     /// <returns>The full path of the mod directory and whether Penumbra treats it as valid.</returns>
     public event Action< string, bool >? ModDirectoryChanged;
+
+    /// <returns>True if Penumbra is enabled, false otherwise.</returns>
+    public bool GetEnabledState();
+
+    /// <summary>
+    /// Fired whenever the enabled state of Penumbra changes.
+    /// </summary>
+    /// <returns>True if the new state is enabled, false if the new state is disabled</returns>
+    public event Action< bool >? EnabledChange;
 
     #endregion
 
