@@ -238,7 +238,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <summary> Try to add a new mod inside the mod root directory.</summary>
     /// <remarks>Note that success does only imply a successful call, not a successful mod load.</remarks>
     /// <param name="modDirectory">The name (not full name) of the mod directory.</param>
-    /// <returns>FileMissing if <param name="modDirectory" /> does not exist, Success otherwise.</returns>
+    /// <returns>FileMissing if <paramref name="modDirectory" /> does not exist, Success otherwise.</returns>
     public PenumbraApiEc AddMod( string modDirectory );
 
     /// <summary>Try to delete a mod  given by its <paramref name="modDirectory" /> name or <paramref name="modName" />.</summary>
@@ -276,6 +276,9 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <summary>
     /// Obtain the enabled state, the priority, the settings of a mod given by its <paramref name="modDirectory" /> name or <paramref name="modName" /> in the specified collection.
     /// </summary>
+    /// <param name="collectionName">Specify the collection.</param>
+    /// <param name="modDirectory">Specify the mod via its directory name.</param>
+    /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
     /// <param name="allowInheritance">Whether the settings need to be from the given collection or can be inherited from any other by it.</param>
     /// <returns>ModMissing, CollectionMissing or Success. <para />
     /// On Success, a tuple of Enabled State, Priority, a dictionary of option group names and lists of enabled option names and a bool whether the settings are inherited or not.</returns>
