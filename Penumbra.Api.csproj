@@ -7,8 +7,9 @@
         <Company></Company>
         <Product>Penumbra</Product>
         <Copyright>Copyright © 2022</Copyright>
-        <FileVersion>1.0.0.1</FileVersion>
-        <AssemblyVersion>1.0.0.1</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <PackageVersion>1.0.1</PackageVersion>
         <OutputPath>bin\$(Configuration)\</OutputPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>enable</Nullable>
