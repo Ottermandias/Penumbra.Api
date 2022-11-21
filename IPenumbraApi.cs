@@ -323,7 +323,6 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="character">The full, case-sensitive character name this collection should apply to.</param>
     /// <param name="forceOverwriteCharacter">Whether to overwrite an existing character collection.</param>
     /// <returns>Success, CharacterCollectionExists or NothingChanged and the name of the new temporary collection on success.</returns>
-    [Obsolete]
     public (PenumbraApiEc, string) CreateTemporaryCollection( string tag, string character, bool forceOverwriteCharacter );
 
     /// <summary>
@@ -347,7 +346,6 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// </summary>
     /// <remarks>This function is outdated, prefer to use <see cref="RemoveTemporaryCollectionByName" />.</remarks>
     /// <returns>NothingChanged or Success.</returns>
-    [Obsolete]
     public PenumbraApiEc RemoveTemporaryCollection( string characterName );
 
     /// <summary>

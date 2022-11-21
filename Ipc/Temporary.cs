@@ -9,7 +9,6 @@ namespace Penumbra.Api;
 public static partial class Ipc
 {
     /// <inheritdoc cref="IPenumbraApi.CreateTemporaryCollection"/>
-    [Obsolete]
     public static class CreateTemporaryCollection
     {
         public const string Label = $"Penumbra.{nameof( CreateTemporaryCollection )}";
@@ -18,12 +17,12 @@ public static partial class Ipc
             Func< string, string, bool, (PenumbraApiEc, string) > func )
             => new(pi, Label, func);
 
+        [Obsolete]
         public static FuncSubscriber< string, string, bool, (PenumbraApiEc, string) > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
 
     /// <inheritdoc cref="IPenumbraApi.RemoveTemporaryCollection"/>
-    [Obsolete]
     public static class RemoveTemporaryCollection
     {
         public const string Label = $"Penumbra.{nameof( RemoveTemporaryCollection )}";
@@ -32,6 +31,7 @@ public static partial class Ipc
             Func< string, PenumbraApiEc > func )
             => new(pi, Label, func);
 
+        [Obsolete]
         public static FuncSubscriber< string, PenumbraApiEc > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
