@@ -19,5 +19,6 @@ public enum PenumbraApiEc
     InvalidManipulation       = 10,
     InvalidArgument           = 11,
     PathRenameFailed          = 12,
+    CollectionExists          = 13,
     UnknownError              = 255,
 }

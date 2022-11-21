@@ -316,19 +316,46 @@ public interface IPenumbraApi : IPenumbraApiBase
     #region Temporary
 
     /// <summary>
-    /// Create a temporary collection without actual settings but with a cache.
+    /// Create a temporary collection without actual settings but with a cache and assign it to a specific character by name only.
     /// </summary>
+    /// <remarks>This function is outdated, prefer to use <see cref="CreateNamedTemporaryCollection"/> and <see cref="AssignTemporaryCollection"/>.</remarks>
     /// <param name="tag">A custom tag for your collections.</param>
     /// <param name="character">The full, case-sensitive character name this collection should apply to.</param>
     /// <param name="forceOverwriteCharacter">Whether to overwrite an existing character collection.</param>
     /// <returns>Success, CharacterCollectionExists or NothingChanged and the name of the new temporary collection on success.</returns>
+    [Obsolete]
     public (PenumbraApiEc, string) CreateTemporaryCollection( string tag, string character, bool forceOverwriteCharacter );
 
     /// <summary>
-    /// Remove the temporary collection associated with characterName if it exists.
+    /// Create a temporary collection of the given <paramref name="name"/>.
     /// </summary>
+    /// <param name="name">The intended name. It may not be empty or contain symbols invalid in a path used by XIV.</param>
+    /// <returns>Success, InvalidArgument if name is not valid for a collection, or TemporaryCollectionExists.</returns>
+    public PenumbraApiEc CreateNamedTemporaryCollection( string name );
+
+    /// <summary>
+    /// Assign an existing temporary collection to an actor that currently occupies a specific slot.
+    /// </summary>
+    /// <param name="collectionName">The chosen collection assigned to the actor.</param>
+    /// <param name="actorIndex">The current object table index of the actor.</param>
+    /// <param name="forceAssignment">Whether to assign even if the actor is already assigned either a temporary or a permanent collection.</param>
+    /// <returns>Success, InvalidArgument if the actor can not be identified, CollectionMissing if the collection does not exist, CharacterCollectionExists if <paramref name="forceAssignment"/> is false and the actor is already assigned a collection. </returns>
+    public PenumbraApiEc AssignTemporaryCollection( string collectionName, int actorIndex, bool forceAssignment );
+
+    /// <summary>
+    /// Remove the temporary collection assigned to characterName if it exists.
+    /// </summary>
+    /// <remarks>This function is outdated, prefer to use <see cref="RemoveTemporaryCollectionByName" />.</remarks>
     /// <returns>NothingChanged or Success.</returns>
+    [Obsolete]
     public PenumbraApiEc RemoveTemporaryCollection( string characterName );
+
+    /// <summary>
+    /// Remove the temporary collection of the given name.
+    /// </summary>
+    /// <param name="collectionName">The chosen temporary collection to remove.</param>
+    /// <returns>NothingChanged or Success.</returns>
+    public PenumbraApiEc RemoveTemporaryCollectionByName( string collectionName );
 
     /// <summary>
     /// Set a temporary mod with the given paths, manipulations and priority and the name tag to all regular and temporary collections.
