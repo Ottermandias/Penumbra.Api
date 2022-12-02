@@ -59,6 +59,42 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.ModDeleted" />
+    public static class ModDeleted
+    {
+        public const string Label = $"Penumbra.{nameof( ModDeleted )}";
+
+        public static EventProvider< string > Provider( DalamudPluginInterface pi, Action add, Action del )
+            => new(pi, Label, add, del);
+
+        public static EventSubscriber< string > Subscriber( DalamudPluginInterface pi, params Action< string >[] actions )
+            => new(pi, Label, actions);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.ModAdded" />
+    public static class ModAdded
+    {
+        public const string Label = $"Penumbra.{nameof( ModAdded )}";
+
+        public static EventProvider< string > Provider( DalamudPluginInterface pi, Action add, Action del )
+            => new(pi, Label, add, del);
+
+        public static EventSubscriber< string > Subscriber( DalamudPluginInterface pi, params Action< string >[] actions )
+            => new(pi, Label, actions);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.ModMoved" />
+    public static class ModMoved
+    {
+        public const string Label = $"Penumbra.{nameof( ModMoved )}";
+
+        public static EventProvider< string, string > Provider( DalamudPluginInterface pi, Action add, Action del )
+            => new(pi, Label, add, del);
+
+        public static EventSubscriber< string, string > Subscriber( DalamudPluginInterface pi, params Action< string, string >[] actions )
+            => new(pi, Label, actions);
+    }
+
     /// <inheritdoc cref="IPenumbraApi.GetModPath"/>
     public static class GetModPath
     {

@@ -246,6 +246,18 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <returns>NothingDone if the mod can not be found, Success otherwise.</returns>
     public PenumbraApiEc DeleteMod( string modDirectory, string modName );
 
+    /// <summary> Triggers whenever a mod is deleted. </summary>
+    /// <returns>The base directory name of the deleted mod.</returns>
+    public event Action< string >? ModDeleted;
+
+    /// <summary> Triggers whenever a mod is deleted. </summary>
+    /// <returns>The base directory name of the new mod.</returns>
+    public event Action<string>? ModAdded;
+
+    /// <summary> Triggers whenever a mods base name is changed from inside Penumbra. </summary>
+    /// <returns>The previous base directory name of the mod and the new base directory name of the mod.</returns>
+    public event Action<string, string>? ModMoved;
+
     /// <summary>
     /// Get the internal full filesystem path including search order for the specified mod
     /// given by its <paramref name="modDirectory" /> name or <paramref name="modName" />.
