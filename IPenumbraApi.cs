@@ -157,6 +157,14 @@ public interface IPenumbraApi : IPenumbraApiBase
     public string ResolvePath( string gamePath, string characterName );
 
     /// <summary>
+    /// Resolve a given <paramref name="gamePath" /> via Penumbra using collection applying to the <paramref name="gameObjectIdx"/> 
+    /// given by its index in the game object table.
+    /// </summary>
+    /// <remarks>If the object does not exist in the table, the default collection is used.</remarks>
+    /// <returns>The resolved path, or the given path if Penumbra would not manipulate it.</returns>
+    public string ResolveGameObjectPath( string gamePath, int gameObjectIdx );
+
+    /// <summary>
     /// Resolve a given <paramref name="gamePath" /> via Penumbra using the collection currently applying to the player character.
     /// </summary>
     /// <returns>The resolved path, or the given path if Penumbra would not manipulate it.</returns>
@@ -168,6 +176,14 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// </summary>
     /// <returns>A list of game paths resolving to the modded path.</returns>
     public string[] ReverseResolvePath( string moddedPath, string characterName );
+
+    /// <summary>
+    /// Reverse resolves a given local <paramref name="moddedPath" /> into its replacement in form of all applicable game paths
+    /// for the collection applying to the <paramref name="gameObjectIdx"/>th game object in the game object table.
+    /// </summary>
+    /// <remarks>If the object does not exist in the table, the default collection is used.</remarks>
+    /// <returns>A list of game paths resolving to the modded path.</returns>
+    public string[] ReverseResolveGameObjectPath( string moddedPath, int gameObjectIdx );
 
     /// <summary>
     /// Reverse resolves a given local <paramref name="moddedPath" /> into its replacement in form of all applicable game paths
@@ -222,6 +238,10 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <returns>A base64 encoded, zipped json-string with a prepended version-byte of the current manipulations
     /// in the given collection associated with the character name, or the default collection.</returns>
     public string GetMetaManipulations( string characterName );
+
+    /// <returns>A base64 encoded, zipped json-string with a prepended version-byte of the current manipulations
+    /// in the given collection applying to the given game object or the default collection if it does not exist.</returns>
+    public string GetGameObjectMetaManipulations( int gameObjectIdx );
 
     #endregion
 

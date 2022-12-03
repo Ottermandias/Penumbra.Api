@@ -29,4 +29,16 @@ public static partial class Ipc
         public static FuncSubscriber< string, string > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
+
+    /// <inheritdoc cref="IPenumbraApi.GetGameObjectMetaManipulations"/>
+    public static class GetGameObjectMetaManipulations
+    {
+        public const string Label = $"Penumbra.{nameof( GetGameObjectMetaManipulations )}";
+
+        public static FuncProvider< int, string > Provider( DalamudPluginInterface pi, Func< int, string > func )
+            => new(pi, Label, func);
+
+        public static FuncSubscriber< int, string > Subscriber( DalamudPluginInterface pi )
+            => new(pi, Label);
+    }
 }
