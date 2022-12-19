@@ -49,7 +49,16 @@ public sealed class EventProvider : IDisposable
 
     /// <summary> Invoke the event.</summary>
     public void Invoke()
-        => _provider?.SendMessage();
+    {
+        try
+        {
+            _provider?.SendMessage();
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{e}" );
+        }
+    }
 
     public void Dispose()
     {
@@ -112,7 +121,16 @@ public sealed class EventProvider< T1 > : IDisposable
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a )
-        => _provider?.SendMessage( a );
+    {
+        try
+        {
+            _provider?.SendMessage(a);
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{e}" );
+        }
+    }
 
     public void Dispose()
     {
@@ -176,7 +194,16 @@ public sealed class EventProvider< T1, T2 > : IDisposable
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b )
-        => _provider?.SendMessage( a, b );
+    {
+        try
+        {
+            _provider?.SendMessage(a, b);
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{e}" );
+        }
+    }
 
     public void Dispose()
     {
@@ -240,7 +267,16 @@ public sealed class EventProvider< T1, T2, T3 > : IDisposable
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c )
-        => _provider?.SendMessage( a, b, c );
+    {
+        try
+        {
+            _provider?.SendMessage(a, b, c);
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{e}" );
+        }
+    }
 
     public void Dispose()
     {
@@ -304,7 +340,16 @@ public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c, T4 d )
-        => _provider?.SendMessage( a, b, c, d );
+    {
+        try
+        {
+            _provider?.SendMessage(a, b, c, d);
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{e}" );
+        }
+    }
 
     public void Dispose()
     {
@@ -368,7 +413,16 @@ public sealed class EventProvider< T1, T2, T3, T4, T5 > : IDisposable
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
     public void Invoke( T1 a, T2 b, T3 c, T4 d, T5 e )
-        => _provider?.SendMessage( a, b, c, d, e );
+    {
+        try
+        {
+            _provider?.SendMessage(a, b, c, d, e);
+        }
+        catch( Exception ex )
+        {
+            PluginLog.Error( $"Exception thrown on IPC event:\n{ex}" );
+        }
+    }
 
     public void Dispose()
     {
