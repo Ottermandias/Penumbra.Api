@@ -343,6 +343,16 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <returns><inheritdoc cref="ModSettingChangedDelegate" /></returns>
     public event ModSettingChangedDelegate? ModSettingChanged;
 
+    /// <summary>
+    /// Copy all current settings for a mod to another mod.
+    /// </summary>
+    /// <param name="collectionName">Specify the collection to work in, leave empty or null to do it in all collections.</param>
+    /// <param name="modDirectoryFrom">Specify the mod to take the settings from via its directory name.</param>
+    /// <param name="modDirectoryTo">Specify the mod to put the settings on via its directory name. If the mod does not exist, it will be added as unused settings.</param>
+    /// <returns>CollectionMissing if collectionName is not empty but does not exist or Success.</returns>
+    /// <remarks>If the target mod exists, the settings will be fixed before being applied. If the source mod does not exist, it will use unused settings if available and remove existing settings otherwise.</remarks>
+    public PenumbraApiEc CopyModSettings( string? collectionName, string modDirectoryFrom, string modDirectoryTo );
+
     #endregion
 
     #region Temporary

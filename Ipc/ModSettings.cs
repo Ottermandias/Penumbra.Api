@@ -121,4 +121,17 @@ public static partial class Ipc
             params Action< ModSettingChange, string, string, bool >[] actions )
             => new(pi, Label, actions);
     }
+
+    /// <inheritdoc cref="IPenumbraApi.CopyModSettings"/>
+    public static class CopyModSettings
+    {
+        public const string Label = $"Penumbra.{nameof( CopyModSettings )}";
+
+        public static FuncProvider< string, string, string, PenumbraApiEc > Provider( DalamudPluginInterface pi,
+            Func< string, string, string, PenumbraApiEc > func )
+            => new(pi, Label, func);
+
+        public static FuncSubscriber< string, string, string, PenumbraApiEc > Subscriber( DalamudPluginInterface pi )
+            => new(pi, Label);
+    }
 }
