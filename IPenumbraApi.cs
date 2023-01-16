@@ -227,6 +227,44 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <returns>A dictionary of affected items in <paramref name="collectionName"/> via name and known objects or null.</returns>
     public IReadOnlyDictionary< string, object? > GetChangedItemsForCollection( string collectionName );
 
+    /// <returns>The name of the collection assigned to the given <paramref name="type"/> or an empty string if none is assigned or type is invalid.</returns>
+    public string GetCollectionForType( ApiCollectionType type );
+
+    /// <summary>
+    /// Set a collection by name for a specific type.
+    /// </summary>
+    /// <param name="type">The collection type to set.</param>
+    /// <param name="collectionName">The name of the collection to set it to.</param>
+    /// <param name="allowCreateNew">Allow only setting existing types or also creating an unset type.</param>
+    /// <param name="allowDelete">Allow deleting existing collections if <paramref name="collectionName"/> is empty.</param>
+    /// <returns>InvalidArgument if type is invalid,
+    /// NothingChanged if the new collection is the same as the old,<br />
+    /// AssignmentDeletionDissalowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
+    /// or if Default, Current or Interface would be deleted.<br />
+    /// CollectionMissing if the new collection can not be found,<br />
+    /// AssignmentCreationDisallowed if <paramref name="allowCreateNew"/> is false and the assignment does not exist,<br />
+    /// or Success, as well as the name of the previous collection (empty if no assignment existed).
+    /// </returns>
+    public (PenumbraApiEc, string OldCollection)  SetCollectionForType( ApiCollectionType type, string collectionName, bool allowCreateNew, bool allowDelete );
+
+    /// <returns>Return whether the object at <paramref name="gameObjectIdx" /> produces a valid identifier, if the identifier has a collection assigned, and the collection that affects the object.</returns>
+    public (bool ObjectValid, bool IndividualSet, string EffectiveCollection) GetCollectionForObject( int gameObjectIdx );
+
+    /// <summary>
+    /// Set a collection by name for a specific game object.
+    /// </summary>
+    /// <param name="gameObjectIdx">The index of the desired game object in the object table.</param>
+    /// <param name="collectionName">The name of the collection to set it to.</param>
+    /// <param name="allowCreateNew">Allow only setting existing individuals or also creating a new individual assignment.</param>
+    /// <param name="allowDelete">Allow deleting existing individual assignments if <paramref name="collectionName"/> is empty.</param>
+    /// <returns>InvalidIdentifier if <paramref name="gameObjectIdx"/> does not produce an existing game object or the object is not indentifiable,
+    /// NothingChanged if the new collection is the same as the old,<br />
+    /// AssignmentDeletionDissalowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
+    /// CollectionMissing if the new collection can not be found,<br />
+    /// AssignmentCreationDisallowed if <paramref name="allowCreateNew"/> is false and the assignment does not exist,<br />
+    /// or Success, as well as the name of the previous collection (empty if no assignment existed).</returns>
+    public (PenumbraApiEc, string OldCollection) SetCollectionForObject( int gameObjectIdx, string collectionName, bool allowCreateNew, bool allowDelete );
+
     #endregion
 
     #region Meta
