@@ -193,6 +193,15 @@ public interface IPenumbraApi : IPenumbraApiBase
     public string[] ReverseResolvePlayerPath( string moddedPath );
 
     /// <summary>
+    /// Resolve all game paths in <paramref name="forward"/> and reserve all paths in <paramref name="reverse"/> at once.
+    /// </summary>
+    /// <param name="forward">Paths to forward-resolve.</param>
+    /// <param name="reverse">Paths to reverse-resolve.</param>
+    /// <returns>A pair of an array of forward-resolved single paths of the same length as <paramref name="forward"/> and an array of arrays of reverse-resolved paths.
+    /// The outer array has the same length as <paramref name="reverse"/> while each inner array can have arbitrary length.</returns>
+    public (string[], string[][]) ResolvePlayerPaths( string[] forward, string[] reverse );
+
+    /// <summary>
     /// Try to load a given <paramref name="gamePath" /> with the resolved path from Penumbras Base collection.
     /// </summary>
     /// <returns>The file of type T if successful, null otherwise.</returns>
@@ -245,7 +254,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// AssignmentCreationDisallowed if <paramref name="allowCreateNew"/> is false and the assignment does not exist,<br />
     /// or Success, as well as the name of the previous collection (empty if no assignment existed).
     /// </returns>
-    public (PenumbraApiEc, string OldCollection)  SetCollectionForType( ApiCollectionType type, string collectionName, bool allowCreateNew, bool allowDelete );
+    public (PenumbraApiEc, string OldCollection) SetCollectionForType( ApiCollectionType type, string collectionName, bool allowCreateNew, bool allowDelete );
 
     /// <returns>Return whether the object at <paramref name="gameObjectIdx" /> produces a valid identifier, if the identifier has a collection assigned, and the collection that affects the object.</returns>
     public (bool ObjectValid, bool IndividualSet, string EffectiveCollection) GetCollectionForObject( int gameObjectIdx );
@@ -310,11 +319,11 @@ public interface IPenumbraApi : IPenumbraApiBase
 
     /// <summary> Triggers whenever a mod is deleted. </summary>
     /// <returns>The base directory name of the new mod.</returns>
-    public event Action<string>? ModAdded;
+    public event Action< string >? ModAdded;
 
     /// <summary> Triggers whenever a mods base name is changed from inside Penumbra. </summary>
     /// <returns>The previous base directory name of the mod and the new base directory name of the mod.</returns>
-    public event Action<string, string>? ModMoved;
+    public event Action< string, string >? ModMoved;
 
     /// <summary>
     /// Get the internal full filesystem path including search order for the specified mod

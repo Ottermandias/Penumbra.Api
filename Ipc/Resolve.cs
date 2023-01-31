@@ -101,4 +101,16 @@ public static partial class Ipc
         public static FuncSubscriber< string, string[] > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
+
+    /// <inheritdoc cref="IPenumbraApi.ResolvePlayerPaths"/>
+    public static class ResolvePlayerPaths
+    {
+        public const string Label = $"Penumbra.{nameof( ResolvePlayerPaths )}";
+
+        public static FuncProvider<string[], string[], (string[], string[][])> Provider( DalamudPluginInterface pi, Func<string[], string[], (string[], string[][])> func )
+            => new( pi, Label, func );
+
+        public static FuncSubscriber<string[], string[], (string[], string[][])> Subscriber( DalamudPluginInterface pi )
+            => new( pi, Label );
+    }
 }
