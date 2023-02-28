@@ -8,6 +8,8 @@ public enum ApiCollectionType : byte
     FemalePlayerCharacter,
     MaleNonPlayerCharacter,
     FemaleNonPlayerCharacter,
+    NonPlayerChild,
+    NonPlayerElderly,
 
     MaleMidlander,
     FemaleMidlander,
@@ -89,7 +91,7 @@ public enum ApiCollectionType : byte
     MaleVeenaNpc,
     FemaleVeenaNpc,
 
-    Default,
-    Interface,
-    Current,
+    Default   = 0xE0,
+    Interface = 0xE1,
+    Current   = 0xE2,
 }
