@@ -5,9 +5,37 @@ using Dalamud.Plugin.Ipc;
 
 namespace Penumbra.Api.Helpers;
 
+
 /// <summary>
 /// Specialized subscriber only allowing to invoke actions.
 /// </summary>
+public readonly struct ActionSubscriber
+{
+    private readonly ICallGateSubscriber<object?>? _subscriber;
+
+    /// <summary> Whether the subscriber could successfully be created. </summary>
+    public bool Valid
+        => _subscriber != null;
+
+    public ActionSubscriber( DalamudPluginInterface pi, string label )
+    {
+        try
+        {
+            _subscriber = pi.GetIpcSubscriber<object?>( label );
+        }
+        catch( Exception e )
+        {
+            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            _subscriber = null;
+        }
+    }
+
+    /// <summary> Invoke the action. See the source of the subscriber for details.</summary>
+    public void Invoke()
+        => _subscriber?.InvokeAction( );
+}
+
+/// <inheritdoc cref="ActionSubscriber"/> 
 public readonly struct ActionSubscriber< T1 >
 {
     private readonly ICallGateSubscriber< T1, object? >? _subscriber;
@@ -34,7 +62,7 @@ public readonly struct ActionSubscriber< T1 >
         => _subscriber?.InvokeAction( a );
 }
 
-/// <inheritdoc cref="ActionSubscriber{T1}"/> 
+/// <inheritdoc cref="ActionSubscriber"/> 
 public readonly struct ActionSubscriber< T1, T2 >
 {
     private readonly ICallGateSubscriber< T1, T2, object? >? _subscriber;
@@ -56,7 +84,7 @@ public readonly struct ActionSubscriber< T1, T2 >
         }
     }
 
-    /// <inheritdoc cref="ActionSubscriber{T1}.Invoke"/> 
+    /// <inheritdoc cref="ActionSubscriber.Invoke"/> 
     public void Invoke( T1 a, T2 b )
         => _subscriber?.InvokeAction( a, b );
 }

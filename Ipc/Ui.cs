@@ -56,4 +56,26 @@ public static partial class Ipc
         public static EventSubscriber< MouseButton, ChangedItemType, uint > Subscriber( DalamudPluginInterface pi, params Action< MouseButton, ChangedItemType, uint >[] actions )
             => new(pi, Label, actions);
     }
+
+    public static class OpenMainWindow
+    {
+        public const string Label = $"Penumbra.{nameof( OpenMainWindow )}";
+
+        public static FuncProvider<TabType, string, string, PenumbraApiEc> Provider( DalamudPluginInterface pi, Func<TabType, string, string, PenumbraApiEc> func )
+            => new( pi, Label, func );
+
+        public static FuncSubscriber<TabType, string, string, PenumbraApiEc> Subscriber( DalamudPluginInterface pi )
+            => new( pi, Label );
+    }
+
+    public static class CloseMainWindow
+    {
+        public const string Label = $"Penumbra.{nameof( CloseMainWindow )}";
+
+        public static ActionProvider Provider( DalamudPluginInterface pi, Action action )
+            => new( pi, Label, action );
+
+        public static ActionSubscriber Subscriber( DalamudPluginInterface pi )
+            => new( pi, Label );
+    }
 }
