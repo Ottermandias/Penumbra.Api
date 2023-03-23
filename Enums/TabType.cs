@@ -11,6 +11,7 @@ public enum TabType
     Collections      = 2,
     ChangedItems     = 3,
     EffectiveChanges = 4,
+    OnScreen         = 8,
     ResourceWatcher  = 5,
     Debug            = 6,
     ResourceManager  = 7,
