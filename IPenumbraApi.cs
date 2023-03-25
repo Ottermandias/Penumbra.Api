@@ -442,7 +442,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="collectionName">The chosen collection assigned to the actor.</param>
     /// <param name="actorIndex">The current object table index of the actor.</param>
     /// <param name="forceAssignment">Whether to assign even if the actor is already assigned either a temporary or a permanent collection.</param>
-    /// <returns>Success, InvalidArgument if the actor can not be identified, CollectionMissing if the collection does not exist, CharacterCollectionExists if <paramref name="forceAssignment"/> is false and the actor is already assigned a collection. </returns>
+    /// <returns>Success, InvalidArgument if the actor can not be identified, CollectionMissing if the collection does not exist, CharacterCollectionExists if <paramref name="forceAssignment"/> is false and the actor is already assigned a collection, and AssignmentDeletionFailed if <paramref name="forceAssignment"/> is true and the existing temporary assignment could not be deleted. </returns>
     public PenumbraApiEc AssignTemporaryCollection( string collectionName, int actorIndex, bool forceAssignment );
 
     /// <summary>
