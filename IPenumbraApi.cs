@@ -263,7 +263,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="allowDelete">Allow deleting existing collections if <paramref name="collectionName"/> is empty.</param>
     /// <returns>InvalidArgument if type is invalid,
     /// NothingChanged if the new collection is the same as the old,<br />
-    /// AssignmentDeletionDissalowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
+    /// AssignmentDeletionDisallowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
     /// or if Default, Current or Interface would be deleted.<br />
     /// CollectionMissing if the new collection can not be found,<br />
     /// AssignmentCreationDisallowed if <paramref name="allowCreateNew"/> is false and the assignment does not exist,<br />
@@ -283,7 +283,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="allowDelete">Allow deleting existing individual assignments if <paramref name="collectionName"/> is empty.</param>
     /// <returns>InvalidIdentifier if <paramref name="gameObjectIdx"/> does not produce an existing game object or the object is not indentifiable,
     /// NothingChanged if the new collection is the same as the old,<br />
-    /// AssignmentDeletionDissalowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
+    /// AssignmentDeletionDisallowed if <paramref name="collectionName"/> is empty and <paramref name="allowDelete"/> is false, and the assignment exists,<br />
     /// CollectionMissing if the new collection can not be found,<br />
     /// AssignmentCreationDisallowed if <paramref name="allowCreateNew"/> is false and the assignment does not exist,<br />
     /// or Success, as well as the name of the previous collection (empty if no assignment existed).</returns>
