@@ -33,6 +33,19 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.InstallMod"/>
+    public static class InstallMod
+    {
+        public const string Label = $"Penumbra.{nameof( InstallMod )}";
+
+        public static FuncProvider<string, PenumbraApiEc> Provider( DalamudPluginInterface pi,
+            Func<string, PenumbraApiEc> func )
+            => new( pi, Label, func );
+
+        public static FuncSubscriber<string, PenumbraApiEc> Subscriber( DalamudPluginInterface pi )
+            => new( pi, Label );
+    }
+
     /// <inheritdoc cref="IPenumbraApi.AddMod"/>
     public static class AddMod
     {

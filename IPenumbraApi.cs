@@ -312,12 +312,10 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <returns>A list of all installed mods. The first string is their directory name, the second string is their mod name.</returns>
     public IList< (string, string) > GetModList();
 
-    /// <summary>
-    /// Try to unpack a valid mod file (.pmp, .ttmp, .ttmp2).
-    /// </summary>
-    /// <param name="path">The file that should be unpacked</param>
-    /// <returns>Success, MissingFile</returns>
-    public PenumbraApiEc UnpackMod( string path );
+    /// <summary> Try to unpack and install a valid mod file (.pmp, .ttmp, .ttmp2) as if installed manually. </summary>
+    /// <param name="path">The file that should be unpacked.</param>
+    /// <returns>Success, MissingFile. Success does not indicate successful installing, just successful queueing for install.</returns>
+    public PenumbraApiEc InstallMod( string path );
 
     /// <summary> Try to reload an existing mod given by its <paramref name="modDirectory" /> name or <paramref name="modName" />.</summary>
     /// <remarks>Reload is the same as if triggered by button press and might delete the mod if it is not valid anymore.</remarks>
