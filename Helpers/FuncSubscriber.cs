@@ -1,4 +1,3 @@
-using System;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;

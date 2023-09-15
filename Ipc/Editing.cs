@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Dalamud.Plugin;
 using Penumbra.Api.Enums;
 using Penumbra.Api.Helpers;

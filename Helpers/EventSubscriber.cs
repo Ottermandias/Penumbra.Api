@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;

@@ -1,4 +1,3 @@
-using System;
 using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Plugin;
 using Penumbra.Api.Enums;
