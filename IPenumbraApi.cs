@@ -533,36 +533,44 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <summary>
     /// Get the given game objects' resources, as dictionaries of actual paths (that may be FS paths for redirected resources, or game paths for swapped or vanilla resources) to game paths.
     /// </summary>
-    /// <param name="gameObjects"> The game objects for which to get the resources. </param>
+    /// <param name="gameObjects"> The game object indices for which to get the resources. </param>
     /// <param name="mergeSameCollection"> Whether to merge dictionaries for game objects that use the same collection. If true, the same merged dictionary will be returned for all the game objects that have the same collection. </param>
-    /// <returns> An array of resource path dictionaries, of the same length and in the same order as the given game object array. </returns>
+    /// <returns> An array of resource path dictionaries, of the same length and in the same order as the given game object index array. </returns>
     /// <remarks> This function is best called right after the game objects are redrawn, as it may fail to resolve paths if relevant mod settings have changed since then. </remarks>
-    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( GameObject[] gameObjects, bool mergeSameCollection );
+    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( ushort[] gameObjects, bool mergeSameCollection );
 
     /// <summary>
     /// Get the player and player-owned game objects' resources, as dictionaries of actual paths (that may be FS paths for redirected resources, or game paths for swapped or vanilla resources) to game paths.
     /// </summary>
     /// <param name="mergeSameCollection"> Whether to merge dictionaries for game objects that use the same collection. </param>
-    /// <returns> A dictionary of game objects to resource path dictionaries. </returns>
+    /// <returns> A dictionary of game object indices to resource path dictionaries. </returns>
     /// <remarks> This function is best called right after the game objects are redrawn, as it may fail to resolve paths if relevant mod settings have changed since then. </remarks>
-    public IReadOnlyDictionary< GameObject, IReadOnlyDictionary< string, string[] > > GetPlayerResourcePaths( bool mergeSameCollection );
+    public IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > GetPlayerResourcePaths( bool mergeSameCollection );
 
     /// <summary>
     /// Get the given game objects' resources of a given type, as dictionaries of resource handles to actual paths and, optionally, names and icons.
     /// </summary>
-    /// <param name="gameObjects"> The game objects for which to get the resources. </param>
-    /// <param name="type"> Type of the resources to get, for example 0x6D74726C ("mtrl") for materials. </param>
+    /// <param name="gameObjects"> The game object indices for which to get the resources. </param>
+    /// <param name="type"> Type of the resources to get, for example <see cref="ResourceType.Mtrl"/> for materials. </param>
     /// <param name="withUIData"> Whether to get names and icons along with the paths. </param>
-    /// <returns> An array of resource information dictionaries, of the same length and in the same order as the given game object array. </returns>
-    public IReadOnlyDictionary< nint, ( string, string, uint ) >?[] GetGameObjectResourcesOfType( GameObject[] gameObjects, uint type, bool withUIData );
+    /// <returns> An array of resource information dictionaries, of the same length and in the same order as the given game object index array. </returns>
+    /// <remarks>
+    /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
+    /// Also, callers should not use UI data for non-UI purposes.
+    /// </remarks>
+    public IReadOnlyDictionary< nint, ( string, string, ChangedItemIcon ) >?[] GetGameObjectResourcesOfType( ushort[] gameObjects, ResourceType type, bool withUIData );
 
     /// <summary>
     /// Get the player and player-owned game objects' resources of a given type, as dictionaries of resource handles to actual paths and, optionally, names and icons.
     /// </summary>
-    /// <param name="type"> Type of the resources to get, for example 0x6D74726C ("mtrl") for materials. </param>
+    /// <param name="type"> Type of the resources to get, for example <see cref="ResourceType.Mtrl"/> for materials. </param>
     /// <param name="withUIData"> Whether to get names and icons along with the paths. </param>
-    /// <returns> A dictionary of game objects to resource information dictionaries. </returns>
-    public IReadOnlyDictionary< GameObject, IReadOnlyDictionary< nint, ( string, string, uint ) > > GetPlayerResourcesOfType( uint type, bool withUIData );
+    /// <returns> A dictionary of game object indices to resource information dictionaries. </returns>
+    /// <remarks>
+    /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
+    /// Also, callers should not use UI data for non-UI purposes.
+    /// </remarks>
+    public IReadOnlyDictionary< ushort, IReadOnlyDictionary< nint, ( string, string, ChangedItemIcon ) > > GetPlayerResourcesOfType( ResourceType type, bool withUIData );
 
     #endregion
 }
