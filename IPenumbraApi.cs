@@ -536,7 +536,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="gameObjects"> The game object indices for which to get the resources. </param>
     /// <returns> An array of resource path dictionaries, of the same length and in the same order as the given game object index array. </returns>
     /// <remarks> This function is best called right after the game objects are redrawn, as it may fail to resolve paths if relevant mod settings have changed since then. </remarks>
-    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( ushort[] gameObjects );
+    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( params ushort[] gameObjects );
 
     /// <summary>
     /// Get the player and player-owned game objects' resources, as dictionaries of actual paths (that may be FS paths for redirected resources, or game paths for swapped or vanilla resources) to game paths.
@@ -556,7 +556,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
     /// Also, callers should not use UI data for non-UI purposes.
     /// </remarks>
-    public IReadOnlyDictionary< nint, ( string, string, ChangedItemIcon ) >?[] GetGameObjectResourcesOfType( ushort[] gameObjects, ResourceType type, bool withUIData );
+    public IReadOnlyDictionary< nint, ( string, string, ChangedItemIcon ) >?[] GetGameObjectResourcesOfType( ResourceType type, bool withUIData, params ushort[] gameObjects );
 
     /// <summary>
     /// Get the player and player-owned game objects' resources of a given type, as dictionaries of resource handles to actual paths and, optionally, names and icons.
