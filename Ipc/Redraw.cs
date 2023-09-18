@@ -10,60 +10,60 @@ public static partial class Ipc
     /// <inheritdoc cref="IPenumbraApi.RedrawAll"/>
     public static class RedrawAll
     {
-        public const string Label = $"Penumbra.{nameof( RedrawAll )}";
+        public const string Label = $"Penumbra.{nameof(RedrawAll)}";
 
-        public static ActionProvider< RedrawType > Provider( DalamudPluginInterface pi, Action< RedrawType > action )
+        public static ActionProvider<RedrawType> Provider(DalamudPluginInterface pi, Action<RedrawType> action)
             => new(pi, Label, action);
 
-        public static ActionSubscriber< RedrawType > Subscriber( DalamudPluginInterface pi )
+        public static ActionSubscriber<RedrawType> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
     /// <inheritdoc cref="IPenumbraApi.RedrawObject(GameObject, RedrawType)"/>
     public static class RedrawObject
     {
-        public const string Label = $"Penumbra.{nameof( RedrawObject )}";
+        public const string Label = $"Penumbra.{nameof(RedrawObject)}";
 
-        public static ActionProvider< GameObject, RedrawType > Provider( DalamudPluginInterface pi, Action< GameObject, RedrawType > action )
+        public static ActionProvider<GameObject, RedrawType> Provider(DalamudPluginInterface pi, Action<GameObject, RedrawType> action)
             => new(pi, Label, action);
 
-        public static ActionSubscriber< GameObject, RedrawType > Subscriber( DalamudPluginInterface pi )
+        public static ActionSubscriber<GameObject, RedrawType> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
     /// <inheritdoc cref="IPenumbraApi.RedrawObject(int, RedrawType)"/>
     public static class RedrawObjectByIndex
     {
-        public const string Label = $"Penumbra.{nameof( RedrawObjectByIndex )}";
+        public const string Label = $"Penumbra.{nameof(RedrawObjectByIndex)}";
 
-        public static ActionProvider< int, RedrawType > Provider( DalamudPluginInterface pi, Action< int, RedrawType > action )
+        public static ActionProvider<int, RedrawType> Provider(DalamudPluginInterface pi, Action<int, RedrawType> action)
             => new(pi, Label, action);
 
-        public static ActionSubscriber< int, RedrawType > Subscriber( DalamudPluginInterface pi )
+        public static ActionSubscriber<int, RedrawType> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
     /// <inheritdoc cref="IPenumbraApi.RedrawObject(string, RedrawType)"/>
     public static class RedrawObjectByName
     {
-        public const string Label = $"Penumbra.{nameof( RedrawObjectByName )}";
+        public const string Label = $"Penumbra.{nameof(RedrawObjectByName)}";
 
-        public static ActionProvider< string, RedrawType > Provider( DalamudPluginInterface pi, Action< string, RedrawType > action )
+        public static ActionProvider<string, RedrawType> Provider(DalamudPluginInterface pi, Action<string, RedrawType> action)
             => new(pi, Label, action);
 
-        public static ActionSubscriber< string, RedrawType > Subscriber( DalamudPluginInterface pi )
+        public static ActionSubscriber<string, RedrawType> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
     /// <inheritdoc cref="IPenumbraApi.GameObjectRedrawn"/>
     public static class GameObjectRedrawn
     {
-        public const string Label = $"Penumbra.{nameof( GameObjectRedrawn )}";
+        public const string Label = $"Penumbra.{nameof(GameObjectRedrawn)}";
 
-        public static EventProvider< nint, int > Provider( DalamudPluginInterface pi, Action add, Action del )
+        public static EventProvider<nint, int> Provider(DalamudPluginInterface pi, Action add, Action del)
             => new(pi, Label, add, del);
 
-        public static EventSubscriber< nint, int > Subscriber( DalamudPluginInterface pi, params Action< nint, int >[] actions )
+        public static EventSubscriber<nint, int> Subscriber(DalamudPluginInterface pi, params Action<nint, int>[] actions)
             => new(pi, Label, actions);
     }
 }
