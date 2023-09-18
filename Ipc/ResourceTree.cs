@@ -43,9 +43,8 @@ public static partial class Ipc
             Func<ResourceType, bool, ushort[], IReadOnlyDictionary<nint, ( string, string, ChangedItemIcon )>?[]> func)
             => new(pi, Label, func);
 
-        public static ParamsFuncSubscriber<ResourceType, bool, ushort[], IReadOnlyDictionary<nint, ( string, string, ChangedItemIcon )>?[]>
-            Subscriber(
-                DalamudPluginInterface pi)
+        public static ParamsFuncSubscriber<ResourceType, bool, ushort, IReadOnlyDictionary<nint, ( string, string, ChangedItemIcon )>?[]>
+            Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
