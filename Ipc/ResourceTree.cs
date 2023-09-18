@@ -12,10 +12,10 @@ public static partial class Ipc
     {
         public const string Label = $"Penumbra.{nameof( GetGameObjectResourcePaths )}";
 
-        public static FuncProvider< ushort[], bool, IReadOnlyDictionary< string, string[] >?[] > Provider( DalamudPluginInterface pi, Func< ushort[], bool, IReadOnlyDictionary< string, string[] >?[] > func )
+        public static FuncProvider< ushort[], IReadOnlyDictionary< string, string[] >?[] > Provider( DalamudPluginInterface pi, Func< ushort[], IReadOnlyDictionary< string, string[] >?[] > func )
             => new(pi, Label, func);
 
-        public static FuncSubscriber< ushort[], bool, IReadOnlyDictionary< string, string[] >?[] > Subscriber( DalamudPluginInterface pi )
+        public static FuncSubscriber< ushort[], IReadOnlyDictionary< string, string[] >?[] > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
 
@@ -24,10 +24,10 @@ public static partial class Ipc
     {
         public const string Label = $"Penumbra.{nameof( GetPlayerResourcePaths )}";
 
-        public static FuncProvider< bool, IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > Provider( DalamudPluginInterface pi, Func< bool, IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > func )
+        public static FuncProvider< IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > Provider( DalamudPluginInterface pi, Func< IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > func )
             => new(pi, Label, func);
 
-        public static FuncSubscriber< bool, IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > Subscriber( DalamudPluginInterface pi )
+        public static FuncSubscriber< IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > > Subscriber( DalamudPluginInterface pi )
             => new(pi, Label);
     }
 

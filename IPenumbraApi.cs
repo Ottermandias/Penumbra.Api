@@ -534,18 +534,16 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// Get the given game objects' resources, as dictionaries of actual paths (that may be FS paths for redirected resources, or game paths for swapped or vanilla resources) to game paths.
     /// </summary>
     /// <param name="gameObjects"> The game object indices for which to get the resources. </param>
-    /// <param name="mergeSameCollection"> Whether to merge dictionaries for game objects that use the same collection. If true, the same merged dictionary will be returned for all the game objects that have the same collection. </param>
     /// <returns> An array of resource path dictionaries, of the same length and in the same order as the given game object index array. </returns>
     /// <remarks> This function is best called right after the game objects are redrawn, as it may fail to resolve paths if relevant mod settings have changed since then. </remarks>
-    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( ushort[] gameObjects, bool mergeSameCollection );
+    public IReadOnlyDictionary< string, string[] >?[] GetGameObjectResourcePaths( ushort[] gameObjects );
 
     /// <summary>
     /// Get the player and player-owned game objects' resources, as dictionaries of actual paths (that may be FS paths for redirected resources, or game paths for swapped or vanilla resources) to game paths.
     /// </summary>
-    /// <param name="mergeSameCollection"> Whether to merge dictionaries for game objects that use the same collection. </param>
     /// <returns> A dictionary of game object indices to resource path dictionaries. </returns>
     /// <remarks> This function is best called right after the game objects are redrawn, as it may fail to resolve paths if relevant mod settings have changed since then. </remarks>
-    public IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > GetPlayerResourcePaths( bool mergeSameCollection );
+    public IReadOnlyDictionary< ushort, IReadOnlyDictionary< string, string[] > > GetPlayerResourcePaths();
 
     /// <summary>
     /// Get the given game objects' resources of a given type, as dictionaries of resource handles to actual paths and, optionally, names and icons.
