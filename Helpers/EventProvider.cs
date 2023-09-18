@@ -30,7 +30,7 @@ public sealed class EventProvider : IDisposable
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action add, Action del )
     {
         _unsubscriber = null;
         try

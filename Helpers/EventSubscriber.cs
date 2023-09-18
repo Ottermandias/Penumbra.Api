@@ -11,27 +11,25 @@ namespace Penumbra.Api.Helpers;
 /// </summary>
 public sealed class EventSubscriber : IDisposable
 {
-    private readonly string                          _label;
-    private readonly Dictionary< Action, Action >    _delegates = new();
-    private          ICallGateSubscriber< object? >? _subscriber;
-    private          bool                            _disabled;
+    private readonly string                        _label;
+    private readonly Dictionary<Action, Action>    _delegates = new();
+    private          ICallGateSubscriber<object?>? _subscriber;
+    private          bool                          _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -42,12 +40,10 @@ public sealed class EventSubscriber : IDisposable
     /// </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -60,15 +56,11 @@ public sealed class EventSubscriber : IDisposable
     /// </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
@@ -81,7 +73,7 @@ public sealed class EventSubscriber : IDisposable
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
                 void Action()
                 {
@@ -89,24 +81,20 @@ public sealed class EventSubscriber : IDisposable
                     {
                         value();
                     }
-                    catch( Exception e )
+                    catch (Exception e)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{e}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
@@ -122,29 +110,27 @@ public sealed class EventSubscriber : IDisposable
 }
 
 /// <summary><inheritdoc cref="EventSubscriber"/> </summary>
-public sealed class EventSubscriber< T1 > : IDisposable
+public sealed class EventSubscriber<T1> : IDisposable
 {
-    private readonly string                                   _label;
-    private readonly Dictionary< Action< T1 >, Action< T1 > > _delegates = new();
-    private          ICallGateSubscriber< T1, object? >?      _subscriber;
-    private          bool                                     _disabled;
+    private readonly string                             _label;
+    private readonly Dictionary<Action<T1>, Action<T1>> _delegates = new();
+    private          ICallGateSubscriber<T1, object?>?  _subscriber;
+    private          bool                               _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action< T1 >[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1>[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< T1, object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<T1, object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -152,12 +138,10 @@ public sealed class EventSubscriber< T1 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -166,51 +150,43 @@ public sealed class EventSubscriber< T1 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
     }
 
     /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
-    public event Action< T1 > Event
+    public event Action<T1> Event
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
-                void Action( T1 a )
+                void Action(T1 a)
                 {
                     try
                     {
-                        value( a );
+                        value(a);
                     }
-                    catch( Exception e )
+                    catch (Exception e)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{e}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
@@ -226,29 +202,27 @@ public sealed class EventSubscriber< T1 > : IDisposable
 }
 
 /// <summary><inheritdoc cref="EventSubscriber"/> </summary>
-public sealed class EventSubscriber< T1, T2 > : IDisposable
+public sealed class EventSubscriber<T1, T2> : IDisposable
 {
-    private readonly string                                           _label;
-    private readonly Dictionary< Action< T1, T2 >, Action< T1, T2 > > _delegates = new();
-    private          ICallGateSubscriber< T1, T2, object? >?          _subscriber;
-    private          bool                                             _disabled;
+    private readonly string                                     _label;
+    private readonly Dictionary<Action<T1, T2>, Action<T1, T2>> _delegates = new();
+    private          ICallGateSubscriber<T1, T2, object?>?      _subscriber;
+    private          bool                                       _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action< T1, T2 >[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2>[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< T1, T2, object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -256,12 +230,10 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -270,51 +242,43 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
     }
 
     /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
-    public event Action< T1, T2 > Event
+    public event Action<T1, T2> Event
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
-                void Action( T1 a, T2 b )
+                void Action(T1 a, T2 b)
                 {
                     try
                     {
-                        value( a, b );
+                        value(a, b);
                     }
-                    catch( Exception e )
+                    catch (Exception e)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{e}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
@@ -330,29 +294,27 @@ public sealed class EventSubscriber< T1, T2 > : IDisposable
 }
 
 /// <summary><inheritdoc cref="EventSubscriber"/> </summary>
-public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
+public sealed class EventSubscriber<T1, T2, T3> : IDisposable
 {
-    private readonly string                                                   _label;
-    private readonly Dictionary< Action< T1, T2, T3 >, Action< T1, T2, T3 > > _delegates = new();
-    private          ICallGateSubscriber< T1, T2, T3, object? >?              _subscriber;
-    private          bool                                                     _disabled;
+    private readonly string                                             _label;
+    private readonly Dictionary<Action<T1, T2, T3>, Action<T1, T2, T3>> _delegates = new();
+    private          ICallGateSubscriber<T1, T2, T3, object?>?          _subscriber;
+    private          bool                                               _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action< T1, T2, T3 >[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3>[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< T1, T2, T3, object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -360,12 +322,10 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -374,51 +334,43 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
     }
 
     /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
-    public event Action< T1, T2, T3 > Event
+    public event Action<T1, T2, T3> Event
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
-                void Action( T1 a, T2 b, T3 c )
+                void Action(T1 a, T2 b, T3 c)
                 {
                     try
                     {
-                        value( a, b, c );
+                        value(a, b, c);
                     }
-                    catch( Exception e )
+                    catch (Exception e)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{e}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
@@ -434,29 +386,27 @@ public sealed class EventSubscriber< T1, T2, T3 > : IDisposable
 }
 
 /// <summary><inheritdoc cref="EventSubscriber"/> </summary>
-public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
+public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
 {
-    private readonly string                                                           _label;
-    private readonly Dictionary< Action< T1, T2, T3, T4 >, Action< T1, T2, T3, T4 > > _delegates = new();
-    private          ICallGateSubscriber< T1, T2, T3, T4, object? >?                  _subscriber;
-    private          bool                                                             _disabled;
+    private readonly string                                                     _label;
+    private readonly Dictionary<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>> _delegates = new();
+    private          ICallGateSubscriber<T1, T2, T3, T4, object?>?              _subscriber;
+    private          bool                                                       _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action< T1, T2, T3, T4 >[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4>[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< T1, T2, T3, T4, object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -464,12 +414,10 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -478,51 +426,43 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
     }
 
     /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
-    public event Action< T1, T2, T3, T4 > Event
+    public event Action<T1, T2, T3, T4> Event
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
-                void Action( T1 a, T2 b, T3 c, T4 d )
+                void Action(T1 a, T2 b, T3 c, T4 d)
                 {
                     try
                     {
-                        value( a, b, c, d );
+                        value(a, b, c, d);
                     }
-                    catch( Exception e )
+                    catch (Exception e)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{e}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
@@ -538,29 +478,27 @@ public sealed class EventSubscriber< T1, T2, T3, T4 > : IDisposable
 }
 
 /// <summary><inheritdoc cref="EventSubscriber"/> </summary>
-public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
+public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
 {
-    private readonly string                                                                   _label;
-    private readonly Dictionary< Action< T1, T2, T3, T4, T5 >, Action< T1, T2, T3, T4, T5 > > _delegates = new();
-    private          ICallGateSubscriber< T1, T2, T3, T4, T5, object? >?                      _subscriber;
-    private          bool                                                                     _disabled;
+    private readonly string                                                             _label;
+    private readonly Dictionary<Action<T1, T2, T3, T4, T5>, Action<T1, T2, T3, T4, T5>> _delegates = new();
+    private          ICallGateSubscriber<T1, T2, T3, T4, T5, object?>?                  _subscriber;
+    private          bool                                                               _disabled;
 
-    public EventSubscriber( DalamudPluginInterface pi, string label, params Action< T1, T2, T3, T4, T5 >[] actions )
+    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4, T5>[] actions)
     {
         _label = label;
         try
         {
-            _subscriber = pi.GetIpcSubscriber< T1, T2, T3, T4, T5, object? >( label );
-            foreach( var action in actions )
-            {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, T5, object?>(label);
+            foreach (var action in actions)
                 Event += action;
-            }
 
             _disabled = false;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            PluginLog.Error( $"Error registering IPC Subscriber for {label}\n{e}" );
+            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -568,12 +506,10 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
     public void Enable()
     {
-        if( _disabled && _subscriber != null )
+        if (_disabled && _subscriber != null)
         {
-            foreach( var action in _delegates.Values )
-            {
-                _subscriber.Subscribe( action );
-            }
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
 
             _disabled = false;
         }
@@ -582,51 +518,43 @@ public sealed class EventSubscriber< T1, T2, T3, T4, T5 > : IDisposable
     /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
     public void Disable()
     {
-        if( !_disabled )
+        if (!_disabled)
         {
-            if( _subscriber != null )
-            {
-                foreach( var action in _delegates.Values )
-                {
-                    _subscriber.Unsubscribe( action );
-                }
-            }
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
 
             _disabled = true;
         }
     }
 
     /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
-    public event Action< T1, T2, T3, T4, T5 > Event
+    public event Action<T1, T2, T3, T4, T5> Event
     {
         add
         {
-            if( _subscriber != null && !_delegates.ContainsKey( value ) )
+            if (_subscriber != null && !_delegates.ContainsKey(value))
             {
-                void Action( T1 a, T2 b, T3 c, T4 d, T5 e )
+                void Action(T1 a, T2 b, T3 c, T4 d, T5 e)
                 {
                     try
                     {
-                        value( a, b, c, d, e );
+                        value(a, b, c, d, e);
                     }
-                    catch( Exception ex )
+                    catch (Exception ex)
                     {
-                        PluginLog.Error( $"Exception invoking IPC event {_label}:\n{ex}" );
+                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{ex}");
                     }
                 }
 
-                if( _delegates.TryAdd( value, Action ) && !_disabled )
-                {
-                    _subscriber.Subscribe( Action );
-                }
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
             }
         }
         remove
         {
-            if( _subscriber != null && _delegates.Remove( value, out var action ) )
-            {
-                _subscriber.Unsubscribe( action );
-            }
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
         }
     }
 
