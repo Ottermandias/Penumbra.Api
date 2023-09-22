@@ -58,6 +58,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.OpenMainWindow"/>
     public static class OpenMainWindow
     {
         public const string Label = $"Penumbra.{nameof(OpenMainWindow)}";
@@ -70,6 +71,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    /// <inheritdoc cref="IPenumbraApi.CloseMainWindow"/>
     public static class CloseMainWindow
     {
         public const string Label = $"Penumbra.{nameof(CloseMainWindow)}";
