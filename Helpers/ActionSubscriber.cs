@@ -1,4 +1,3 @@
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 
@@ -23,7 +22,7 @@ public readonly struct ActionSubscriber
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -50,7 +49,7 @@ public readonly struct ActionSubscriber<T1>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -77,7 +76,7 @@ public readonly struct ActionSubscriber<T1, T2>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }

@@ -1,6 +1,6 @@
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
+using Dalamud.Plugin.Services;
 
 namespace Penumbra.Api.Helpers;
 
@@ -12,6 +12,7 @@ namespace Penumbra.Api.Helpers;
 public sealed class EventSubscriber : IDisposable
 {
     private readonly string                        _label;
+    private readonly IPluginLog                    _log;
     private readonly Dictionary<Action, Action>    _delegates = new();
     private          ICallGateSubscriber<object?>? _subscriber;
     private          bool                          _disabled;
@@ -19,6 +20,7 @@ public sealed class EventSubscriber : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<object?>(label);
@@ -29,7 +31,7 @@ public sealed class EventSubscriber : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -83,7 +85,7 @@ public sealed class EventSubscriber : IDisposable
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
@@ -113,6 +115,7 @@ public sealed class EventSubscriber : IDisposable
 public sealed class EventSubscriber<T1> : IDisposable
 {
     private readonly string                             _label;
+    private readonly IPluginLog                         _log;
     private readonly Dictionary<Action<T1>, Action<T1>> _delegates = new();
     private          ICallGateSubscriber<T1, object?>?  _subscriber;
     private          bool                               _disabled;
@@ -120,6 +123,7 @@ public sealed class EventSubscriber<T1> : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1>[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<T1, object?>(label);
@@ -130,7 +134,7 @@ public sealed class EventSubscriber<T1> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -175,7 +179,7 @@ public sealed class EventSubscriber<T1> : IDisposable
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
@@ -205,6 +209,7 @@ public sealed class EventSubscriber<T1> : IDisposable
 public sealed class EventSubscriber<T1, T2> : IDisposable
 {
     private readonly string                                     _label;
+    private readonly IPluginLog                                 _log;
     private readonly Dictionary<Action<T1, T2>, Action<T1, T2>> _delegates = new();
     private          ICallGateSubscriber<T1, T2, object?>?      _subscriber;
     private          bool                                       _disabled;
@@ -212,6 +217,7 @@ public sealed class EventSubscriber<T1, T2> : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2>[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<T1, T2, object?>(label);
@@ -222,7 +228,7 @@ public sealed class EventSubscriber<T1, T2> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -267,7 +273,7 @@ public sealed class EventSubscriber<T1, T2> : IDisposable
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
@@ -297,6 +303,7 @@ public sealed class EventSubscriber<T1, T2> : IDisposable
 public sealed class EventSubscriber<T1, T2, T3> : IDisposable
 {
     private readonly string                                             _label;
+    private readonly IPluginLog                                         _log;
     private readonly Dictionary<Action<T1, T2, T3>, Action<T1, T2, T3>> _delegates = new();
     private          ICallGateSubscriber<T1, T2, T3, object?>?          _subscriber;
     private          bool                                               _disabled;
@@ -304,6 +311,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3>[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<T1, T2, T3, object?>(label);
@@ -314,7 +322,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -359,7 +367,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
@@ -389,6 +397,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
 public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
 {
     private readonly string                                                     _label;
+    private readonly IPluginLog                                                 _log;
     private readonly Dictionary<Action<T1, T2, T3, T4>, Action<T1, T2, T3, T4>> _delegates = new();
     private          ICallGateSubscriber<T1, T2, T3, T4, object?>?              _subscriber;
     private          bool                                                       _disabled;
@@ -396,6 +405,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4>[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, object?>(label);
@@ -406,7 +416,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -451,7 +461,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
                     }
                     catch (Exception e)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{e}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{e}");
                     }
                 }
 
@@ -481,6 +491,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
 public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
 {
     private readonly string                                                             _label;
+    private readonly IPluginLog                                                         _log;
     private readonly Dictionary<Action<T1, T2, T3, T4, T5>, Action<T1, T2, T3, T4, T5>> _delegates = new();
     private          ICallGateSubscriber<T1, T2, T3, T4, T5, object?>?                  _subscriber;
     private          bool                                                               _disabled;
@@ -488,6 +499,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
     public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4, T5>[] actions)
     {
         _label = label;
+        _log   = PluginLogHelper.GetLog(pi);
         try
         {
             _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, T5, object?>(label);
@@ -498,7 +510,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -543,7 +555,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
                     }
                     catch (Exception ex)
                     {
-                        PluginLog.Error($"Exception invoking IPC event {_label}:\n{ex}");
+                        _log.Error($"Exception invoking IPC event {_label}:\n{ex}");
                     }
                 }
 

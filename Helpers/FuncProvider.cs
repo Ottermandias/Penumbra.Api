@@ -1,4 +1,3 @@
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 
@@ -19,7 +18,7 @@ public sealed class FuncProvider<TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -50,7 +49,7 @@ public sealed class FuncProvider<T1, TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -81,7 +80,7 @@ public sealed class FuncProvider<T1, T2, TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -112,7 +111,7 @@ public sealed class FuncProvider<T1, T2, T3, TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -143,7 +142,7 @@ public sealed class FuncProvider<T1, T2, T3, T4, TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -174,7 +173,7 @@ public sealed class FuncProvider<T1, T2, T3, T4, T5, TRet> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 

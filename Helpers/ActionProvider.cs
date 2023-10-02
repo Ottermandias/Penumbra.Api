@@ -1,4 +1,3 @@
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 
@@ -19,7 +18,7 @@ public sealed class ActionProvider : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -52,7 +51,7 @@ public sealed class ActionProvider<T1> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -85,7 +84,7 @@ public sealed class ActionProvider<T1, T2> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 
@@ -118,7 +117,7 @@ public sealed class ActionProvider<T1, T2, T3> : IDisposable
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Provider for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
 

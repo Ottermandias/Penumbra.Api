@@ -1,4 +1,3 @@
-using Dalamud.Logging;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using Dalamud.Plugin.Ipc.Exceptions;
@@ -26,7 +25,7 @@ public readonly struct FuncSubscriber<TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -55,7 +54,7 @@ public readonly struct FuncSubscriber<T1, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -84,7 +83,7 @@ public readonly struct ParamsFuncSubscriber<T1, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -113,7 +112,7 @@ public readonly struct FuncSubscriber<T1, T2, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -142,7 +141,7 @@ public readonly struct FuncSubscriber<T1, T2, T3, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -171,7 +170,7 @@ public readonly struct ParamsFuncSubscriber<T1, T2, T3, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -200,7 +199,7 @@ public readonly struct FuncSubscriber<T1, T2, T3, T4, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
@@ -229,7 +228,7 @@ public readonly struct FuncSubscriber<T1, T2, T3, T4, T5, TRet>
         }
         catch (Exception e)
         {
-            PluginLog.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
             _subscriber = null;
         }
     }
