@@ -215,6 +215,13 @@ public interface IPenumbraApi : IPenumbraApiBase
     public (string[], string[][]) ResolvePlayerPaths(string[] forward, string[] reverse);
 
     /// <summary>
+    /// Resolve all game paths in <paramref name="forward"/> and reserve all paths in <paramref name="reverse"/> at once asynchronously.
+    /// </summary>
+    /// <inheritdoc cref="ResolvePlayerPaths"/>
+    /// <remarks> Can be called from outside of framework. Can theoretically produce incoherent state when collections change during evaluation. </remarks>
+    public Task<(string[], string[][])> ResolvePlayerPathsAsync(string[] forward, string[] reverse);
+
+    /// <summary>
     /// Try to load a given <paramref name="gamePath" /> with the resolved path from Penumbras Base collection.
     /// </summary>
     /// <returns>The file of type T if successful, null otherwise.</returns>
