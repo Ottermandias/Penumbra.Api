@@ -9,4 +9,5 @@ public enum ChangedItemType
     Item,
     Action,
     Customization,
+    ItemOffhand,
 }
