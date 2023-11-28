@@ -67,7 +67,6 @@ public static partial class Ipc
 
     public record ResourceNode
     {
-        public required int[] ChildrenIndices { get; init; }
         public required ResourceType Type { get; init; }
         public required ChangedItemIcon Icon { get; init; }
         public required string? Name { get; init; }
@@ -75,6 +74,7 @@ public static partial class Ipc
         public required string ActualPath { get; init; }
         public required nint ObjectAddress { get; init; }
         public required nint ResourceHandle { get; init; }
+        public required IEnumerable<ResourceNode> Children { get; init; }
     }
 
     /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourceTrees"/>
