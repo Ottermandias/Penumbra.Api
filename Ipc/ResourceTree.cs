@@ -89,4 +89,17 @@ public static partial class Ipc
         public static ParamsFuncSubscriber<bool, ushort, IEnumerable<ResourceNode>?[]> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
+
+    /// <inheritdoc cref="IPenumbraApi.GetPlayerResourceTrees"/>
+    public static class GetPlayerResourceTrees
+    {
+        public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";
+
+        public static FuncProvider<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> Provider(DalamudPluginInterface pi,
+            Func<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> func)
+            => new(pi, Label, func);
+
+        public static ParamsFuncSubscriber<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> Subscriber(DalamudPluginInterface pi)
+            => new(pi, Label);
+    }
 }
