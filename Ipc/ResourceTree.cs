@@ -64,4 +64,29 @@ public static partial class Ipc
             DalamudPluginInterface pi)
             => new(pi, Label);
     }
+
+    public record ResourceNode
+    {
+        public required int[] ChildrenIndices { get; init; }
+        public required ResourceType Type { get; init; }
+        public required ChangedItemIcon Icon { get; init; }
+        public required string? Name { get; init; }
+        public required string? GamePath { get; init; }
+        public required string ActualPath { get; init; }
+        public required nint ObjectAddress { get; init; }
+        public required nint ResourceHandle { get; init; }
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourceTrees"/>
+    public static class GetGameObjectResourceTrees
+    {
+        public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
+
+        public static FuncProvider<bool, ushort[], IEnumerable<ResourceNode>?[]> Provider(DalamudPluginInterface pi,
+            Func<bool, ushort[], IEnumerable<ResourceNode>?[]> func)
+            => new(pi, Label, func);
+
+        public static ParamsFuncSubscriber<bool, ushort, IEnumerable<ResourceNode>?[]> Subscriber(DalamudPluginInterface pi)
+            => new(pi, Label);
+    }
 }

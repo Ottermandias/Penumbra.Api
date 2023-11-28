@@ -123,6 +123,35 @@ public readonly struct FuncSubscriber<T1, T2, TRet>
 }
 
 /// <inheritdoc cref="FuncSubscriber{TRet}"/>
+public readonly struct ParamsFuncSubscriber<T1, T2, TRet>
+{
+    private readonly string _label;
+    private readonly ICallGateSubscriber<T1, T2[], TRet>? _subscriber;
+
+    /// <inheritdoc cref="FuncSubscriber{TRet}.Valid"/>
+    public bool Valid
+        => _subscriber != null;
+
+    public ParamsFuncSubscriber(DalamudPluginInterface pi, string label)
+    {
+        _label = label;
+        try
+        {
+            _subscriber = pi.GetIpcSubscriber<T1, T2[], TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
+            _subscriber = null;
+        }
+    }
+
+    /// <inheritdoc cref="FuncSubscriber{TRet}.Invoke"/>
+    public TRet Invoke(T1 a, params T2[] b)
+        => _subscriber != null ? _subscriber.InvokeFunc(a, b) : throw new IpcNotReadyError(_label);
+}
+
+/// <inheritdoc cref="FuncSubscriber{TRet}"/>
 public readonly struct FuncSubscriber<T1, T2, T3, TRet>
 {
     private readonly string                                 _label;
