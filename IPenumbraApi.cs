@@ -591,7 +591,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
     /// Also, callers should not use UI data for non-UI purposes.
     /// </remarks>
-    public IEnumerable<Ipc.ResourceNode>?[] GetGameObjectResourceTrees(bool withUIData, params ushort[] gameObjects);
+    public Ipc.ResourceTree?[] GetGameObjectResourceTrees(bool withUIData, params ushort[] gameObjects);
 
     /// <summary>
     /// Get the player and player-owned game objects' resource trees.
@@ -602,7 +602,7 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
     /// Also, callers should not use UI data for non-UI purposes.
     /// </remarks>
-    public IReadOnlyDictionary<ushort, IEnumerable<Ipc.ResourceNode>> GetPlayerResourceTrees(bool withUIData);
+    public IReadOnlyDictionary<ushort, Ipc.ResourceTree> GetPlayerResourceTrees(bool withUIData);
 
     #endregion
 }

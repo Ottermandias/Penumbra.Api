@@ -65,6 +65,13 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
+    public record ResourceTree
+    {
+        public required string Name { get; init; }
+        public required ushort RaceCode { get; init; }
+        public required IEnumerable<ResourceNode> Nodes { get; init; }
+    }
+
     public record ResourceNode
     {
         public required ResourceType Type { get; init; }
@@ -82,11 +89,11 @@ public static partial class Ipc
     {
         public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
 
-        public static FuncProvider<bool, ushort[], IEnumerable<ResourceNode>?[]> Provider(DalamudPluginInterface pi,
-            Func<bool, ushort[], IEnumerable<ResourceNode>?[]> func)
+        public static FuncProvider<bool, ushort[], ResourceTree?[]> Provider(DalamudPluginInterface pi,
+            Func<bool, ushort[], ResourceTree?[]> func)
             => new(pi, Label, func);
 
-        public static ParamsFuncSubscriber<bool, ushort, IEnumerable<ResourceNode>?[]> Subscriber(DalamudPluginInterface pi)
+        public static ParamsFuncSubscriber<bool, ushort, ResourceTree?[]> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
@@ -95,11 +102,11 @@ public static partial class Ipc
     {
         public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";
 
-        public static FuncProvider<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> Provider(DalamudPluginInterface pi,
-            Func<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> func)
+        public static FuncProvider<bool, IReadOnlyDictionary<ushort, ResourceTree>> Provider(DalamudPluginInterface pi,
+            Func<bool, IReadOnlyDictionary<ushort, ResourceTree>> func)
             => new(pi, Label, func);
 
-        public static ParamsFuncSubscriber<bool, IReadOnlyDictionary<ushort, IEnumerable<ResourceNode>>> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<bool, IReadOnlyDictionary<ushort, ResourceTree>> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 }
