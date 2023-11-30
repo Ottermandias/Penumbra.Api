@@ -69,7 +69,7 @@ public static partial class Ipc
     {
         public required string Name { get; init; }
         public required ushort RaceCode { get; init; }
-        public required IEnumerable<ResourceNode> Nodes { get; init; }
+        public required List<ResourceNode> Nodes { get; init; }
     }
 
     public record ResourceNode
@@ -81,7 +81,7 @@ public static partial class Ipc
         public required string ActualPath { get; init; }
         public required nint ObjectAddress { get; init; }
         public required nint ResourceHandle { get; init; }
-        public required IEnumerable<ResourceNode> Children { get; init; }
+        public required List<ResourceNode> Children { get; init; }
     }
 
     /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourceTrees"/>
