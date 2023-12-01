@@ -581,5 +581,28 @@ public interface IPenumbraApi : IPenumbraApiBase
     public IReadOnlyDictionary<ushort, IReadOnlyDictionary<nint, ( string, string, ChangedItemIcon )>> GetPlayerResourcesOfType(
         ResourceType type, bool withUIData);
 
+    /// <summary>
+    /// Get the given game objects' resource tree.
+    /// </summary>
+    /// <param name="withUIData"> Whether to get names and icons along with the paths. </param>
+    /// <param name="gameObjects"> The game object indices for which to get the resources. </param>
+    /// <returns> An array of resource trees, of the same length and in the same order as the given game object index array. </returns>
+    /// <remarks>
+    /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
+    /// Also, callers should not use UI data for non-UI purposes.
+    /// </remarks>
+    public Ipc.ResourceTree?[] GetGameObjectResourceTrees(bool withUIData, params ushort[] gameObjects);
+
+    /// <summary>
+    /// Get the player and player-owned game objects' resource trees.
+    /// </summary>
+    /// <param name="withUIData"> Whether to get names and icons along with the paths. </param>
+    /// <returns> A dictionary of game object indices to resource trees. </returns>
+    /// <remarks>
+    /// It is the caller's responsibility to make sure the returned resource handles are still in use on the game object's draw object before using them. <para />
+    /// Also, callers should not use UI data for non-UI purposes.
+    /// </remarks>
+    public IReadOnlyDictionary<ushort, Ipc.ResourceTree> GetPlayerResourceTrees(bool withUIData);
+
     #endregion
 }
