@@ -1,4 +1,5 @@
 using Dalamud.Plugin;
+using Penumbra.Api.Enums;
 using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api;
@@ -26,6 +27,18 @@ public static partial class Ipc
             => new(pi, Label, func);
 
         public static FuncSubscriber<int, int> Subscriber(DalamudPluginInterface pi)
+            => new(pi, Label);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.SetCutsceneParentIndex"/>
+    public static class SetCutsceneParentIndex
+    {
+        public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}";
+
+        public static FuncProvider<int, int, PenumbraApiEc> Provider(DalamudPluginInterface pi, Func<int, int, PenumbraApiEc> func)
+            => new(pi, Label, func);
+
+        public static FuncSubscriber<int, int, PenumbraApiEc> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
