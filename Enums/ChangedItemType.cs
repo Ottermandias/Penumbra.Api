@@ -10,4 +10,5 @@ public enum ChangedItemType
     Action,
     Customization,
     ItemOffhand,
+    Unknown,
 }
