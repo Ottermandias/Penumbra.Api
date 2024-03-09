@@ -85,3 +85,30 @@ public readonly struct ActionSubscriber<T1, T2>
     public void Invoke(T1 a, T2 b)
         => _subscriber?.InvokeAction(a, b);
 }
+
+/// <inheritdoc cref="ActionSubscriber"/> 
+public readonly struct ActionSubscriber<T1, T2, T3>
+{
+    private readonly ICallGateSubscriber<T1, T2, T3, object?>? _subscriber;
+
+    /// <inheritdoc cref="ActionSubscriber{T1}.Valid"/> 
+    public bool Valid
+        => _subscriber != null;
+
+    public ActionSubscriber(DalamudPluginInterface pi, string label)
+    {
+        try
+        {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, object?>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
+            _subscriber = null;
+        }
+    }
+
+    /// <inheritdoc cref="ActionSubscriber.Invoke"/> 
+    public void Invoke(T1 a, T2 b, T3 c)
+        => _subscriber?.InvokeAction(a, b, c);
+}
