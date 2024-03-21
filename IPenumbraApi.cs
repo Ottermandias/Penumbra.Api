@@ -41,10 +41,22 @@ public interface IPenumbraApi : IPenumbraApiBase
     public event ChangedItemHover? ChangedItemTooltip;
 
     /// <summary>
+    /// Triggered before the settings tab bar for a mod is drawn, after the title group is drawn.
+    /// </summary>
+    /// <returns>The directory name of the currently selected mod, the total used width of the title bar and the width of the title box.</returns>
+    public event Action<string, float, float>? PreSettingsTabBarDraw;
+
+    /// <summary>
     /// Triggered before the content of a mod settings panel is drawn.
     /// </summary>
     /// <returns>The directory name of the currently selected mod.</returns>
     public event Action<string>? PreSettingsPanelDraw;
+
+    /// <summary>
+    /// Triggered after the Enabled Checkbox line in settings is drawn, but before options are drawn.
+    /// </summary>
+    /// <returns>The directory name of the currently selected mod.</returns>
+    public event Action<string>? PostEnabledDraw;
 
     /// <summary>
     /// Triggered after the content of a mod settings panel is drawn, but still in the child window.

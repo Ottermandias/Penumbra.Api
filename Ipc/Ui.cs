@@ -6,10 +6,36 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
+    /// <inheritdoc cref="IPenumbraApi.PreSettingsTabBarDraw"/>
+    public static class PreSettingsTabBarDraw
+    {
+        public const string Label = $"Penumbra.{nameof(PreSettingsTabBarDraw)}";
+
+        public static EventProvider<string, float, float> Provider(DalamudPluginInterface pi, Action<Action<string, float, float>> sub,
+            Action<Action<string, float, float>> unsub)
+            => new(pi, Label, (sub, unsub));
+
+        public static EventSubscriber<string, float, float> Subscriber(DalamudPluginInterface pi, params Action<string, float, float>[] actions)
+            => new(pi, Label, actions);
+    }
+
     /// <inheritdoc cref="IPenumbraApi.PreSettingsPanelDraw"/>
     public static class PreSettingsDraw
     {
         public const string Label = $"Penumbra.{nameof(PreSettingsDraw)}";
+
+        public static EventProvider<string> Provider(DalamudPluginInterface pi, Action<Action<string>> sub,
+            Action<Action<string>> unsub)
+            => new(pi, Label, (sub, unsub));
+
+        public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+            => new(pi, Label, actions);
+    }
+
+    /// <inheritdoc cref="IPenumbraApi.PostEnabledDraw"/>
+    public static class PostEnabledDraw
+    {
+        public const string Label = $"Penumbra.{nameof(PostEnabledDraw)}";
 
         public static EventProvider<string> Provider(DalamudPluginInterface pi, Action<Action<string>> sub,
             Action<Action<string>> unsub)
