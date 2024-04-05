@@ -409,11 +409,11 @@ public interface IPenumbraApi : IPenumbraApiBase
     /// <param name="collectionName">Specify the collection.</param>
     /// <param name="modDirectory">Specify the mod via its directory name.</param>
     /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
-    /// <param name="allowInheritance">Whether the settings need to be from the given collection or can be inherited from any other by it.</param>
+    /// <param name="ignoreInheritance">Whether the settings need to be from the given collection or can be inherited from any other by it. (True: given collection only)</param>
     /// <returns>ModMissing, CollectionMissing or Success. <para />
     /// On Success, a tuple of Enabled State, Priority, a dictionary of option group names and lists of enabled option names and a bool whether the settings are inherited or not.</returns>
     public (PenumbraApiEc, (bool, int, IDictionary<string, IList<string>>, bool)?) GetCurrentModSettings(string collectionName,
-        string modDirectory, string modName, bool allowInheritance);
+        string modDirectory, string modName, bool ignoreInheritance);
 
     /// <summary> Try to set the inheritance state of a mod in a collection. </summary>
     /// <returns>ModMissing, CollectionMissing, NothingChanged or Success.</returns>
