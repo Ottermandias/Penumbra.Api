@@ -6,7 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.PreSettingsTabBarDraw"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.PreSettingsTabBarDraw"/>
     public static class PreSettingsTabBarDraw
     {
         public const string Label = $"Penumbra.{nameof(PreSettingsTabBarDraw)}";
@@ -19,7 +19,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.PreSettingsPanelDraw"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.PreSettingsPanelDraw"/>
     public static class PreSettingsDraw
     {
         public const string Label = $"Penumbra.{nameof(PreSettingsDraw)}";
@@ -32,7 +32,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.PostEnabledDraw"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.PostEnabledDraw"/>
     public static class PostEnabledDraw
     {
         public const string Label = $"Penumbra.{nameof(PostEnabledDraw)}";
@@ -45,7 +45,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.PostSettingsPanelDraw"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.PostSettingsPanelDraw"/>
     public static class PostSettingsDraw
     {
         public const string Label = $"Penumbra.{nameof(PostSettingsDraw)}";
@@ -58,7 +58,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ChangedItemTooltip"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ChangedItemTooltip"/>
     public static class ChangedItemTooltip
     {
         public const string Label = $"Penumbra.{nameof(ChangedItemTooltip)}";
@@ -71,7 +71,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ChangedItemClicked"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ChangedItemClicked"/>
     public static class ChangedItemClick
     {
         public const string Label = $"Penumbra.{nameof(ChangedItemClick)}";
@@ -84,7 +84,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.OpenMainWindow"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.OpenMainWindow"/>
     public static class OpenMainWindow
     {
         public const string Label = $"Penumbra.{nameof(OpenMainWindow)}";
@@ -97,7 +97,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.CloseMainWindow"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.CloseMainWindow"/>
     public static class CloseMainWindow
     {
         public const string Label = $"Penumbra.{nameof(CloseMainWindow)}";

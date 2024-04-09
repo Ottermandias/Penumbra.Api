@@ -5,7 +5,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetModDirectory"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetModDirectory"/>
     public static class GetModDirectory
     {
         public const string Label = $"Penumbra.{nameof(GetModDirectory)}";
@@ -17,7 +17,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetConfiguration"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetConfiguration"/>
     public static class GetConfiguration
     {
         public const string Label = $"Penumbra.{nameof(GetConfiguration)}";
@@ -29,7 +29,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ModDirectoryChanged"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ModDirectoryChanged"/>
     public static class ModDirectoryChanged
     {
         public const string Label = $"Penumbra.{nameof(ModDirectoryChanged)}";

@@ -6,7 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.ConvertTextureFile"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ConvertTextureFile"/>
     public static class ConvertTextureFile
     {
         public const string Label = $"Penumbra.{nameof(ConvertTextureFile)}";
@@ -19,7 +19,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ConvertTextureData"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ConvertTextureData"/>
     public static class ConvertTextureData
     {
         public const string Label = $"Penumbra.{nameof(ConvertTextureData)}";

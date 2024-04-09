@@ -5,7 +5,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetPlayerMetaManipulations"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetPlayerMetaManipulations"/>
     public static class GetPlayerMetaManipulations
     {
         public const string Label = $"Penumbra.{nameof(GetPlayerMetaManipulations)}";
@@ -17,7 +17,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetMetaManipulations"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetMetaManipulations"/>
     public static class GetMetaManipulations
     {
         public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}";
@@ -29,7 +29,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetGameObjectMetaManipulations"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetGameObjectMetaManipulations"/>
     public static class GetGameObjectMetaManipulations
     {
         public const string Label = $"Penumbra.{nameof(GetGameObjectMetaManipulations)}";

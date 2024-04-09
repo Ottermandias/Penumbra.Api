@@ -1,4 +1,4 @@
-namespace Penumbra.Api;
+namespace Penumbra.Api.Api;
 
 /// <summary>
 /// Base interface for the API that is always available, regardless of version.

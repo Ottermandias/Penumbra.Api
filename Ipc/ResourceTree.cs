@@ -1,4 +1,3 @@
-using Dalamud.Game.ClientState.Objects.Types;
 using Dalamud.Plugin;
 using Penumbra.Api.Enums;
 using Penumbra.Api.Helpers;
@@ -7,7 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourcePaths"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetGameObjectResourcePaths"/>
     public static class GetGameObjectResourcePaths
     {
         public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}";
@@ -20,7 +19,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetPlayerResourcePaths"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetPlayerResourcePaths"/>
     public static class GetPlayerResourcePaths
     {
         public const string Label = $"Penumbra.{nameof(GetPlayerResourcePaths)}";
@@ -33,7 +32,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourcesOfType"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetGameObjectResourcesOfType"/>
     public static class GetGameObjectResourcesOfType
     {
         public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}";
@@ -48,7 +47,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetPlayerResourcesOfType"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetPlayerResourcesOfType"/>
     public static class GetPlayerResourcesOfType
     {
         public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}";
@@ -84,7 +83,7 @@ public static partial class Ipc
         public required List<ResourceNode> Children { get; init; }
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetGameObjectResourceTrees"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetGameObjectResourceTrees"/>
     public static class GetGameObjectResourceTrees
     {
         public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
@@ -97,7 +96,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetPlayerResourceTrees"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetPlayerResourceTrees"/>
     public static class GetPlayerResourceTrees
     {
         public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";

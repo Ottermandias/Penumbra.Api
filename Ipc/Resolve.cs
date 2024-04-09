@@ -5,7 +5,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.ResolveDefaultPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolveDefaultPath"/>
     public static class ResolveDefaultPath
     {
         public const string Label = $"Penumbra.{nameof(ResolveDefaultPath)}";
@@ -17,7 +17,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolveInterfacePath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolveInterfacePath"/>
     public static class ResolveInterfacePath
     {
         public const string Label = $"Penumbra.{nameof(ResolveInterfacePath)}";
@@ -29,7 +29,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolvePlayerPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolvePlayerPath"/>
     public static class ResolvePlayerPath
     {
         public const string Label = $"Penumbra.{nameof(ResolvePlayerPath)}";
@@ -41,7 +41,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolvePath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolvePath"/>
     public static class ResolveCharacterPath
     {
         public const string Label = $"Penumbra.{nameof(ResolveCharacterPath)}";
@@ -53,7 +53,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolveGameObjectPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolveGameObjectPath"/>
     public static class ResolveGameObjectPath
     {
         public const string Label = $"Penumbra.{nameof(ResolveGameObjectPath)}";
@@ -65,7 +65,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ReverseResolvePath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ReverseResolvePath"/>
     public static class ReverseResolvePath
     {
         public const string Label = $"Penumbra.{nameof(ReverseResolvePath)}";
@@ -77,7 +77,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ReverseResolveGameObjectPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ReverseResolveGameObjectPath"/>
     public static class ReverseResolveGameObjectPath
     {
         public const string Label = $"Penumbra.{nameof(ReverseResolveGameObjectPath)}";
@@ -89,7 +89,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ReverseResolvePlayerPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ReverseResolvePlayerPath"/>
     public static class ReverseResolvePlayerPath
     {
         public const string Label = $"Penumbra.{nameof(ReverseResolvePlayerPath)}";
@@ -101,7 +101,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolvePlayerPaths"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolvePlayerPaths"/>
     public static class ResolvePlayerPaths
     {
         public const string Label = $"Penumbra.{nameof(ResolvePlayerPaths)}";
@@ -114,7 +114,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ResolvePlayerPathsAsync"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ResolvePlayerPathsAsync"/>
     public static class ResolvePlayerPathsAsync
     {
         public const string Label = $"Penumbra.{nameof(ResolvePlayerPathsAsync)}";

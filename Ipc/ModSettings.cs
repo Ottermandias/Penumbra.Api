@@ -8,7 +8,7 @@ using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, IDictionary<string
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetAvailableModSettings"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetAvailableModSettings"/>
     public static class GetAvailableModSettings
     {
         public const string Label = $"Penumbra.{nameof(GetAvailableModSettings)}";
@@ -22,7 +22,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetCurrentModSettings"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCurrentModSettings"/>
     public static class GetCurrentModSettings
     {
         public const string Label = $"Penumbra.{nameof(GetCurrentModSettings)}";
@@ -36,7 +36,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.TryInheritMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.TryInheritMod"/>
     public static class TryInheritMod
     {
         public const string Label = $"Penumbra.{nameof(TryInheritMod)}";
@@ -50,7 +50,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.TrySetMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.TrySetMod"/>
     public static class TrySetMod
     {
         public const string Label = $"Penumbra.{nameof(TrySetMod)}";
@@ -64,7 +64,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.TrySetModPriority"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.TrySetModPriority"/>
     public static class TrySetModPriority
     {
         public const string Label = $"Penumbra.{nameof(TrySetModPriority)}";
@@ -78,7 +78,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.TrySetModSetting"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.TrySetModSetting"/>
     public static class TrySetModSetting
     {
         public const string Label = $"Penumbra.{nameof(TrySetModSetting)}";
@@ -92,7 +92,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.TrySetModSettings"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.TrySetModSettings"/>
     public static class TrySetModSettings
     {
         public const string Label = $"Penumbra.{nameof(TrySetModSettings)}";
@@ -107,20 +107,20 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ModSettingChanged"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ModSettingChanged"/>
     public static class ModSettingChanged
     {
         public const string Label = $"Penumbra.{nameof(ModSettingChanged)}";
 
-        public static EventProvider<ModSettingChange, string, string, bool> Provider(DalamudPluginInterface pi, Action add, Action del)
+        public static EventProvider<ModSettingChange, Guid, string, bool> Provider(DalamudPluginInterface pi, Action add, Action del)
             => new(pi, Label, add, del);
 
-        public static EventSubscriber<ModSettingChange, string, string, bool> Subscriber(DalamudPluginInterface pi,
-            params Action<ModSettingChange, string, string, bool>[] actions)
+        public static EventSubscriber<ModSettingChange, Guid, string, bool> Subscriber(DalamudPluginInterface pi,
+            params Action<ModSettingChange, Guid, string, bool>[] actions)
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.CopyModSettings"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.CopyModSettings"/>
     public static class CopyModSettings
     {
         public const string Label = $"Penumbra.{nameof(CopyModSettings)}";

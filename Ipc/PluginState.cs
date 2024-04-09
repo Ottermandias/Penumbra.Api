@@ -54,7 +54,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
+    /// <inheritdoc cref="Api.IPenumbraApiBase.ApiVersion"/>
     public static class ApiVersions
     {
         public const string Label = $"Penumbra.{nameof(ApiVersions)}";
@@ -62,11 +62,12 @@ public static partial class Ipc
         public static FuncProvider<(int Breaking, int Features)> Provider(DalamudPluginInterface pi, Func<(int, int)> func)
             => new(pi, Label, func);
 
+        /// <inheritdoc cref="Api.IPenumbraApiBase.ApiVersion"/>
         public static FuncSubscriber<(int Breaking, int Features)> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetEnabledState"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetEnabledState"/>
     public static class GetEnabledState
     {
         public const string Label = $"Penumbra.{nameof(GetEnabledState)}";
@@ -74,11 +75,12 @@ public static partial class Ipc
         public static FuncProvider<bool> Provider(DalamudPluginInterface pi, Func<bool> func)
             => new(pi, Label, func);
 
+        /// <inheritdoc cref="Api.IPenumbraApi.GetEnabledState"/>
         public static FuncSubscriber<bool> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.EnabledChange"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.EnabledChange"/>
     public static class EnabledChange
     {
         public const string Label = $"Penumbra.{nameof(EnabledChange)}";

@@ -6,128 +6,128 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetCollections"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCollections"/>
     public static class GetCollections
     {
         public const string Label = $"Penumbra.{nameof(GetCollections)}";
 
-        public static FuncProvider<IList<string>> Provider(DalamudPluginInterface pi, Func<IList<string>> func)
+        public static FuncProvider<IList<Guid>> Provider(DalamudPluginInterface pi, Func<IList<Guid>> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<IList<string>> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<IList<Guid>> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetCurrentCollection"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCurrentCollection"/>
     public static class GetCurrentCollectionName
     {
         public const string Label = $"Penumbra.{nameof(GetCurrentCollectionName)}";
 
-        public static FuncProvider<string> Provider(DalamudPluginInterface pi, Func<string> func)
+        public static FuncProvider<Guid> Provider(DalamudPluginInterface pi, Func<Guid> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<string> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<Guid> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetDefaultCollection"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetDefaultCollection"/>
     public static class GetDefaultCollectionName
     {
         public const string Label = $"Penumbra.{nameof(GetDefaultCollectionName)}";
 
-        public static FuncProvider<string> Provider(DalamudPluginInterface pi, Func<string> func)
+        public static FuncProvider<Guid> Provider(DalamudPluginInterface pi, Func<Guid> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<string> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<Guid> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetInterfaceCollection"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetInterfaceCollection"/>
     public static class GetInterfaceCollectionName
     {
         public const string Label = $"Penumbra.{nameof(GetInterfaceCollectionName)}";
 
-        public static FuncProvider<string> Provider(DalamudPluginInterface pi, Func<string> func)
+        public static FuncProvider<Guid> Provider(DalamudPluginInterface pi, Func<Guid> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<string> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<Guid> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetCharacterCollection"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCharacterCollection"/>
     public static class GetCharacterCollectionName
     {
         public const string Label = $"Penumbra.{nameof(GetCharacterCollectionName)}";
 
-        public static FuncProvider<string, (string, bool)> Provider(DalamudPluginInterface pi, Func<string, (string, bool)> func)
+        public static FuncProvider<string, (Guid, bool)> Provider(DalamudPluginInterface pi, Func<string, (Guid, bool)> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<string, (string, bool)> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<string, (Guid, bool)> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetChangedItemsForCollection"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetChangedItemsForCollection"/>
     public static class GetChangedItems
     {
         public const string Label = $"Penumbra.{nameof(GetChangedItems)}";
 
-        public static FuncProvider<string, IReadOnlyDictionary<string, object?>> Provider(DalamudPluginInterface pi,
-            Func<string, IReadOnlyDictionary<string, object?>> func)
+        public static FuncProvider<Guid, IReadOnlyDictionary<string, object?>> Provider(DalamudPluginInterface pi,
+            Func<Guid, IReadOnlyDictionary<string, object?>> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<string, IReadOnlyDictionary<string, object?>> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<Guid, IReadOnlyDictionary<string, object?>> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetCollectionForType"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCollectionForType"/>
     public static class GetCollectionForType
     {
         public const string Label = $"Penumbra.{nameof(GetCollectionForType)}";
 
-        public static FuncProvider<ApiCollectionType, string> Provider(DalamudPluginInterface pi,
-            Func<ApiCollectionType, string> func)
+        public static FuncProvider<ApiCollectionType, Guid> Provider(DalamudPluginInterface pi,
+            Func<ApiCollectionType, Guid> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<ApiCollectionType, string> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<ApiCollectionType, Guid> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.SetCollectionForType"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.SetCollectionForType"/>
     public static class SetCollectionForType
     {
         public const string Label = $"Penumbra.{nameof(SetCollectionForType)}";
 
-        public static FuncProvider<ApiCollectionType, string, bool, bool, (PenumbraApiEc, string)> Provider(DalamudPluginInterface pi,
-            Func<ApiCollectionType, string, bool, bool, (PenumbraApiEc, string)> func)
+        public static FuncProvider<ApiCollectionType, Guid, bool, bool, (PenumbraApiEc, Guid)> Provider(DalamudPluginInterface pi,
+            Func<ApiCollectionType, Guid, bool, bool, (PenumbraApiEc, Guid)> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<ApiCollectionType, string, bool, bool, (PenumbraApiEc, string)> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<ApiCollectionType, Guid, bool, bool, (PenumbraApiEc, Guid)> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetCollectionForObject"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetCollectionForObject"/>
     public static class GetCollectionForObject
     {
         public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}";
 
-        public static FuncProvider<int, (bool, bool, string)> Provider(DalamudPluginInterface pi,
-            Func<int, (bool, bool, string)> func)
+        public static FuncProvider<int, (bool, bool, Guid)> Provider(DalamudPluginInterface pi,
+            Func<int, (bool, bool, Guid)> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<int, (bool, bool, string)> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<int, (bool, bool, Guid)> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.SetCollectionForObject"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.SetCollectionForObject"/>
     public static class SetCollectionForObject
     {
         public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}";
 
-        public static FuncProvider<int, string, bool, bool, (PenumbraApiEc, string)> Provider(DalamudPluginInterface pi,
-            Func<int, string, bool, bool, (PenumbraApiEc, string)> func)
+        public static FuncProvider<int, Guid, bool, bool, (PenumbraApiEc, Guid)> Provider(DalamudPluginInterface pi,
+            Func<int, Guid, bool, bool, (PenumbraApiEc, Guid)> func)
             => new(pi, Label, func);
 
-        public static FuncSubscriber<int, string, bool, bool, (PenumbraApiEc, string)> Subscriber(DalamudPluginInterface pi)
+        public static FuncSubscriber<int, Guid, bool, bool, (PenumbraApiEc, Guid)> Subscriber(DalamudPluginInterface pi)
             => new(pi, Label);
     }
 }

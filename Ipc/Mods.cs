@@ -6,7 +6,7 @@ namespace Penumbra.Api;
 
 public static partial class Ipc
 {
-    /// <inheritdoc cref="IPenumbraApi.GetModList"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetModList"/>
     public static class GetMods
     {
         public const string Label = $"Penumbra.{nameof(GetMods)}";
@@ -18,7 +18,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ReloadMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.ReloadMod"/>
     public static class ReloadMod
     {
         public const string Label = $"Penumbra.{nameof(ReloadMod)}";
@@ -31,7 +31,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.InstallMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.InstallMod"/>
     public static class InstallMod
     {
         public const string Label = $"Penumbra.{nameof(InstallMod)}";
@@ -44,7 +44,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.AddMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.AddMod"/>
     public static class AddMod
     {
         public const string Label = $"Penumbra.{nameof(AddMod)}";
@@ -57,7 +57,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.DeleteMod"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.DeleteMod"/>
     public static class DeleteMod
     {
         public const string Label = $"Penumbra.{nameof(DeleteMod)}";
@@ -70,7 +70,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ModDeleted" />
+    /// <inheritdoc cref="Api.IPenumbraApi.ModDeleted" />
     public static class ModDeleted
     {
         public const string Label = $"Penumbra.{nameof(ModDeleted)}";
@@ -82,7 +82,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ModAdded" />
+    /// <inheritdoc cref="Api.IPenumbraApi.ModAdded" />
     public static class ModAdded
     {
         public const string Label = $"Penumbra.{nameof(ModAdded)}";
@@ -94,7 +94,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.ModMoved" />
+    /// <inheritdoc cref="Api.IPenumbraApi.ModMoved" />
     public static class ModMoved
     {
         public const string Label = $"Penumbra.{nameof(ModMoved)}";
@@ -106,7 +106,7 @@ public static partial class Ipc
             => new(pi, Label, actions);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.GetModPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.GetModPath"/>
     public static class GetModPath
     {
         public const string Label = $"Penumbra.{nameof(GetModPath)}";
@@ -119,7 +119,7 @@ public static partial class Ipc
             => new(pi, Label);
     }
 
-    /// <inheritdoc cref="IPenumbraApi.SetModPath"/>
+    /// <inheritdoc cref="Api.IPenumbraApi.SetModPath"/>
     public static class SetModPath
     {
         public const string Label = $"Penumbra.{nameof(SetModPath)}";
