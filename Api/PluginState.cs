@@ -13,7 +13,7 @@ public interface IPenumbraApiPluginState
     /// Fired whenever a mod directory change is finished.
     /// </summary>
     /// <returns>The full path of the mod directory and whether Penumbra treats it as valid.</returns>
-    public event Action<string, bool>? ModDirectoryChanged;
+    public event Action<string, bool> ModDirectoryChanged;
 
     /// <returns>True if Penumbra is enabled, false otherwise.</returns>
     public bool GetEnabledState();
@@ -22,5 +22,5 @@ public interface IPenumbraApiPluginState
     /// Fired whenever the enabled state of Penumbra changes.
     /// </summary>
     /// <returns>True if the new state is enabled, false if the new state is disabled</returns>
-    public event Action<bool>? EnabledChange;
+    public event Action<bool> EnabledChange;
 }
