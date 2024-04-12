@@ -1,8 +1,6 @@
 namespace Penumbra.Api.Api;
 
-/// <summary>
-/// Base interface for the API that is always available, regardless of version.
-/// </summary>
+/// <summary> Base interface for the API that is always available, regardless of version. </summary>
 public interface IPenumbraApiBase
 {
     /// <summary>
@@ -13,6 +11,6 @@ public interface IPenumbraApiBase
     /// </summary>
     public (int Breaking, int Feature) ApiVersion { get; }
 
-    /// <summary> Whether the API is still useable. </summary>
+    /// <summary> Whether the API is still usable. </summary>
     public bool Valid { get; }
 }

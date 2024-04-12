@@ -11,40 +11,40 @@ namespace Penumbra.Api.Helpers;
 /// </summary>
 public sealed class EventProvider : IDisposable
 {
-    private readonly IPluginLog                    _log;
-    private          ICallGateProvider< object? >? _provider;
-    private          Delegate?                     _unsubscriber;
+    private readonly IPluginLog                  _log;
+    private          ICallGateProvider<object?>? _provider;
+    private          Delegate?                   _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label, (Action< Action > Add, Action< Action > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label, (Action<Action> Add, Action<Action> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider(DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider> add, Action<EventProvider> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
@@ -56,27 +56,27 @@ public sealed class EventProvider : IDisposable
         {
             _provider?.SendMessage();
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{e}" );
+            _log.Error($"Exception thrown on IPC event:\n{e}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action > a:
-                a( Invoke );
+            case Action<Action> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()
@@ -84,74 +84,74 @@ public sealed class EventProvider : IDisposable
 }
 
 /// <inheritdoc cref="EventProvider"/>
-public sealed class EventProvider< T1 > : IDisposable
+public sealed class EventProvider<T1> : IDisposable
 {
-    private readonly IPluginLog                        _log;
-    private          ICallGateProvider< T1, object? >? _provider;
-    private          Delegate?                         _unsubscriber;
+    private readonly IPluginLog                      _log;
+    private          ICallGateProvider<T1, object?>? _provider;
+    private          Delegate?                       _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label, (Action< Action< T1 > > Add, Action< Action< T1 > > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label, (Action<Action<T1>> Add, Action<Action<T1>> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<T1, object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider<T1>> add, Action<EventProvider<T1>> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<T1, object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
-    public void Invoke( T1 a )
+    public void Invoke(T1 a)
     {
         try
         {
             _provider?.SendMessage(a);
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{e}" );
+            _log.Error($"Exception thrown on IPC event:\n{e}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action< T1 > > a:
-                a( Invoke );
+            case Action<Action<T1>> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider<T1>> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()
@@ -159,75 +159,75 @@ public sealed class EventProvider< T1 > : IDisposable
 }
 
 /// <inheritdoc cref="EventProvider"/> 
-public sealed class EventProvider< T1, T2 > : IDisposable
+public sealed class EventProvider<T1, T2> : IDisposable
 {
-    private readonly IPluginLog                            _log;
-    private          ICallGateProvider< T1, T2, object? >? _provider;
-    private          Delegate?                             _unsubscriber;
+    private readonly IPluginLog                          _log;
+    private          ICallGateProvider<T1, T2, object?>? _provider;
+    private          Delegate?                           _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label,
-        (Action< Action< T1, T2 > > Add, Action< Action< T1, T2 > > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label,
+        (Action<Action<T1, T2>> Add, Action<Action<T1, T2>> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<T1, T2, object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider<T1, T2>> add, Action<EventProvider<T1, T2>> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<T1, T2, object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
-    public void Invoke( T1 a, T2 b )
+    public void Invoke(T1 a, T2 b)
     {
         try
         {
             _provider?.SendMessage(a, b);
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{e}" );
+            _log.Error($"Exception thrown on IPC event:\n{e}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action< T1, T2 > > a:
-                a( Invoke );
+            case Action<Action<T1, T2>> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider<T1, T2>> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()
@@ -235,75 +235,75 @@ public sealed class EventProvider< T1, T2 > : IDisposable
 }
 
 /// <inheritdoc cref="EventProvider"/> 
-public sealed class EventProvider< T1, T2, T3 > : IDisposable
+public sealed class EventProvider<T1, T2, T3> : IDisposable
 {
-    private readonly IPluginLog                                _log;
-    private          ICallGateProvider< T1, T2, T3, object? >? _provider;
-    private          Delegate?                                 _unsubscriber;
+    private readonly IPluginLog                              _log;
+    private          ICallGateProvider<T1, T2, T3, object?>? _provider;
+    private          Delegate?                               _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label,
-        (Action< Action< T1, T2, T3 > > Add, Action< Action< T1, T2, T3 > > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label,
+        (Action<Action<T1, T2, T3>> Add, Action<Action<T1, T2, T3>> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<T1, T2, T3, object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider<T1, T2, T3>> add, Action<EventProvider<T1, T2, T3>> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<T1, T2, T3, object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
-    public void Invoke( T1 a, T2 b, T3 c )
+    public void Invoke(T1 a, T2 b, T3 c)
     {
         try
         {
             _provider?.SendMessage(a, b, c);
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{e}" );
+            _log.Error($"Exception thrown on IPC event:\n{e}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action< T1, T2, T3 > > a:
-                a( Invoke );
+            case Action<Action<T1, T2, T3>> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider<T1, T2, T3>> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()
@@ -311,75 +311,76 @@ public sealed class EventProvider< T1, T2, T3 > : IDisposable
 }
 
 /// <inheritdoc cref="EventProvider"/> 
-public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
+public sealed class EventProvider<T1, T2, T3, T4> : IDisposable
 {
-    private readonly IPluginLog                                    _log;
-    private          ICallGateProvider< T1, T2, T3, T4, object? >? _provider;
-    private          Delegate?                                     _unsubscriber;
+    private readonly IPluginLog                                  _log;
+    private          ICallGateProvider<T1, T2, T3, T4, object?>? _provider;
+    private          Delegate?                                   _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label,
-        (Action< Action< T1, T2, T3, T4 > > Add, Action< Action< T1, T2, T3, T4 > > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label,
+        (Action<Action<T1, T2, T3, T4>> Add, Action<Action<T1, T2, T3, T4>> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, T4, object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider<T1, T2, T3, T4>> add,
+        Action<EventProvider<T1, T2, T3, T4>> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, T4, object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
-    public void Invoke( T1 a, T2 b, T3 c, T4 d )
+    public void Invoke(T1 a, T2 b, T3 c, T4 d)
     {
         try
         {
             _provider?.SendMessage(a, b, c, d);
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{e}" );
+            _log.Error($"Exception thrown on IPC event:\n{e}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action< T1, T2, T3, T4 > > a:
-                a( Invoke );
+            case Action<Action<T1, T2, T3, T4>> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider<T1, T2, T3, T4>> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()
@@ -387,75 +388,76 @@ public sealed class EventProvider< T1, T2, T3, T4 > : IDisposable
 }
 
 /// <inheritdoc cref="EventProvider"/> 
-public sealed class EventProvider< T1, T2, T3, T4, T5 > : IDisposable
+public sealed class EventProvider<T1, T2, T3, T4, T5> : IDisposable
 {
-    private readonly IPluginLog                                        _log;
-    private          ICallGateProvider< T1, T2, T3, T4, T5, object? >? _provider;
-    private          Delegate?                                         _unsubscriber;
+    private readonly IPluginLog                                      _log;
+    private          ICallGateProvider<T1, T2, T3, T4, T5, object?>? _provider;
+    private          Delegate?                                       _unsubscriber;
 
-    public EventProvider( DalamudPluginInterface pi, string label,
-        (Action< Action< T1, T2, T3, T4, T5 > > Add, Action< Action< T1, T2, T3, T4, T5 > > Del)? subscribe = null )
+    public EventProvider(DalamudPluginInterface pi, string label,
+        (Action<Action<T1, T2, T3, T4, T5>> Add, Action<Action<T1, T2, T3, T4, T5>> Del)? subscribe = null)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, T4, T5, object? >( label );
-            subscribe?.Add( Invoke );
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, object?>(label);
+            subscribe?.Add(Invoke);
             _unsubscriber = subscribe?.Del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
-    public EventProvider( DalamudPluginInterface pi, string label, Action add, Action del )
+    public EventProvider(DalamudPluginInterface pi, string label, Action<EventProvider<T1, T2, T3, T4, T5>> add,
+        Action<EventProvider<T1, T2, T3, T4, T5>> del)
     {
         _unsubscriber = null;
         _log          = PluginLogHelper.GetLog(pi);
         try
         {
-            _provider = pi.GetIpcProvider< T1, T2, T3, T4, T5, object? >( label );
-            add();
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, object?>(label);
+            add(this);
             _unsubscriber = del;
         }
-        catch( Exception e )
+        catch (Exception e)
         {
-            _log.Error( $"Error registering IPC Provider for {label}\n{e}" );
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
             _provider = null;
         }
     }
 
     /// <inheritdoc cref="EventProvider.Invoke"/>
-    public void Invoke( T1 a, T2 b, T3 c, T4 d, T5 e )
+    public void Invoke(T1 a, T2 b, T3 c, T4 d, T5 e)
     {
         try
         {
             _provider?.SendMessage(a, b, c, d, e);
         }
-        catch( Exception ex )
+        catch (Exception ex)
         {
-            _log.Error( $"Exception thrown on IPC event:\n{ex}" );
+            _log.Error($"Exception thrown on IPC event:\n{ex}");
         }
     }
 
     public void Dispose()
     {
-        switch( _unsubscriber )
+        switch (_unsubscriber)
         {
-            case Action< Action< T1, T2, T3, T4, T5 > > a:
-                a( Invoke );
+            case Action<Action<T1, T2, T3, T4, T5>> a:
+                a(Invoke);
                 break;
-            case Action b:
-                b();
+            case Action<EventProvider<T1, T2, T3, T4, T5>> b:
+                b(this);
                 break;
         }
 
         _unsubscriber = null;
         _provider     = null;
-        GC.SuppressFinalize( this );
+        GC.SuppressFinalize(this);
     }
 
     ~EventProvider()

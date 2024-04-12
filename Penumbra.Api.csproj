@@ -6,10 +6,10 @@
         <AssemblyTitle>Penumbra.Api</AssemblyTitle>
         <Company></Company>
         <Product>Penumbra</Product>
-        <Copyright>Copyright © 2022</Copyright>
-        <FileVersion>1.0.0.0</FileVersion>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <PackageVersion>1.0.15</PackageVersion>
+        <Copyright>Copyright © 2024</Copyright>
+        <FileVersion>5.0.0.0</FileVersion>
+        <AssemblyVersion>5.0.0.0</AssemblyVersion>
+        <PackageVersion>5.0.0</PackageVersion>
         <OutputPath>bin\$(Configuration)\</OutputPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <Nullable>enable</Nullable>
@@ -54,6 +54,10 @@
         </Reference>
         <Reference Include="Lumina">
             <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>

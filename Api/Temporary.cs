@@ -2,24 +2,18 @@ using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
 
-public partial interface IPenumbraApi
+/// <summary> API methods pertaining to the management of temporary collections and mods. </summary>
+public interface IPenumbraApiTemporary
 {
-    /// <summary>
-    /// Create a temporary collection without actual settings but with a cache and assign it to a specific character by name only.
-    /// </summary>
-    /// <remarks>This function is outdated, prefer to use <see cref="CreateNamedTemporaryCollection"/> and <see cref="AssignTemporaryCollection"/>.</remarks>
-    /// <param name="tag">A custom tag for your collections.</param>
-    /// <param name="character">The full, case-sensitive character name this collection should apply to.</param>
-    /// <param name="forceOverwriteCharacter">Whether to overwrite an existing character collection.</param>
-    /// <returns>Success, CharacterCollectionExists or NothingChanged and the GUID of the new temporary collection on success.</returns>
-    public (PenumbraApiEc, Guid) CreateTemporaryCollection(string tag, string character, bool forceOverwriteCharacter);
+    /// <summary> Create a temporary collection. </summary>
+    /// <param name="name"> The name for the collection. Arbitrary and only used internally for debugging. </param>
+    /// <returns> The GUID of the created temporary collection. </returns>
+    public Guid CreateTemporaryCollection(string name);
 
-    /// <summary>
-    /// Create a temporary collection of the given <paramref name="name"/>.
-    /// </summary>
-    /// <param name="name">The intended name. It may not be empty or contain symbols invalid in a path used by XIV.</param>
-    /// <returns>Success, InvalidArgument if name is not valid for a collection, or TemporaryCollectionExists and the GUID of the created collection on success.</returns>
-    public (PenumbraApiEc, Guid) CreateNamedTemporaryCollection(string name);
+    /// <summary> Remove the temporary collection of the given name. </summary>
+    /// <param name="collectionId"> The chosen temporary collection to remove. </param>
+    /// <returns> NothingChanged or Success. </returns>
+    public PenumbraApiEc DeleteTemporaryCollection(Guid collectionId);
 
     /// <summary>
     /// Assign an existing temporary collection to an actor that currently occupies a specific slot.
@@ -31,20 +25,6 @@ public partial interface IPenumbraApi
     public PenumbraApiEc AssignTemporaryCollection(Guid collectionId, int actorIndex, bool forceAssignment);
 
     /// <summary>
-    /// Remove the temporary collection assigned to characterName if it exists.
-    /// </summary>
-    /// <remarks>This function is outdated, prefer to use <see cref="RemoveTemporaryCollectionByName" />.</remarks>
-    /// <returns>NothingChanged or Success.</returns>
-    public PenumbraApiEc RemoveTemporaryCollection(string characterName);
-
-    /// <summary>
-    /// Remove the temporary collection of the given name.
-    /// </summary>
-    /// <param name="collectionId">The chosen temporary collection to remove.</param>
-    /// <returns>NothingChanged or Success.</returns>
-    public PenumbraApiEc RemoveTemporaryCollectionByName(Guid collectionId);
-
-    /// <summary>
     /// Set a temporary mod with the given paths, manipulations and priority and the name tag to all regular and temporary collections.
     /// </summary>
     /// <param name="tag">Custom name for the temporary mod.</param>
@@ -54,15 +34,14 @@ public partial interface IPenumbraApi
     /// <returns>InvalidGamePath, InvalidManipulation or Success.</returns>
     public PenumbraApiEc AddTemporaryModAll(string tag, Dictionary<string, string> paths, string manipString, int priority);
 
-    /// <summary>
-    /// Set a temporary mod with the given paths, manipulations and priority and the name tag to a specific collection.
+    /// <summary> Set a temporary mod with the given paths, manipulations and priority and the name tag to a specific collection.
     /// </summary>
     /// <param name="tag">Custom name for the temporary mod.</param>
     /// <param name="collectionId">GUID of the collection the mod should apply to. Can be a temporary collection.</param>
     /// <param name="paths">List of redirections (can be swaps or redirections).</param>
     /// <param name="manipString">Zipped Base64 string of meta manipulations.</param>
     /// <param name="priority">Desired priority.</param>
-    /// <returns>CollectionMissing, InvalidGamePath, InvalidManipulation or Success.</returns>
+    /// <returns>CollectionMissing, InvalidGamePath, InvalidManipulation, InvalidArgument (GUID is nil) or Success.</returns>
     public PenumbraApiEc AddTemporaryMod(string tag, Guid collectionId, Dictionary<string, string> paths, string manipString,
         int priority);
 

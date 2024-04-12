@@ -2,14 +2,21 @@ using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
 
-public partial interface IPenumbraApi
+/// <summary> API methods pertaining to Penumbras UI. </summary>
+public interface IPenumbraApiUi
 {
     /// <summary>
     /// Triggered when the user hovers over a listed changed object in a mod tab.<para />
     /// Can be used to append tooltips.
     /// </summary>
-    /// <returns><inheritdoc cref="ChangedItemHover"/></returns>
-    public event ChangedItemHover? ChangedItemTooltip;
+    /// <returns> The type of the changed item and its ID if known. </returns>
+    public event Action<ChangedItemType, uint>? ChangedItemTooltip;
+
+    /// <summary>
+    /// Triggered when the user clicks a listed changed object in a mod tab.
+    /// </summary>
+    /// <returns> The mouse button clicked, the type of the changed item and its ID if known. </returns>
+    public event Action<MouseButton, ChangedItemType, uint>? ChangedItemClicked;
 
     /// <summary>
     /// Triggered before the settings tab bar for a mod is drawn, after the title group is drawn.
@@ -34,12 +41,6 @@ public partial interface IPenumbraApi
     /// </summary>
     /// <returns>The directory name of the currently selected mod.</returns>
     public event Action<string>? PostSettingsPanelDraw;
-
-    /// <summary>
-    /// Triggered when the user clicks a listed changed object in a mod tab.
-    /// </summary>
-    /// <returns><inheritdoc cref="ChangedItemClick"/></returns>
-    public event ChangedItemClick? ChangedItemClicked;
 
     /// <summary>
     /// Open the Penumbra main config window.

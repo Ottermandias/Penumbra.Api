@@ -2,7 +2,8 @@ using Lumina.Data;
 
 namespace Penumbra.Api.Api;
 
-public partial interface IPenumbraApi
+/// <summary> API methods pertaining to the resolving of paths. </summary>
+public interface IPenumbraApiResolve
 {
     /// <summary>
     /// Resolve a given <paramref name="gamePath" /> via Penumbra using the Base collection.
@@ -17,13 +18,6 @@ public partial interface IPenumbraApi
     public string ResolveInterfacePath(string gamePath);
 
     /// <summary>
-    /// Resolve a given <paramref name="gamePath" /> via Penumbra using the character collection
-    /// for <paramref name="characterName" /> or the Base collection if none exists.
-    /// </summary>
-    /// <returns>The resolved path, or the given path if Penumbra would not manipulate it.</returns>
-    public string ResolvePath(string gamePath, string characterName);
-
-    /// <summary>
     /// Resolve a given <paramref name="gamePath" /> via Penumbra using collection applying to the <paramref name="gameObjectIdx"/> 
     /// given by its index in the game object table.
     /// </summary>
@@ -36,13 +30,6 @@ public partial interface IPenumbraApi
     /// </summary>
     /// <returns>The resolved path, or the given path if Penumbra would not manipulate it.</returns>
     public string ResolvePlayerPath(string gamePath);
-
-    /// <summary>
-    /// Reverse resolves a given local <paramref name="moddedPath" /> into its replacement in form of all applicable game paths
-    /// for the character collection for <paramref name="characterName" />.
-    /// </summary>
-    /// <returns>A list of game paths resolving to the modded path.</returns>
-    public string[] ReverseResolvePath(string moddedPath, string characterName);
 
     /// <summary>
     /// Reverse resolves a given local <paramref name="moddedPath" /> into its replacement in form of all applicable game paths
@@ -74,17 +61,4 @@ public partial interface IPenumbraApi
     /// <inheritdoc cref="ResolvePlayerPaths"/>
     /// <remarks> Can be called from outside of framework. Can theoretically produce incoherent state when collections change during evaluation. </remarks>
     public Task<(string[], string[][])> ResolvePlayerPathsAsync(string[] forward, string[] reverse);
-
-    /// <summary>
-    /// Try to load a given <paramref name="gamePath" /> with the resolved path from Penumbras Base collection.
-    /// </summary>
-    /// <returns>The file of type T if successful, null otherwise.</returns>
-    public T? GetFile<T>(string gamePath) where T : FileResource;
-
-    /// <summary>
-    /// Try to load a given <paramref name="gamePath" /> with the resolved path from Penumbra
-    /// using the character collection for <paramref name="characterName" />.
-    /// </summary>
-    /// <returns>The file of type T if successful, null otherwise.</returns>
-    public T? GetFile<T>(string gamePath, string characterName) where T : FileResource;
 }

@@ -2,11 +2,13 @@ using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
 
-public partial interface IPenumbraApi
+/// <summary> API methods pertaining to the currently tracked game state. </summary>
+public interface IPenumbraApiGameState
 {
     /// <param name="drawObject"></param>
-    /// <returns>The game object associated with the given <paramref name="drawObject">draw object</paramref> and the GUID of the collection associated with this game object.</returns>
-    public (IntPtr, Guid) GetDrawObjectInfo(IntPtr drawObject);
+    /// <returns>The game object associated with the given <paramref name="drawObject">draw object</paramref>
+    /// and the GUID and name of the collection associated with this game object.</returns>
+    public (nint GameObject, (Guid Id, string Name) Collection) GetDrawObjectInfo(nint drawObject);
 
     /// <summary>
     /// Obtain the parent game object index for an unnamed cutscene actor by its <paramref name="actorIdx">index</paramref>.

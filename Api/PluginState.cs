@@ -1,9 +1,7 @@
 namespace Penumbra.Api.Api;
 
-/// <summary>
-/// The source of truth for Penumbras API functionality.
-/// </summary>
-public partial interface IPenumbraApi : IPenumbraApiBase
+/// <summary> API methods pertaining to Penumbras own state. </summary>
+public interface IPenumbraApiPluginState
 {
     /// <returns> The full path of the current penumbra root directory. </returns>
     public string GetModDirectory();

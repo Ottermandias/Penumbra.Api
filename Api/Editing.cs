@@ -2,7 +2,8 @@ using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
 
-public partial interface IPenumbraApi
+/// <summary> API methods pertaining to the editing of mods or game files. </summary>
+public interface IPenumbraApiEditing
 {
     /// <summary>
     /// Convert the given texture file into a different type or format and potentially add mip maps.

@@ -304,7 +304,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
 {
     private readonly string                                             _label;
     private readonly IPluginLog                                         _log;
-    private readonly Dictionary<Action<T1, T2, T3>, Action<T1, T2, T3>> _delegates = new();
+    private readonly Dictionary<Action<T1, T2, T3>, Action<T1, T2, T3>> _delegates = [];
     private          ICallGateSubscriber<T1, T2, T3, object?>?          _subscriber;
     private          bool                                               _disabled;
 
