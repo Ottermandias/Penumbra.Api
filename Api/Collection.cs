@@ -8,6 +8,9 @@ public interface IPenumbraApiCollection
     /// <returns> A list of the GUIDs of all currently installed collections together with their display names, excluding the empty collection. </returns>
     public Dictionary<Guid, string> GetCollections();
 
+    /// <summary> Returns all collections matching the given name up to case. </summary>
+    public Guid[] GetCollectionsByName(string name);
+
     /// <returns>A dictionary of affected items in <paramref name="collectionId"/> via GUID and known objects or null.</returns>
     public Dictionary<string, object?> GetChangedItemsForCollection(Guid collectionId);
 

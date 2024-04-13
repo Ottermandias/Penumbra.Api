@@ -21,6 +21,22 @@ public sealed class GetCollections(DalamudPluginInterface pi)
         => new(pi, Label, api.GetCollections);
 }
 
+/// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByName"/>
+public sealed class GetCollectionsByName(DalamudPluginInterface pi)
+    : FuncSubscriber<string, Guid[]>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetCollectionsByName)}";
+
+    /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByName"/>
+    public new Guid[] Invoke(string name)
+        => base.Invoke(name);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<string, Guid[]> Provider(DalamudPluginInterface pi, IPenumbraApiCollection api)
+        => new(pi, Label, api.GetCollectionsByName);
+}
+
 /// <inheritdoc cref="IPenumbraApiCollection.GetChangedItemsForCollection"/>
 public sealed class GetChangedItemsForCollection(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, Dictionary<string, object?>>(pi, Label)
