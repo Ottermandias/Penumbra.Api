@@ -190,3 +190,34 @@ public sealed class FuncProvider<T1, T2, T3, T4, T5, TRet> : IDisposable
     ~FuncProvider()
         => Dispose();
 }
+
+/// <inheritdoc cref="FuncProvider{TRet}"/>
+public sealed class FuncProvider<T1, T2, T3, T4, T5, T6, TRet> : IDisposable
+{
+    private ICallGateProvider<T1, T2, T3, T4, T5, T6, TRet>? _provider;
+
+    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, T5, T6, TRet> func)
+    {
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, T6, TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+
+        _provider?.RegisterFunc(func);
+    }
+
+    public void Dispose()
+    {
+        _provider?.UnregisterFunc();
+        _provider = null;
+        GC.SuppressFinalize(this);
+    }
+
+    ~FuncProvider()
+        => Dispose();
+}

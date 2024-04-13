@@ -185,3 +185,33 @@ public class FuncSubscriber<T1, T2, T3, T4, T5, TRet>
     protected TRet Invoke(T1 a, T2 b, T3 c, T4 d, T5 e)
         => _subscriber != null ? _subscriber.InvokeFunc(a, b, c, d, e) : throw new IpcNotReadyError(_label);
 }
+
+/// <inheritdoc cref="FuncSubscriber{TRet}"/>
+public class FuncSubscriber<T1, T2, T3, T4, T5, T6, TRet>
+{
+    private readonly string                                             _label;
+    private readonly ICallGateSubscriber<T1, T2, T3, T4, T5, T6, TRet>? _subscriber;
+
+    /// <inheritdoc cref="FuncSubscriber{TRet}.Valid"/>
+    public bool Valid
+        => _subscriber != null;
+
+    /// <inheritdoc cref="FuncSubscriber{TRet}"/>
+    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    {
+        _label = label;
+        try
+        {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, T5, T6, TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Subscriber for {label}\n{e}");
+            _subscriber = null;
+        }
+    }
+
+    /// <inheritdoc cref="FuncSubscriber{TRet}.Invoke"/>
+    protected TRet Invoke(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f)
+        => _subscriber != null ? _subscriber.InvokeFunc(a, b, c, d, e, f) : throw new IpcNotReadyError(_label);
+}
