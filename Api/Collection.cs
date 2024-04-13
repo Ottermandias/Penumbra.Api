@@ -8,8 +8,14 @@ public interface IPenumbraApiCollection
     /// <returns> A list of the GUIDs of all currently installed collections together with their display names, excluding the empty collection. </returns>
     public Dictionary<Guid, string> GetCollections();
 
-    /// <summary> Returns all collections matching the given name up to case. </summary>
-    public Guid[] GetCollectionsByName(string name);
+    /// <summary> Returns all collections for which either
+    /// <list type="number">
+    ///     <item> the name is equal to the given identifier up to case, </item>
+    ///     <item> the identifier is parsable to a GUID and the GUID corresponds to an existing collection, </item>
+    ///     <item> or the identifier is at least 8 characters long and the GUID as a hex-string starts with the identifier. </item>
+    /// </list>
+    /// </summary>
+    public List<(Guid Id, string Name)> GetCollectionsByIdentifier(string identifier);
 
     /// <returns>A dictionary of affected items in <paramref name="collectionId"/> via GUID and known objects or null.</returns>
     public Dictionary<string, object?> GetChangedItemsForCollection(Guid collectionId);
@@ -19,9 +25,6 @@ public interface IPenumbraApiCollection
 
     /// <returns>Return whether the object at <paramref name="gameObjectIdx" /> produces a valid identifier, if the identifier has a collection assigned, and the collection that affects the object.</returns>
     public (bool ObjectValid, bool IndividualSet, (Guid Id, string Name) EffectiveCollection) GetCollectionForObject(int gameObjectIdx);
-
-    /// <returns> Returns all permanent collections that share the given name, if any exist. </returns>
-    public Guid[] GetCollectionByName(string name);
 
     /// <summary>
     /// Set a collection by GUID for a specific type.

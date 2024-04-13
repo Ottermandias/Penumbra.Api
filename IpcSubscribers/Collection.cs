@@ -21,20 +21,20 @@ public sealed class GetCollections(DalamudPluginInterface pi)
         => new(pi, Label, api.GetCollections);
 }
 
-/// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByName"/>
-public sealed class GetCollectionsByName(DalamudPluginInterface pi)
-    : FuncSubscriber<string, Guid[]>(pi, Label)
+/// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByIdentifier"/>
+public sealed class GetCollectionsByIdentifier(DalamudPluginInterface pi)
+    : FuncSubscriber<string, List<(Guid Id, string Name)>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetCollectionsByName)}";
+    public const string Label = $"Penumbra.{nameof(GetCollectionsByIdentifier)}";
 
-    /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByName"/>
-    public new Guid[] Invoke(string name)
+    /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByIdentifier"/>
+    public new List<(Guid Id, string Name)> Invoke(string name)
         => base.Invoke(name);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid[]> Provider(DalamudPluginInterface pi, IPenumbraApiCollection api)
-        => new(pi, Label, api.GetCollectionsByName);
+    public static FuncProvider<string, List<(Guid Id, string Name)>> Provider(DalamudPluginInterface pi, IPenumbraApiCollection api)
+        => new(pi, Label, api.GetCollectionsByIdentifier);
 }
 
 /// <inheritdoc cref="IPenumbraApiCollection.GetChangedItemsForCollection"/>
