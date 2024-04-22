@@ -10,7 +10,7 @@ public sealed class GetDrawObjectInfo(DalamudPluginInterface pi)
     : FuncSubscriber<nint, (nint, (Guid, string))>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetDrawObjectInfo)}";
+    public const string Label = $"Penumbra.{nameof(GetDrawObjectInfo)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiGameState.GetDrawObjectInfo"/>
     public new (nint GameObject, (Guid Id, string Name) AssociatedCollection) Invoke(nint drawObjectAddress)
@@ -42,7 +42,7 @@ public sealed class SetCutsceneParentIndex(DalamudPluginInterface pi)
     : FuncSubscriber<int, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}";
+    public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiGameState.SetCutsceneParentIndex"/>
     public new PenumbraApiEc Invoke(int copyIdx, int newParentIdx)
@@ -57,7 +57,7 @@ public sealed class SetCutsceneParentIndex(DalamudPluginInterface pi)
 public static class CreatingCharacterBase
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CreatingCharacterBase)}";
+    public const string Label = $"Penumbra.{nameof(CreatingCharacterBase)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, Guid, nint, nint, nint> Subscriber(DalamudPluginInterface pi,
@@ -73,7 +73,7 @@ public static class CreatingCharacterBase
 public static class CreatedCharacterBase
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CreatedCharacterBase)}";
+    public const string Label = $"Penumbra.{nameof(CreatedCharacterBase)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, Guid, nint> Subscriber(DalamudPluginInterface pi, params Action<nint, Guid, nint>[] actions)

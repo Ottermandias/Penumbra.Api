@@ -10,7 +10,7 @@ public sealed class GetCollections(DalamudPluginInterface pi)
     : FuncSubscriber<Dictionary<Guid, string>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetCollections)}";
+    public const string Label = $"Penumbra.{nameof(GetCollections)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollections"/>
     public new Dictionary<Guid, string> Invoke()
@@ -74,7 +74,7 @@ public sealed class GetCollectionForObject(DalamudPluginInterface pi)
     : FuncSubscriber<int, (bool ObjectValid, bool IndividualSet, (Guid Id, string Name) EffectiveCollection)>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}";
+    public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionForObject"/>
     public new (bool ObjectValid, bool IndividualSet, (Guid Id, string Name) EffectiveCollection) Invoke(int gameObjectIdx)
@@ -116,7 +116,7 @@ public sealed class SetCollectionForObject(DalamudPluginInterface pi)
     : FuncSubscriber<int, Guid?, bool, bool, (int, (Guid Id, string Name)? OldCollection)>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}";
+    public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiCollection.SetCollectionForObject"/>
     public new (PenumbraApiEc, (Guid Id, string Name)? OldCollection) Invoke(int gameObjectIdx, Guid? collectionId, bool allowCreateNew = true,

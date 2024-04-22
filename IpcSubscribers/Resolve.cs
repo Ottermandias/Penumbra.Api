@@ -9,7 +9,7 @@ public sealed class ResolveDefaultPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolveDefaultPath)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolveDefaultPath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveDefaultPath"/>
     public new string Invoke(string gamePath)
@@ -25,7 +25,7 @@ public sealed class ResolveInterfacePath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolveInterfacePath)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolveInterfacePath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveInterfacePath"/>
     public new string Invoke(string gamePath)
@@ -41,7 +41,7 @@ public sealed class ResolveGameObjectPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, int, string>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolveGameObjectPath)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolveGameObjectPath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveGameObjectPath"/>
     public new string Invoke(string gamePath, int gameObjectIdx)
@@ -57,7 +57,7 @@ public sealed class ResolvePlayerPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolvePlayerPath)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolvePlayerPath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPath"/>
     public new string Invoke(string gamePath)
@@ -73,7 +73,7 @@ public sealed class ReverseResolveGameObjectPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, int, string[]>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ReverseResolveGameObjectPath)}";
+    public const string Label = $"PenumbraV5.{nameof(ReverseResolveGameObjectPath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ReverseResolveGameObjectPath"/>
     public new string[] Invoke(string gamePath, int gameObjectIdx)
@@ -89,7 +89,7 @@ public sealed class ReverseResolvePlayerPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string[]>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ReverseResolvePlayerPath)}";
+    public const string Label = $"PenumbraV5.{nameof(ReverseResolvePlayerPath)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ReverseResolvePlayerPath"/>
     public new string[] Invoke(string gamePath)
@@ -105,7 +105,7 @@ public sealed class ResolvePlayerPaths(DalamudPluginInterface pi)
     : FuncSubscriber<string[], string[], (string[], string[][])>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolvePlayerPaths)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolvePlayerPaths)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPaths"/>
     public new (string[], string[][]) Invoke(string[] forward, string[] reverse)
@@ -121,7 +121,7 @@ public sealed class ResolvePlayerPathsAsync(DalamudPluginInterface pi)
     : FuncSubscriber<string[], string[], Task<(string[], string[][])>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ResolvePlayerPathsAsync)}";
+    public const string Label = $"PenumbraV5.{nameof(ResolvePlayerPathsAsync)}";
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPathsAsync"/>
     public new Task<(string[], string[][])> Invoke(string[] forward, string[] reverse)

@@ -13,7 +13,7 @@ public sealed class GetAvailableModSettings(DalamudPluginInterface pi)
     : FuncSubscriber<string, string, IReadOnlyDictionary<string, (string[], int)>?>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetAvailableModSettings)}";
+    public const string Label = $"Penumbra.{nameof(GetAvailableModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
     public new IReadOnlyDictionary<string, (string[], GroupType)>? Invoke(string modDirectory, string modName = "")
@@ -30,7 +30,7 @@ public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, CurrentSettingsBase>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetCurrentModSettings)}";
+    public const string Label = $"Penumbra.{nameof(GetCurrentModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettings"/>
     public new CurrentSettings Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false)
@@ -54,7 +54,7 @@ public sealed class TryInheritMod(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(TryInheritMod)}";
+    public const string Label = $"Penumbra.{nameof(TryInheritMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TryInheritMod"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, bool inherit, string modName = "")
@@ -70,7 +70,7 @@ public sealed class TrySetMod(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(TrySetMod)}";
+    public const string Label = $"Penumbra.{nameof(TrySetMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TrySetMod"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, bool inherit, string modName = "")
@@ -86,7 +86,7 @@ public sealed class TrySetModPriority(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(TrySetModPriority)}";
+    public const string Label = $"Penumbra.{nameof(TrySetModPriority)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModPriority"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, int priority, string modName = "")
@@ -102,7 +102,7 @@ public sealed class TrySetModSetting(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(TrySetModSetting)}";
+    public const string Label = $"Penumbra.{nameof(TrySetModSetting)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSetting"/>
     public new PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string optionGroupName, string optionName, string modName = "")
@@ -118,7 +118,7 @@ public sealed class TrySetModSettings(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, string, IReadOnlyList<string>, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(TrySetModSettings)}";
+    public const string Label = $"Penumbra.{nameof(TrySetModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSettings"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string optionGroupName,
@@ -135,7 +135,7 @@ public sealed class TrySetModSettings(DalamudPluginInterface pi)
 public static class ModSettingChanged
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ModSettingChanged)}";
+    public const string Label = $"Penumbra.{nameof(ModSettingChanged)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<ModSettingChange, Guid, string, bool> Subscriber(DalamudPluginInterface pi,
@@ -152,7 +152,7 @@ public sealed class CopyModSettings(DalamudPluginInterface pi)
     : FuncSubscriber<Guid?, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CopyModSettings)}";
+    public const string Label = $"Penumbra.{nameof(CopyModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiModSettings.CopyModSettings"/>
     public new PenumbraApiEc Invoke(Guid? collectionId, string modDirectoryFrom, string modDirectoryTo)

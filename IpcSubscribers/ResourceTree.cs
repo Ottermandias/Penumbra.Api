@@ -12,7 +12,7 @@ public sealed class GetGameObjectResourcePaths(DalamudPluginInterface pi)
     : FuncSubscriber<ushort[], Dictionary<string, HashSet<string>>?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}";
+    public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcePaths"/>
     public new Dictionary<string, HashSet<string>>?[] Invoke(params ushort[] gameObjectIndices)
@@ -29,7 +29,7 @@ public sealed class GetPlayerResourcePaths(DalamudPluginInterface pi)
     : FuncSubscriber<Dictionary<ushort, Dictionary<string, HashSet<string>>>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetPlayerResourcePaths)}";
+    public const string Label = $"Penumbra.{nameof(GetPlayerResourcePaths)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcePaths"/>
     public new Dictionary<ushort, Dictionary<string, HashSet<string>>> Invoke()
@@ -46,7 +46,7 @@ public sealed class GetGameObjectResourcesOfType(DalamudPluginInterface pi)
     : FuncSubscriber<uint, bool, ushort[], IReadOnlyDictionary<nint, (string, string, uint)>?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}";
+    public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcesOfType"/>
     public IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?[] Invoke(ResourceType type, bool withUiData = false,
@@ -66,7 +66,7 @@ public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
     : FuncSubscriber<uint, bool, Dictionary<ushort, IReadOnlyDictionary<nint, (string, string, uint)>>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}";
+    public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcesOfType"/>
     public Dictionary<ushort, IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>> Invoke(ResourceType type, bool withUiData = false)
@@ -87,7 +87,7 @@ public sealed class GetGameObjectResourceTrees(DalamudPluginInterface pi)
     : FuncSubscriber<bool, ushort[], JObject?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
+    public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourceTrees"/>
     public new ResourceTreeDto?[] Invoke(bool withUiData = false, params ushort[] gameObjectIndices)
@@ -104,7 +104,7 @@ public sealed class GetPlayerResourceTrees(DalamudPluginInterface pi)
     : FuncSubscriber<bool, Dictionary<ushort, JObject>>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";
+    public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourceTrees"/>
     public new Dictionary<ushort, ResourceTreeDto> Invoke(bool withUiData = false)

@@ -39,7 +39,7 @@ public class ApiVersion(DalamudPluginInterface pi)
     : FuncSubscriber<(int Breaking, int Features)>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ApiVersion)}";
+    public const string Label = $"Penumbra.{nameof(ApiVersion)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
     public new (int Breaking, int Features) Invoke()

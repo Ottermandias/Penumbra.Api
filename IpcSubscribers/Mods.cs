@@ -26,7 +26,7 @@ public sealed class InstallMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(InstallMod)}";
+    public const string Label = $"Penumbra.{nameof(InstallMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
     public new PenumbraApiEc Invoke(string modFilePackagePath)
@@ -42,7 +42,7 @@ public sealed class ReloadMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(ReloadMod)}";
+    public const string Label = $"Penumbra.{nameof(ReloadMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.ReloadMod"/>
     public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
@@ -58,7 +58,7 @@ public sealed class AddMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(AddMod)}";
+    public const string Label = $"Penumbra.{nameof(AddMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.AddMod"/>
     public new PenumbraApiEc Invoke(string modDirectory)
@@ -74,7 +74,7 @@ public sealed class DeleteMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(DeleteMod)}";
+    public const string Label = $"Penumbra.{nameof(DeleteMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.DeleteMod"/>
     public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
@@ -135,7 +135,7 @@ public sealed class GetModPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string, (int, string, bool, bool)>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetModPath)}";
+    public const string Label = $"Penumbra.{nameof(GetModPath)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.GetModPath"/>
     public new (PenumbraApiEc, string FullPath, bool FullDefault, bool NameDefault) Invoke(string modDirectory, string modName = "")
@@ -158,7 +158,7 @@ public sealed class SetModPath(DalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(SetModPath)}";
+    public const string Label = $"Penumbra.{nameof(SetModPath)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMods.SetModPath"/>
     public new PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")

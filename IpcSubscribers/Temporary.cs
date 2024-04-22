@@ -10,7 +10,7 @@ public sealed class CreateTemporaryCollection(DalamudPluginInterface pi)
     : FuncSubscriber<string, Guid>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}";
+    public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.CreateTemporaryCollection"/>
     public new Guid Invoke(string name = "")
@@ -26,7 +26,7 @@ public sealed class DeleteTemporaryCollection(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(DeleteTemporaryCollection)}";
+    public const string Label = $"Penumbra.{nameof(DeleteTemporaryCollection)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.DeleteTemporaryCollection"/>
     public new PenumbraApiEc Invoke(Guid collectionId)
@@ -42,7 +42,7 @@ public sealed class AssignTemporaryCollection(DalamudPluginInterface pi)
     : FuncSubscriber<Guid, int, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(AssignTemporaryCollection)}";
+    public const string Label = $"Penumbra.{nameof(AssignTemporaryCollection)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AssignTemporaryCollection"/>
     public new PenumbraApiEc Invoke(Guid collectionId, int actorIndex, bool forceAssignment = true)
@@ -58,7 +58,7 @@ public sealed class AddTemporaryModAll(DalamudPluginInterface pi)
     : FuncSubscriber<string, Dictionary<string, string>, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(AddTemporaryModAll)}";
+    public const string Label = $"Penumbra.{nameof(AddTemporaryModAll)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryModAll"/>
     public new PenumbraApiEc Invoke(string tag, Dictionary<string, string> paths, string manipString, int priority)
@@ -75,7 +75,7 @@ public sealed class AddTemporaryMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, Guid, Dictionary<string, string>, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(AddTemporaryMod)}";
+    public const string Label = $"Penumbra.{nameof(AddTemporaryMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryMod"/>
     public new PenumbraApiEc Invoke(string tag, Guid collectionId, Dictionary<string, string> paths, string manipString, int priority)
@@ -92,7 +92,7 @@ public sealed class RemoveTemporaryModAll(DalamudPluginInterface pi)
     : FuncSubscriber<string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(RemoveTemporaryModAll)}";
+    public const string Label = $"Penumbra.{nameof(RemoveTemporaryModAll)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModAll"/>
     public new PenumbraApiEc Invoke(string tag, int priority)
@@ -109,7 +109,7 @@ public sealed class RemoveTemporaryMod(DalamudPluginInterface pi)
     : FuncSubscriber<string, Guid, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(RemoveTemporaryMod)}";
+    public const string Label = $"Penumbra.{nameof(RemoveTemporaryMod)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryMod"/>
     public new PenumbraApiEc Invoke(string tag, Guid collectionId, int priority)

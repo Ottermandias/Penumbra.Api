@@ -53,10 +53,10 @@ public static class PreSettingsTabBarDraw
 }
 
 /// <inheritdoc cref="IPenumbraApiUi.PreSettingsPanelDraw" />
-public static class PreSettingsPanelDraw
+public static class PreSettingsDraw
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(PreSettingsPanelDraw)}";
+    public const string Label = $"Penumbra.{nameof(PreSettingsDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
@@ -83,10 +83,10 @@ public static class PostEnabledDraw
 }
 
 /// <inheritdoc cref="IPenumbraApiUi.PostSettingsPanelDraw" />
-public static class PostSettingsPanelDraw
+public static class PostSettingsDraw
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(PostSettingsPanelDraw)}";
+    public const string Label = $"Penumbra.{nameof(PostSettingsDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
@@ -102,7 +102,7 @@ public sealed class OpenMainWindow(DalamudPluginInterface pi)
     : FuncSubscriber<int, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(OpenMainWindow)}";
+    public const string Label = $"Penumbra.{nameof(OpenMainWindow)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiUi.OpenMainWindow"/>
     public PenumbraApiEc Invoke(TabType tab, string modDirectory = "", string modName = "")
@@ -118,7 +118,7 @@ public sealed class CloseMainWindow(DalamudPluginInterface pi)
     : ActionSubscriber(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CloseMainWindow)}";
+    public const string Label = $"Penumbra{nameof(CloseMainWindow)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.CloseMainWindow"/>
     public new void Invoke()

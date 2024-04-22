@@ -10,7 +10,7 @@ public sealed class RedrawObject(DalamudPluginInterface pi)
     : ActionSubscriber<int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(RedrawObject)}";
+    public const string Label = $"Penumbra.{nameof(RedrawObject)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiRedraw.RedrawObject"/>
     public void Invoke(int gameObjectIndex, RedrawType setting = RedrawType.Redraw)
@@ -26,7 +26,7 @@ public sealed class RedrawAll(DalamudPluginInterface pi)
     : ActionSubscriber<int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(RedrawAll)}";
+    public const string Label = $"Penumbra.{nameof(RedrawAll)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiRedraw.RedrawAll"/>
     public void Invoke(RedrawType setting = RedrawType.Redraw)

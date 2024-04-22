@@ -25,7 +25,7 @@ public sealed class GetMetaManipulations(DalamudPluginInterface pi)
     : FuncSubscriber<int, string>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}";
+    public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiMeta.GetMetaManipulations"/>
     public new string Invoke(int gameObjectIdx)
