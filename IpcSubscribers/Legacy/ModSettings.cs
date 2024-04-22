@@ -32,8 +32,8 @@ public sealed class TryInheritMod(DalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(TryInheritMod)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectory, bool inherit, string modName = "")
-        => base.Invoke(collectionName, modDirectory, modName, inherit);
+    public PenumbraApiEc Invoke(string collectionName, string modDirectory, bool inherit, string modName = "")
+        => Invoke(collectionName, modDirectory, modName, inherit);
 }
 
 public sealed class TrySetMod(DalamudPluginInterface pi)
@@ -41,8 +41,8 @@ public sealed class TrySetMod(DalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(TrySetMod)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectory, bool enabled, string modName = "")
-        => base.Invoke(collectionName, modDirectory, modName, enabled);
+    public PenumbraApiEc Invoke(string collectionName, string modDirectory, bool enabled, string modName = "")
+        => Invoke(collectionName, modDirectory, modName, enabled);
 }
 
 public sealed class TrySetModPriority(DalamudPluginInterface pi)
@@ -50,8 +50,8 @@ public sealed class TrySetModPriority(DalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModPriority)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectory, int priority, string modName = "")
-        => base.Invoke(collectionName, modDirectory, modName, priority);
+    public PenumbraApiEc Invoke(string collectionName, string modDirectory, int priority, string modName = "")
+        => Invoke(collectionName, modDirectory, modName, priority);
 }
 
 public sealed class TrySetModSetting(DalamudPluginInterface pi)
@@ -68,9 +68,9 @@ public sealed class TrySetModSettings(DalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModSettings)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectory, string groupName, IReadOnlyList<string> settings,
+    public PenumbraApiEc Invoke(string collectionName, string modDirectory, string groupName, IReadOnlyList<string> settings,
         string modName = "")
-        => base.Invoke(collectionName, modDirectory, modName, groupName, settings);
+        => Invoke(collectionName, modDirectory, modName, groupName, settings);
 }
 
 public static class ModSettingChanged
