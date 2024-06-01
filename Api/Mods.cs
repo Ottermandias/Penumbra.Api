@@ -58,4 +58,8 @@ public interface IPenumbraApiMods
     /// <returns>InvalidArgument if <paramref name="newPath" /> is empty, ModMissing if the mod can not be found,
     /// PathRenameFailed if <paramref name="newPath"/> could not be set or Success.</returns>
     public PenumbraApiEc SetModPath(string modDirectory, string modName, string newPath);
+
+    /// <summary> Get the overall changed items of a single mod given by its <paramref name="modDirectory"/> name or <paramref name="modName"/>, regardless of settings. </summary>
+    /// <returns> A possibly empty dictionary of affected items and known objects or null. </returns>
+    public Dictionary<string, object?> GetChangedItems(string modDirectory, string modName);
 }

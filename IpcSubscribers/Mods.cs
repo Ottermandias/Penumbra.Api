@@ -168,3 +168,19 @@ public sealed class SetModPath(DalamudPluginInterface pi)
     public static FuncProvider<string, string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (a, b, c) => (int)api.SetModPath(a, b, c));
 }
+
+/// <inheritdoc cref="IPenumbraApiMods.GetChangedItems"/>
+public sealed class GetChangedItems(DalamudPluginInterface pi)
+    : FuncSubscriber<string, string, Dictionary<string, object?>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetChangedItems)}.V5";
+
+    /// <inheritdoc cref="IPenumbraApiMods.GetChangedItems"/>
+    public new Dictionary<string, object?> Invoke(string modDirectory, string modName)
+        => base.Invoke(modDirectory, modName);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<string, string, Dictionary<string, object?>> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, api.GetChangedItems);
+}

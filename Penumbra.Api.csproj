@@ -9,7 +9,7 @@
         <Copyright>Copyright © 2024</Copyright>
         <FileVersion>5.0.0.0</FileVersion>
         <AssemblyVersion>5.0.0.0</AssemblyVersion>
-        <PackageVersion>5.0.0</PackageVersion>
+        <PackageVersion>5.1.0</PackageVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <OutputPath>bin\$(Configuration)\</OutputPath>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
