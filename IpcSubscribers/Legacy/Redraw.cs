@@ -7,7 +7,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class RedrawAll(DalamudPluginInterface pi)
+public sealed class RedrawAll(IDalamudPluginInterface pi)
     : ActionSubscriber<RedrawType>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RedrawAll)}";
@@ -16,16 +16,16 @@ public sealed class RedrawAll(DalamudPluginInterface pi)
         => base.Invoke(type);
 }
 
-public sealed class RedrawObject(DalamudPluginInterface pi)
-    : ActionSubscriber<GameObject, RedrawType>(pi, Label)
+public sealed class RedrawObject(IDalamudPluginInterface pi)
+    : ActionSubscriber<IGameObject, RedrawType>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RedrawObject)}";
 
-    public new void Invoke(GameObject gameObject, RedrawType type = RedrawType.Redraw)
+    public new void Invoke(IGameObject gameObject, RedrawType type = RedrawType.Redraw)
         => base.Invoke(gameObject, type);
 }
 
-public sealed class RedrawObjectByIndex(DalamudPluginInterface pi)
+public sealed class RedrawObjectByIndex(IDalamudPluginInterface pi)
     : ActionSubscriber<int, RedrawType>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RedrawObjectByIndex)}";
@@ -34,7 +34,7 @@ public sealed class RedrawObjectByIndex(DalamudPluginInterface pi)
         => base.Invoke(gameObjectIndex, type);
 }
 
-public sealed class RedrawObjectByName(DalamudPluginInterface pi)
+public sealed class RedrawObjectByName(IDalamudPluginInterface pi)
     : ActionSubscriber<string, RedrawType>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RedrawObjectByName)}";

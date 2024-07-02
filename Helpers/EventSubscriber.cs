@@ -17,7 +17,7 @@ public sealed class EventSubscriber : IDisposable
     private          ICallGateSubscriber<object?>? _subscriber;
     private          bool                          _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);
@@ -120,7 +120,7 @@ public sealed class EventSubscriber<T1> : IDisposable
     private          ICallGateSubscriber<T1, object?>?  _subscriber;
     private          bool                               _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1>[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1>[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);
@@ -214,7 +214,7 @@ public sealed class EventSubscriber<T1, T2> : IDisposable
     private          ICallGateSubscriber<T1, T2, object?>?      _subscriber;
     private          bool                                       _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2>[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1, T2>[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);
@@ -308,7 +308,7 @@ public sealed class EventSubscriber<T1, T2, T3> : IDisposable
     private          ICallGateSubscriber<T1, T2, T3, object?>?          _subscriber;
     private          bool                                               _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3>[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1, T2, T3>[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);
@@ -402,7 +402,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4> : IDisposable
     private          ICallGateSubscriber<T1, T2, T3, T4, object?>?              _subscriber;
     private          bool                                                       _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4>[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4>[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);
@@ -496,7 +496,7 @@ public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
     private          ICallGateSubscriber<T1, T2, T3, T4, T5, object?>?                  _subscriber;
     private          bool                                                               _disabled;
 
-    public EventSubscriber(DalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4, T5>[] actions)
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4, T5>[] actions)
     {
         _label = label;
         _log   = PluginLogHelper.GetLog(pi);

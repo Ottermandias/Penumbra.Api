@@ -5,7 +5,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class ResolveCharacterPath(DalamudPluginInterface pi)
+public sealed class ResolveCharacterPath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(ResolveCharacterPath)}";
@@ -14,7 +14,7 @@ public sealed class ResolveCharacterPath(DalamudPluginInterface pi)
         => base.Invoke(gamePath, characterName);
 }
 
-public sealed class ReverseResolvePath(DalamudPluginInterface pi)
+public sealed class ReverseResolvePath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(ReverseResolvePath)}";

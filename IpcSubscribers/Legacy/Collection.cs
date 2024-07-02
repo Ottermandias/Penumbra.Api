@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class GetCollections(DalamudPluginInterface pi)
+public sealed class GetCollections(IDalamudPluginInterface pi)
     : FuncSubscriber<IList<string>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCollections)}";
@@ -15,7 +15,7 @@ public sealed class GetCollections(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class GetCurrentCollectionName(DalamudPluginInterface pi)
+public sealed class GetCurrentCollectionName(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCurrentCollectionName)}";
@@ -24,7 +24,7 @@ public sealed class GetCurrentCollectionName(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class GetDefaultCollectionName(DalamudPluginInterface pi)
+public sealed class GetDefaultCollectionName(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetDefaultCollectionName)}";
@@ -33,7 +33,7 @@ public sealed class GetDefaultCollectionName(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class GetInterfaceCollectionName(DalamudPluginInterface pi)
+public sealed class GetInterfaceCollectionName(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetInterfaceCollectionName)}";
@@ -42,7 +42,7 @@ public sealed class GetInterfaceCollectionName(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class GetCharacterCollectionName(DalamudPluginInterface pi)
+public sealed class GetCharacterCollectionName(IDalamudPluginInterface pi)
     : FuncSubscriber<string, (string, bool)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCharacterCollectionName)}";
@@ -51,7 +51,7 @@ public sealed class GetCharacterCollectionName(DalamudPluginInterface pi)
         => base.Invoke(characterName);
 }
 
-public sealed class GetChangedItems(DalamudPluginInterface pi)
+public sealed class GetChangedItems(IDalamudPluginInterface pi)
     : FuncSubscriber<string, IReadOnlyDictionary<string, object?>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetChangedItems)}";
@@ -60,7 +60,7 @@ public sealed class GetChangedItems(DalamudPluginInterface pi)
         => base.Invoke(collectionName);
 }
 
-public sealed class GetCollectionForType(DalamudPluginInterface pi)
+public sealed class GetCollectionForType(IDalamudPluginInterface pi)
     : FuncSubscriber<ApiCollectionType, string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCollectionForType)}";
@@ -69,7 +69,7 @@ public sealed class GetCollectionForType(DalamudPluginInterface pi)
         => base.Invoke(collectionType);
 }
 
-public sealed class SetCollectionForType(DalamudPluginInterface pi)
+public sealed class SetCollectionForType(IDalamudPluginInterface pi)
     : FuncSubscriber<ApiCollectionType, string, bool, bool, (PenumbraApiEc, string)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(SetCollectionForType)}";
@@ -79,7 +79,7 @@ public sealed class SetCollectionForType(DalamudPluginInterface pi)
         => base.Invoke(collectionType, collectionName, allowCreateNew, allowDelete);
 }
 
-public sealed class GetCollectionForObject(DalamudPluginInterface pi)
+public sealed class GetCollectionForObject(IDalamudPluginInterface pi)
     : FuncSubscriber<int, (bool, bool, string)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}";
@@ -88,7 +88,7 @@ public sealed class GetCollectionForObject(DalamudPluginInterface pi)
         => base.Invoke(objectIndex);
 }
 
-public sealed class SetCollectionForObject(DalamudPluginInterface pi)
+public sealed class SetCollectionForObject(IDalamudPluginInterface pi)
     : FuncSubscriber<int, string, bool, bool, (PenumbraApiEc, string)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}";

@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiMods.GetModList"/>
-public sealed class GetModList(DalamudPluginInterface pi)
+public sealed class GetModList(IDalamudPluginInterface pi)
     : FuncSubscriber<Dictionary<string, string>>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -17,12 +17,12 @@ public sealed class GetModList(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Dictionary<string, string>> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<Dictionary<string, string>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, api.GetModList);
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
-public sealed class InstallMod(DalamudPluginInterface pi)
+public sealed class InstallMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -33,12 +33,12 @@ public sealed class InstallMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(modFilePackagePath);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, a => (int)api.InstallMod(a));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.ReloadMod"/>
-public sealed class ReloadMod(DalamudPluginInterface pi)
+public sealed class ReloadMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -49,12 +49,12 @@ public sealed class ReloadMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (a, b) => (int)api.ReloadMod(a, b));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.AddMod"/>
-public sealed class AddMod(DalamudPluginInterface pi)
+public sealed class AddMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -65,12 +65,12 @@ public sealed class AddMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(modDirectory);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, a => (int)api.AddMod(a));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.DeleteMod"/>
-public sealed class DeleteMod(DalamudPluginInterface pi)
+public sealed class DeleteMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -81,7 +81,7 @@ public sealed class DeleteMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (a, b) => (int)api.DeleteMod(a, b));
 }
 
@@ -92,11 +92,11 @@ public static class ModDeleted
     public const string Label = $"Penumbra.{nameof(ModDeleted)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+    public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static EventProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (t => api.ModDeleted += t, t => api.ModDeleted -= t));
 }
 
@@ -107,11 +107,11 @@ public static class ModAdded
     public const string Label = $"Penumbra.{nameof(ModAdded)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+    public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static EventProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (t => api.ModAdded += t, t => api.ModAdded -= t));
 }
 
@@ -122,16 +122,16 @@ public static class ModMoved
     public const string Label = $"Penumbra.{nameof(ModMoved)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string, string> Subscriber(DalamudPluginInterface pi, params Action<string, string>[] actions)
+    public static EventSubscriber<string, string> Subscriber(IDalamudPluginInterface pi, params Action<string, string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string, string> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static EventProvider<string, string> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (t => api.ModMoved += t, t => api.ModMoved -= t));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.GetModPath"/>
-public sealed class GetModPath(DalamudPluginInterface pi)
+public sealed class GetModPath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, (int, string, bool, bool)>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -145,7 +145,7 @@ public sealed class GetModPath(DalamudPluginInterface pi)
     }
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, (int, string, bool, bool)> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, string, (int, string, bool, bool)> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (a, b) =>
         {
             var (ret, fullPath, fullDefault, nameDefault) = api.GetModPath(a, b);
@@ -154,7 +154,7 @@ public sealed class GetModPath(DalamudPluginInterface pi)
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.SetModPath"/>
-public sealed class SetModPath(DalamudPluginInterface pi)
+public sealed class SetModPath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -165,12 +165,12 @@ public sealed class SetModPath(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(modDirectory, modName, newPath);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (a, b, c) => (int)api.SetModPath(a, b, c));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.GetChangedItems"/>
-public sealed class GetChangedItems(DalamudPluginInterface pi)
+public sealed class GetChangedItems(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, Dictionary<string, object?>>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -181,6 +181,6 @@ public sealed class GetChangedItems(DalamudPluginInterface pi)
         => base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, Dictionary<string, object?>> Provider(DalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<string, string, Dictionary<string, object?>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, api.GetChangedItems);
 }

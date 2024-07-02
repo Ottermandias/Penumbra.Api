@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class CreateTemporaryCollection(DalamudPluginInterface pi)
+public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, bool, (PenumbraApiEc, string)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}";
@@ -15,7 +15,7 @@ public sealed class CreateTemporaryCollection(DalamudPluginInterface pi)
         => base.Invoke(tag, character, forceOverwrite);
 }
 
-public sealed class RemoveTemporaryCollection(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryCollection)}";
@@ -24,7 +24,7 @@ public sealed class RemoveTemporaryCollection(DalamudPluginInterface pi)
         => base.Invoke(collectionName);
 }
 
-public sealed class CreateNamedTemporaryCollection(DalamudPluginInterface pi)
+public sealed class CreateNamedTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(CreateNamedTemporaryCollection)}";
@@ -33,7 +33,7 @@ public sealed class CreateNamedTemporaryCollection(DalamudPluginInterface pi)
         => base.Invoke(collectionName);
 }
 
-public sealed class RemoveTemporaryCollectionByName(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryCollectionByName(IDalamudPluginInterface pi)
     : FuncSubscriber<string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryCollectionByName)}";
@@ -42,7 +42,7 @@ public sealed class RemoveTemporaryCollectionByName(DalamudPluginInterface pi)
         => base.Invoke(collectionName);
 }
 
-public sealed class AssignTemporaryCollection(DalamudPluginInterface pi)
+public sealed class AssignTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int, bool, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(AssignTemporaryCollection)}";
@@ -51,7 +51,7 @@ public sealed class AssignTemporaryCollection(DalamudPluginInterface pi)
         => base.Invoke(collectionName, gameObjectIndex, force);
 }
 
-public sealed class AddTemporaryModAll(DalamudPluginInterface pi)
+public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
     : FuncSubscriber<string, Dictionary<string, string>, string, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(AddTemporaryModAll)}";
@@ -60,7 +60,7 @@ public sealed class AddTemporaryModAll(DalamudPluginInterface pi)
         => base.Invoke(tag, files, meta, priority);
 }
 
-public sealed class AddTemporaryMod(DalamudPluginInterface pi)
+public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, Dictionary<string, string>, string, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(AddTemporaryMod)}";
@@ -69,7 +69,7 @@ public sealed class AddTemporaryMod(DalamudPluginInterface pi)
         => base.Invoke(tag, collectionName, files, meta, priority);
 }
 
-public sealed class RemoveTemporaryModAll(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryModAll(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModAll)}";
@@ -78,7 +78,7 @@ public sealed class RemoveTemporaryModAll(DalamudPluginInterface pi)
         => base.Invoke(tag, priority);
 }
 
-public sealed class RemoveTemporaryMod(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryMod)}";

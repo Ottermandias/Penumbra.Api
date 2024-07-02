@@ -11,11 +11,11 @@ public static class Initialized
     public const string Label = $"Penumbra.{nameof(Initialized)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber Subscriber(DalamudPluginInterface pi, params Action[] actions)
+    public static EventSubscriber Subscriber(IDalamudPluginInterface pi, params Action[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider Provider(DalamudPluginInterface pi)
+    public static EventProvider Provider(IDalamudPluginInterface pi)
         => new(pi, Label);
 }
 
@@ -26,16 +26,16 @@ public static class Disposed
     public const string Label = $"Penumbra.{nameof(Disposed)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber Subscriber(DalamudPluginInterface pi, params Action[] actions)
+    public static EventSubscriber Subscriber(IDalamudPluginInterface pi, params Action[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider Provider(DalamudPluginInterface pi)
+    public static EventProvider Provider(IDalamudPluginInterface pi)
         => new(pi, Label);
 }
 
 /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
-public class ApiVersion(DalamudPluginInterface pi) 
+public class ApiVersion(IDalamudPluginInterface pi) 
     : FuncSubscriber<(int Breaking, int Features)>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -46,12 +46,12 @@ public class ApiVersion(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<(int Breaking, int Features)> Provider(DalamudPluginInterface pi, IPenumbraApiBase api)
+    public static FuncProvider<(int Breaking, int Features)> Provider(IDalamudPluginInterface pi, IPenumbraApiBase api)
         => new(pi, Label, () => api.ApiVersion);
 }
 
 /// <inheritdoc cref="IPenumbraApiPluginState.GetModDirectory"/>
-public class GetModDirectory(DalamudPluginInterface pi)
+public class GetModDirectory(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -62,12 +62,12 @@ public class GetModDirectory(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiPluginState api)
+    public static FuncProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, api.GetModDirectory);
 }
 
 /// <inheritdoc cref="IPenumbraApiPluginState.GetConfiguration"/>
-public class GetConfiguration(DalamudPluginInterface pi)
+public class GetConfiguration(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -78,7 +78,7 @@ public class GetConfiguration(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiPluginState api)
+    public static FuncProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, api.GetConfiguration);
 }
 
@@ -89,16 +89,16 @@ public static class ModDirectoryChanged
     public const string Label = $"Penumbra.{nameof(ModDirectoryChanged)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string, bool> Subscriber(DalamudPluginInterface pi, params Action<string, bool>[] actions)
+    public static EventSubscriber<string, bool> Subscriber(IDalamudPluginInterface pi, params Action<string, bool>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string, bool> Provider(DalamudPluginInterface pi, IPenumbraApiPluginState api)
+    public static EventProvider<string, bool> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, (t => api.ModDirectoryChanged += t, t => api.ModDirectoryChanged -= t));
 }
 
 /// <inheritdoc cref="IPenumbraApiPluginState.GetEnabledState"/>
-public class GetEnabledState(DalamudPluginInterface pi)
+public class GetEnabledState(IDalamudPluginInterface pi)
     : FuncSubscriber<bool>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetEnabledState)}";
@@ -108,7 +108,7 @@ public class GetEnabledState(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<bool> Provider(DalamudPluginInterface pi, IPenumbraApiPluginState api)
+    public static FuncProvider<bool> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, api.GetEnabledState);
 }
 
@@ -119,10 +119,10 @@ public static class EnabledChange
     public const string Label = $"Penumbra.{nameof(EnabledChange)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<bool> Subscriber(DalamudPluginInterface pi, params Action<bool>[] actions)
+    public static EventSubscriber<bool> Subscriber(IDalamudPluginInterface pi, params Action<bool>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<bool> Provider(DalamudPluginInterface pi, IPenumbraApiPluginState api)
+    public static EventProvider<bool> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, (t => api.EnabledChange += t, t => api.EnabledChange -= t));
 }

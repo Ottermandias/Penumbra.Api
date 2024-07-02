@@ -5,7 +5,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class GetMetaManipulations(DalamudPluginInterface pi)
+public sealed class GetMetaManipulations(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}";
@@ -14,7 +14,7 @@ public sealed class GetMetaManipulations(DalamudPluginInterface pi)
         => base.Invoke(objectName);
 }
 
-public sealed class GetGameObjectMetaManipulations(DalamudPluginInterface pi)
+public sealed class GetGameObjectMetaManipulations(IDalamudPluginInterface pi)
     : FuncSubscriber<int, string>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectMetaManipulations)}";

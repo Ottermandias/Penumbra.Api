@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiGameState.GetDrawObjectInfo"/>
-public sealed class GetDrawObjectInfo(DalamudPluginInterface pi)
+public sealed class GetDrawObjectInfo(IDalamudPluginInterface pi)
     : FuncSubscriber<nint, (nint, (Guid, string))>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -17,12 +17,12 @@ public sealed class GetDrawObjectInfo(DalamudPluginInterface pi)
         => base.Invoke(drawObjectAddress);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<nint, (nint, (Guid, string))> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static FuncProvider<nint, (nint, (Guid, string))> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, api.GetDrawObjectInfo);
 }
 
 /// <inheritdoc cref="IPenumbraApiGameState.GetCutsceneParentIndex"/>
-public sealed class GetCutsceneParentIndex(DalamudPluginInterface pi)
+public sealed class GetCutsceneParentIndex(IDalamudPluginInterface pi)
     : FuncSubscriber<int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -33,12 +33,12 @@ public sealed class GetCutsceneParentIndex(DalamudPluginInterface pi)
         => base.Invoke(actorIndex);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<int, int> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static FuncProvider<int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, api.GetCutsceneParentIndex);
 }
 
 /// <inheritdoc cref="IPenumbraApiGameState.SetCutsceneParentIndex"/>
-public sealed class SetCutsceneParentIndex(DalamudPluginInterface pi)
+public sealed class SetCutsceneParentIndex(IDalamudPluginInterface pi)
     : FuncSubscriber<int, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -49,7 +49,7 @@ public sealed class SetCutsceneParentIndex(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(copyIdx, newParentIdx);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<int, int, int> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static FuncProvider<int, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, (a, b) => (int) api.SetCutsceneParentIndex(a, b));
 }
 
@@ -60,12 +60,12 @@ public static class CreatingCharacterBase
     public const string Label = $"Penumbra.{nameof(CreatingCharacterBase)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<nint, Guid, nint, nint, nint> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<nint, Guid, nint, nint, nint> Subscriber(IDalamudPluginInterface pi,
         params Action<nint, Guid, nint, nint, nint>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<nint, Guid, nint, nint, nint> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static EventProvider<nint, Guid, nint, nint, nint> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, t => api.CreatingCharacterBase += t.Invoke, t => api.CreatingCharacterBase -= t.Invoke);
 }
 
@@ -76,11 +76,11 @@ public static class CreatedCharacterBase
     public const string Label = $"Penumbra.{nameof(CreatedCharacterBase)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<nint, Guid, nint> Subscriber(DalamudPluginInterface pi, params Action<nint, Guid, nint>[] actions)
+    public static EventSubscriber<nint, Guid, nint> Subscriber(IDalamudPluginInterface pi, params Action<nint, Guid, nint>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<nint, Guid, nint> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static EventProvider<nint, Guid, nint> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, t => api.CreatedCharacterBase += t.Invoke, t => api.CreatedCharacterBase -= t.Invoke);
 }
 
@@ -91,10 +91,10 @@ public static class GameObjectResourcePathResolved
     public const string Label = $"Penumbra.{nameof(GameObjectResourcePathResolved)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<nint, string, string> Subscriber(DalamudPluginInterface pi, params Action<nint, string, string>[] actions)
+    public static EventSubscriber<nint, string, string> Subscriber(IDalamudPluginInterface pi, params Action<nint, string, string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<nint, string, string> Provider(DalamudPluginInterface pi, IPenumbraApiGameState api)
+    public static EventProvider<nint, string, string> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, t => api.GameObjectResourceResolved += t.Invoke, t => api.GameObjectResourceResolved -= t.Invoke);
 }

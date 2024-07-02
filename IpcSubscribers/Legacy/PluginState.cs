@@ -5,7 +5,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public class ApiVersions(DalamudPluginInterface pi)
+public class ApiVersions(IDalamudPluginInterface pi)
     : FuncSubscriber<(int Breaking, int Features)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(ApiVersions)}";

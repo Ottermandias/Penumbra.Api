@@ -9,7 +9,7 @@ using CurrentSettingsBase = ValueTuple<int, (bool, int, Dictionary<string, List<
 using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?>;
 
 /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
-public sealed class GetAvailableModSettings(DalamudPluginInterface pi)
+public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, IReadOnlyDictionary<string, (string[], int)>?>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -20,13 +20,13 @@ public sealed class GetAvailableModSettings(DalamudPluginInterface pi)
         => AvailableModSettings.Create(base.Invoke(modDirectory, modName));
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, IReadOnlyDictionary<string, (string[], int)>?> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<string, string, IReadOnlyDictionary<string, (string[], int)>?> Provider(IDalamudPluginInterface pi,
         IPenumbraApiModSettings api)
         => new(pi, Label, (a, b) => api.GetAvailableModSettings(a, b)?.Original);
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettings"/>
-public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
+public sealed class GetCurrentModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, CurrentSettingsBase>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -40,7 +40,7 @@ public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
     }
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, bool, CurrentSettingsBase> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<Guid, string, string, bool, CurrentSettingsBase> Provider(IDalamudPluginInterface pi,
         IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) =>
         {
@@ -50,7 +50,7 @@ public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TryInheritMod"/>
-public sealed class TryInheritMod(DalamudPluginInterface pi)
+public sealed class TryInheritMod(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -61,12 +61,12 @@ public sealed class TryInheritMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)Invoke(collectionId, modDirectory, modName, inherit);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, bool, int> Provider(DalamudPluginInterface pi, IPenumbraApiModSettings api)
+    public static FuncProvider<Guid, string, string, bool, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) => (int)api.TryInheritMod(a, b, c, d));
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TrySetMod"/>
-public sealed class TrySetMod(DalamudPluginInterface pi)
+public sealed class TrySetMod(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -77,12 +77,12 @@ public sealed class TrySetMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)Invoke(collectionId, modDirectory, modName, inherit);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, bool, int> Provider(DalamudPluginInterface pi, IPenumbraApiModSettings api)
+    public static FuncProvider<Guid, string, string, bool, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) => (int)api.TrySetMod(a, b, c, d));
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModPriority"/>
-public sealed class TrySetModPriority(DalamudPluginInterface pi)
+public sealed class TrySetModPriority(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -93,12 +93,12 @@ public sealed class TrySetModPriority(DalamudPluginInterface pi)
         => (PenumbraApiEc)Invoke(collectionId, modDirectory, modName, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, int, int> Provider(DalamudPluginInterface pi, IPenumbraApiModSettings api)
+    public static FuncProvider<Guid, string, string, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) => (int)api.TrySetModPriority(a, b, c, d));
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSetting"/>
-public sealed class TrySetModSetting(DalamudPluginInterface pi)
+public sealed class TrySetModSetting(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -109,12 +109,12 @@ public sealed class TrySetModSetting(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectory, modName, optionGroupName, optionName);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiModSettings api)
+    public static FuncProvider<Guid, string, string, string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d, e) => (int)api.TrySetModSetting(a, b, c, d, e));
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSettings"/>
-public sealed class TrySetModSettings(DalamudPluginInterface pi)
+public sealed class TrySetModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, string, IReadOnlyList<string>, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -126,7 +126,7 @@ public sealed class TrySetModSettings(DalamudPluginInterface pi)
         => (PenumbraApiEc)Invoke(collectionId, modDirectory, modName, optionGroupName, optionNames);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, string, string, string, IReadOnlyList<string>, int> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<Guid, string, string, string, IReadOnlyList<string>, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d, e) => (int)api.TrySetModSettings(a, b, c, d, e));
 }
@@ -138,17 +138,17 @@ public static class ModSettingChanged
     public const string Label = $"Penumbra.{nameof(ModSettingChanged)}.V5";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<ModSettingChange, Guid, string, bool> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<ModSettingChange, Guid, string, bool> Subscriber(IDalamudPluginInterface pi,
         params Action<ModSettingChange, Guid, string, bool>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<ModSettingChange, Guid, string, bool> Provider(DalamudPluginInterface pi, IPenumbraApiModSettings api)
+    public static EventProvider<ModSettingChange, Guid, string, bool> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, t => api.ModSettingChanged += t.Invoke, t => api.ModSettingChanged -= t.Invoke);
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.CopyModSettings"/>
-public sealed class CopyModSettings(DalamudPluginInterface pi)
+public sealed class CopyModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid?, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -159,7 +159,7 @@ public sealed class CopyModSettings(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectoryFrom, modDirectoryTo);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid?, string, string, int> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<Guid?, string, string, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c) => (int)api.CopyModSettings(a, b, c));
 }

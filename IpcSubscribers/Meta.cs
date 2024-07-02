@@ -5,7 +5,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiMeta.GetPlayerMetaManipulations"/>
-public sealed class GetPlayerMetaManipulations(DalamudPluginInterface pi)
+public sealed class GetPlayerMetaManipulations(IDalamudPluginInterface pi)
     : FuncSubscriber<string>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -16,12 +16,12 @@ public sealed class GetPlayerMetaManipulations(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiMeta api)
+    public static FuncProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiMeta api)
         => new(pi, Label, api.GetPlayerMetaManipulations);
 }
 
 /// <inheritdoc cref="IPenumbraApiMeta.GetMetaManipulations"/>
-public sealed class GetMetaManipulations(DalamudPluginInterface pi)
+public sealed class GetMetaManipulations(IDalamudPluginInterface pi)
     : FuncSubscriber<int, string>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -32,6 +32,6 @@ public sealed class GetMetaManipulations(DalamudPluginInterface pi)
         => base.Invoke(gameObjectIdx);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<int, string> Provider(DalamudPluginInterface pi, IPenumbraApiMeta api)
+    public static FuncProvider<int, string> Provider(IDalamudPluginInterface pi, IPenumbraApiMeta api)
         => new(pi, Label, api.GetMetaManipulations);
 }

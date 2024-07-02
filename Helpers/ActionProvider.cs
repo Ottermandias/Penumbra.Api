@@ -10,7 +10,7 @@ public sealed class ActionProvider : IDisposable
 {
     private ICallGateProvider<object?>? _provider;
 
-    public ActionProvider(DalamudPluginInterface pi, string label, Action action)
+    public ActionProvider(IDalamudPluginInterface pi, string label, Action action)
     {
         try
         {
@@ -43,7 +43,7 @@ public sealed class ActionProvider<T1> : IDisposable
 {
     private ICallGateProvider<T1, object?>? _provider;
 
-    public ActionProvider(DalamudPluginInterface pi, string label, Action<T1> action)
+    public ActionProvider(IDalamudPluginInterface pi, string label, Action<T1> action)
     {
         try
         {
@@ -76,7 +76,7 @@ public sealed class ActionProvider<T1, T2> : IDisposable
 {
     private ICallGateProvider<T1, T2, object?>? _provider;
 
-    public ActionProvider(DalamudPluginInterface pi, string label, Action<T1, T2> action)
+    public ActionProvider(IDalamudPluginInterface pi, string label, Action<T1, T2> action)
     {
         try
         {
@@ -109,7 +109,7 @@ public sealed class ActionProvider<T1, T2, T3> : IDisposable
 {
     private ICallGateProvider<T1, T2, T3, object?>? _provider;
 
-    public ActionProvider(DalamudPluginInterface pi, string label, Action<T1, T2, T3> action)
+    public ActionProvider(IDalamudPluginInterface pi, string label, Action<T1, T2, T3> action)
     {
         try
         {

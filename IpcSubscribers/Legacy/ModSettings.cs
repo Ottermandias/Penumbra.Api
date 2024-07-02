@@ -9,7 +9,7 @@ namespace Penumbra.Api.IpcSubscribers.Legacy;
 
 using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, IDictionary<string, IList<string>>, bool)?>;
 
-public sealed class GetAvailableModSettings(DalamudPluginInterface pi)
+public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, IDictionary<string, (IList<string>, GroupType)>?>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetAvailableModSettings)}";
@@ -18,7 +18,7 @@ public sealed class GetAvailableModSettings(DalamudPluginInterface pi)
         => base.Invoke(modDirectory, modName);
 }
 
-public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
+public sealed class GetCurrentModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, bool, CurrentSettings>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetCurrentModSettings)}";
@@ -27,7 +27,7 @@ public sealed class GetCurrentModSettings(DalamudPluginInterface pi)
         => base.Invoke(collectionName, modDirectory, modName, ignoreInheritance);
 }
 
-public sealed class TryInheritMod(DalamudPluginInterface pi)
+public sealed class TryInheritMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, bool, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(TryInheritMod)}";
@@ -36,7 +36,7 @@ public sealed class TryInheritMod(DalamudPluginInterface pi)
         => Invoke(collectionName, modDirectory, modName, inherit);
 }
 
-public sealed class TrySetMod(DalamudPluginInterface pi)
+public sealed class TrySetMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, bool, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(TrySetMod)}";
@@ -45,7 +45,7 @@ public sealed class TrySetMod(DalamudPluginInterface pi)
         => Invoke(collectionName, modDirectory, modName, enabled);
 }
 
-public sealed class TrySetModPriority(DalamudPluginInterface pi)
+public sealed class TrySetModPriority(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModPriority)}";
@@ -54,7 +54,7 @@ public sealed class TrySetModPriority(DalamudPluginInterface pi)
         => Invoke(collectionName, modDirectory, modName, priority);
 }
 
-public sealed class TrySetModSetting(DalamudPluginInterface pi)
+public sealed class TrySetModSetting(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModSetting)}";
@@ -63,7 +63,7 @@ public sealed class TrySetModSetting(DalamudPluginInterface pi)
         => base.Invoke(collectionName, modDirectory, modName, groupName, setting);
 }
 
-public sealed class TrySetModSettings(DalamudPluginInterface pi)
+public sealed class TrySetModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, string, IReadOnlyList<string>, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModSettings)}";
@@ -77,12 +77,12 @@ public static class ModSettingChanged
 {
     public const string Label = $"Penumbra.{nameof(ModSettingChanged)}.V5";
 
-    public static EventSubscriber<ModSettingChange, string, string, bool> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<ModSettingChange, string, string, bool> Subscriber(IDalamudPluginInterface pi,
         params Action<ModSettingChange, string, string, bool>[] actions)
         => new(pi, Label, actions);
 }
 
-public sealed class CopyModSettings(DalamudPluginInterface pi)
+public sealed class CopyModSettings(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(CopyModSettings)}";

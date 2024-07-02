@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class OpenMainWindow(DalamudPluginInterface pi)
+public sealed class OpenMainWindow(IDalamudPluginInterface pi)
     : FuncSubscriber<TabType, string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(OpenMainWindow)}";

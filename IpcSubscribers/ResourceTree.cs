@@ -8,7 +8,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcePaths"/>
-public sealed class GetGameObjectResourcePaths(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourcePaths(IDalamudPluginInterface pi)
     : FuncSubscriber<ushort[], Dictionary<string, HashSet<string>>?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -19,13 +19,13 @@ public sealed class GetGameObjectResourcePaths(DalamudPluginInterface pi)
         => base.Invoke(gameObjectIndices);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<ushort[], Dictionary<string, HashSet<string>>?[]> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<ushort[], Dictionary<string, HashSet<string>>?[]> Provider(IDalamudPluginInterface pi,
         IPenumbraApiResourceTree api)
         => new(pi, Label, api.GetGameObjectResourcePaths);
 }
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcePaths"/>
-public sealed class GetPlayerResourcePaths(DalamudPluginInterface pi)
+public sealed class GetPlayerResourcePaths(IDalamudPluginInterface pi)
     : FuncSubscriber<Dictionary<ushort, Dictionary<string, HashSet<string>>>>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -36,13 +36,13 @@ public sealed class GetPlayerResourcePaths(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Dictionary<ushort, Dictionary<string, HashSet<string>>>> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<Dictionary<ushort, Dictionary<string, HashSet<string>>>> Provider(IDalamudPluginInterface pi,
         IPenumbraApiResourceTree api)
         => new(pi, Label, api.GetPlayerResourcePaths);
 }
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcesOfType"/>
-public sealed class GetGameObjectResourcesOfType(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourcesOfType(IDalamudPluginInterface pi)
     : FuncSubscriber<uint, bool, ushort[], IReadOnlyDictionary<nint, (string, string, uint)>?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -55,14 +55,14 @@ public sealed class GetGameObjectResourcesOfType(DalamudPluginInterface pi)
             d => (IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?)GameResourceDict.Create(d));
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<uint, bool, ushort[], IReadOnlyDictionary<nint, (string, string, uint)>?[]> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<uint, bool, ushort[], IReadOnlyDictionary<nint, (string, string, uint)>?[]> Provider(IDalamudPluginInterface pi,
         IPenumbraApiResourceTree api)
         => new(pi, Label,
             (a, b, c) => Array.ConvertAll(api.GetGameObjectResourcesOfType((ResourceType)a, b, c), d => d?.Original));
 }
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcesOfType"/>
-public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
+public sealed class GetPlayerResourcesOfType(IDalamudPluginInterface pi)
     : FuncSubscriber<uint, bool, Dictionary<ushort, IReadOnlyDictionary<nint, (string, string, uint)>>>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -75,7 +75,7 @@ public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<uint, bool, Dictionary<ushort, IReadOnlyDictionary<nint, (string, string, uint)>>> Provider(
-        DalamudPluginInterface pi,
+        IDalamudPluginInterface pi,
         IPenumbraApiResourceTree api)
         => new(pi, Label,
             (a, b) => api.GetPlayerResourcesOfType((ResourceType)a, b)
@@ -83,7 +83,7 @@ public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
 }
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourceTrees"/>
-public sealed class GetGameObjectResourceTrees(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourceTrees(IDalamudPluginInterface pi)
     : FuncSubscriber<bool, ushort[], JObject?[]>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -94,13 +94,13 @@ public sealed class GetGameObjectResourceTrees(DalamudPluginInterface pi)
         => Array.ConvertAll(base.Invoke(withUiData, gameObjectIndices), o => o?.ToObject<ResourceTreeDto>());
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<bool, ushort[], JObject?[]> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<bool, ushort[], JObject?[]> Provider(IDalamudPluginInterface pi,
         IPenumbraApiResourceTree api)
         => new(pi, Label, api.GetGameObjectResourceTrees);
 }
 
 /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourceTrees"/>
-public sealed class GetPlayerResourceTrees(DalamudPluginInterface pi)
+public sealed class GetPlayerResourceTrees(IDalamudPluginInterface pi)
     : FuncSubscriber<bool, Dictionary<ushort, JObject>>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -111,6 +111,6 @@ public sealed class GetPlayerResourceTrees(DalamudPluginInterface pi)
         => base.Invoke(withUiData).ToDictionary(kvp => kvp.Key, kvp => kvp.Value.ToObject<ResourceTreeDto>()!);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<bool, Dictionary<ushort, JObject>> Provider(DalamudPluginInterface pi, IPenumbraApiResourceTree api)
+    public static FuncProvider<bool, Dictionary<ushort, JObject>> Provider(IDalamudPluginInterface pi, IPenumbraApiResourceTree api)
         => new(pi, Label, api.GetPlayerResourceTrees);
 }

@@ -10,7 +10,7 @@ public sealed class FuncProvider<TRet> : IDisposable
 {
     private ICallGateProvider<TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<TRet> func)
     {
         try
         {
@@ -41,7 +41,7 @@ public sealed class FuncProvider<T1, TRet> : IDisposable
 {
     private ICallGateProvider<T1, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, TRet> func)
     {
         try
         {
@@ -72,7 +72,7 @@ public sealed class FuncProvider<T1, T2, TRet> : IDisposable
 {
     private ICallGateProvider<T1, T2, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, T2, TRet> func)
     {
         try
         {
@@ -103,7 +103,7 @@ public sealed class FuncProvider<T1, T2, T3, TRet> : IDisposable
 {
     private ICallGateProvider<T1, T2, T3, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, T3, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, T2, T3, TRet> func)
     {
         try
         {
@@ -134,7 +134,7 @@ public sealed class FuncProvider<T1, T2, T3, T4, TRet> : IDisposable
 {
     private ICallGateProvider<T1, T2, T3, T4, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, TRet> func)
     {
         try
         {
@@ -165,7 +165,7 @@ public sealed class FuncProvider<T1, T2, T3, T4, T5, TRet> : IDisposable
 {
     private ICallGateProvider<T1, T2, T3, T4, T5, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, T5, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, T5, TRet> func)
     {
         try
         {
@@ -196,7 +196,7 @@ public sealed class FuncProvider<T1, T2, T3, T4, T5, T6, TRet> : IDisposable
 {
     private ICallGateProvider<T1, T2, T3, T4, T5, T6, TRet>? _provider;
 
-    public FuncProvider(DalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, T5, T6, TRet> func)
+    public FuncProvider(IDalamudPluginInterface pi, string label, Func<T1, T2, T3, T4, T5, T6, TRet> func)
     {
         try
         {

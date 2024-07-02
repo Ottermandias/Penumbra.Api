@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class GetDrawObjectInfo(DalamudPluginInterface pi)
+public sealed class GetDrawObjectInfo(IDalamudPluginInterface pi)
     : FuncSubscriber<nint, (nint, string)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetDrawObjectInfo)}";
@@ -15,7 +15,7 @@ public sealed class GetDrawObjectInfo(DalamudPluginInterface pi)
         => base.Invoke(drawObjectAddress);
 }
 
-public sealed class SetCutsceneParentIndex(DalamudPluginInterface pi)
+public sealed class SetCutsceneParentIndex(IDalamudPluginInterface pi)
     : FuncSubscriber<int, int, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}";
@@ -28,7 +28,7 @@ public static class CreatingCharacterBase
 {
     public const string Label = $"Penumbra.{nameof(CreatingCharacterBase)}";
 
-    public static EventSubscriber<nint, string, nint, nint, nint> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<nint, string, nint, nint, nint> Subscriber(IDalamudPluginInterface pi,
         params Action<nint, string, nint, nint, nint>[] actions)
         => new(pi, Label, actions);
 }
@@ -37,7 +37,7 @@ public static class CreatedCharacterBase
 {
     public const string Label = $"Penumbra.{nameof(CreatedCharacterBase)}";
 
-    public static EventSubscriber<nint, string, nint> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<nint, string, nint> Subscriber(IDalamudPluginInterface pi,
         params Action<nint, string, nint>[] actions)
         => new(pi, Label, actions);
 }

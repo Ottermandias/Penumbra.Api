@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiTemporary.CreateTemporaryCollection"/>
-public sealed class CreateTemporaryCollection(DalamudPluginInterface pi)
+public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<string, Guid>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -17,12 +17,12 @@ public sealed class CreateTemporaryCollection(DalamudPluginInterface pi)
         => base.Invoke(name);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid> Provider(DalamudPluginInterface pi, IPenumbraApiTemporary api)
+    public static FuncProvider<string, Guid> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, api.CreateTemporaryCollection);
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.DeleteTemporaryCollection"/>
-public sealed class DeleteTemporaryCollection(DalamudPluginInterface pi)
+public sealed class DeleteTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -33,12 +33,12 @@ public sealed class DeleteTemporaryCollection(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(collectionId);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, int> Provider(DalamudPluginInterface pi, IPenumbraApiTemporary api)
+    public static FuncProvider<Guid, int> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, g => (int)api.DeleteTemporaryCollection(g));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.AssignTemporaryCollection"/>
-public sealed class AssignTemporaryCollection(DalamudPluginInterface pi)
+public sealed class AssignTemporaryCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, int, bool, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -49,12 +49,12 @@ public sealed class AssignTemporaryCollection(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(collectionId, actorIndex, forceAssignment);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Guid, int, bool, int> Provider(DalamudPluginInterface pi, IPenumbraApiTemporary api)
+    public static FuncProvider<Guid, int, bool, int> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, (a, b, c) => (int)api.AssignTemporaryCollection(a, b, c));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryModAll"/>
-public sealed class AddTemporaryModAll(DalamudPluginInterface pi)
+public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
     : FuncSubscriber<string, Dictionary<string, string>, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -65,13 +65,13 @@ public sealed class AddTemporaryModAll(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Dictionary<string, string>, string, int, int> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<string, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiTemporary api)
         => new(pi, Label, (a, b, c, d) => (int)api.AddTemporaryModAll(a, b, c, d));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryMod"/>
-public sealed class AddTemporaryMod(DalamudPluginInterface pi)
+public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, Guid, Dictionary<string, string>, string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -82,13 +82,13 @@ public sealed class AddTemporaryMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid, Dictionary<string, string>, string, int, int> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<string, Guid, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiTemporary api)
         => new(pi, Label, (a, b, c, d, e) => (int)api.AddTemporaryMod(a, b, c, d, e));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModAll"/>
-public sealed class RemoveTemporaryModAll(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryModAll(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -99,13 +99,13 @@ public sealed class RemoveTemporaryModAll(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, int, int> Provider(DalamudPluginInterface pi,
+    public static FuncProvider<string, int, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiTemporary api)
         => new(pi, Label, (a, b) => (int)api.RemoveTemporaryModAll(a, b));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryMod"/>
-public sealed class RemoveTemporaryMod(DalamudPluginInterface pi)
+public sealed class RemoveTemporaryMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, Guid, int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -116,6 +116,6 @@ public sealed class RemoveTemporaryMod(DalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid, int, int> Provider(DalamudPluginInterface pi, IPenumbraApiTemporary api)
+    public static FuncProvider<string, Guid, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, (a, b, c) => (int)api.RemoveTemporaryMod(a, b, c));
 }

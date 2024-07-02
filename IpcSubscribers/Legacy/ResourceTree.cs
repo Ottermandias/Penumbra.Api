@@ -7,7 +7,7 @@ using ResourceType = Penumbra.Api.Enums.ResourceType;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class GetGameObjectResourcePaths(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourcePaths(IDalamudPluginInterface pi)
     : FuncSubscriber<ushort[], IReadOnlyDictionary<string, string[]>?[]>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}";
@@ -16,7 +16,7 @@ public sealed class GetGameObjectResourcePaths(DalamudPluginInterface pi)
         => base.Invoke(objectIndices);
 }
 
-public sealed class GetPlayerResourcePaths(DalamudPluginInterface pi)
+public sealed class GetPlayerResourcePaths(IDalamudPluginInterface pi)
     : FuncSubscriber<IReadOnlyDictionary<ushort, IReadOnlyDictionary<string, string[]>>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetPlayerResourcePaths)}";
@@ -25,7 +25,7 @@ public sealed class GetPlayerResourcePaths(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class GetGameObjectResourcesOfType(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourcesOfType(IDalamudPluginInterface pi)
     : FuncSubscriber<ResourceType, bool, ushort[], IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?[]>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}";
@@ -35,7 +35,7 @@ public sealed class GetGameObjectResourcesOfType(DalamudPluginInterface pi)
         => base.Invoke(type, withUiData, indices);
 }
 
-public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
+public sealed class GetPlayerResourcesOfType(IDalamudPluginInterface pi)
     : FuncSubscriber<ResourceType, bool, IReadOnlyDictionary<ushort, IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}";
@@ -45,7 +45,7 @@ public sealed class GetPlayerResourcesOfType(DalamudPluginInterface pi)
         => base.Invoke(type, withUiData);
 }
 
-public sealed class GetGameObjectResourceTrees(DalamudPluginInterface pi)
+public sealed class GetGameObjectResourceTrees(IDalamudPluginInterface pi)
     : FuncSubscriber<bool, ushort[], ResourceTree?[]>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
@@ -54,7 +54,7 @@ public sealed class GetGameObjectResourceTrees(DalamudPluginInterface pi)
         => base.Invoke(withUiData, indices);
 }
 
-public sealed class GetPlayerResourceTrees(DalamudPluginInterface pi)
+public sealed class GetPlayerResourceTrees(IDalamudPluginInterface pi)
     : FuncSubscriber<bool, IReadOnlyDictionary<ushort, ResourceTree>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";

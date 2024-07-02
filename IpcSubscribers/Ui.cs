@@ -12,12 +12,12 @@ public static class ChangedItemTooltip
     public const string Label = $"Penumbra.{nameof(ChangedItemTooltip)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<ChangedItemType, uint> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<ChangedItemType, uint> Subscriber(IDalamudPluginInterface pi,
         params Action<ChangedItemType, uint>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<ChangedItemType, uint> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<ChangedItemType, uint> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.ChangedItemTooltip += d, d => api.ChangedItemTooltip -= d));
 }
 
@@ -28,12 +28,12 @@ public static class ChangedItemClicked
     public const string Label = $"Penumbra.{nameof(ChangedItemClicked)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<MouseButton, ChangedItemType, uint> Subscriber(DalamudPluginInterface pi,
+    public static EventSubscriber<MouseButton, ChangedItemType, uint> Subscriber(IDalamudPluginInterface pi,
         params Action<MouseButton, ChangedItemType, uint>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<MouseButton, ChangedItemType, uint> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<MouseButton, ChangedItemType, uint> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.ChangedItemClicked += d, d => api.ChangedItemClicked -= d));
 }
 
@@ -44,11 +44,11 @@ public static class PreSettingsTabBarDraw
     public const string Label = $"Penumbra.{nameof(PreSettingsTabBarDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string, float, float> Subscriber(DalamudPluginInterface pi, params Action<string, float, float>[] actions)
+    public static EventSubscriber<string, float, float> Subscriber(IDalamudPluginInterface pi, params Action<string, float, float>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string, float, float> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<string, float, float> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.PreSettingsTabBarDraw += d, d => api.PreSettingsTabBarDraw -= d));
 }
 
@@ -59,11 +59,11 @@ public static class PreSettingsDraw
     public const string Label = $"Penumbra.{nameof(PreSettingsDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+    public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.PreSettingsPanelDraw += d, d => api.PreSettingsPanelDraw -= d));
 }
 
@@ -74,11 +74,11 @@ public static class PostEnabledDraw
     public const string Label = $"Penumbra.{nameof(PostEnabledDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+    public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.PostEnabledDraw += d, d => api.PostEnabledDraw -= d));
 }
 
@@ -89,16 +89,16 @@ public static class PostSettingsDraw
     public const string Label = $"Penumbra.{nameof(PostSettingsDraw)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<string> Subscriber(DalamudPluginInterface pi, params Action<string>[] actions)
+    public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<string> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static EventProvider<string> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (d => api.PostSettingsPanelDraw += d, d => api.PostSettingsPanelDraw -= d));
 }
 
 /// <inheritdoc cref="IPenumbraApiUi.OpenMainWindow"/>
-public sealed class OpenMainWindow(DalamudPluginInterface pi)
+public sealed class OpenMainWindow(IDalamudPluginInterface pi)
     : FuncSubscriber<int, string, string, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -109,12 +109,12 @@ public sealed class OpenMainWindow(DalamudPluginInterface pi)
         => (PenumbraApiEc)Invoke((int)tab, modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<int, string, string, int> Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static FuncProvider<int, string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, (a, b, c) => (int)api.OpenMainWindow((TabType)a, b, c));
 }
 
 /// <inheritdoc cref="IPenumbraApiUi.CloseMainWindow"/>
-public sealed class CloseMainWindow(DalamudPluginInterface pi)
+public sealed class CloseMainWindow(IDalamudPluginInterface pi)
     : ActionSubscriber(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -125,6 +125,6 @@ public sealed class CloseMainWindow(DalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static ActionProvider Provider(DalamudPluginInterface pi, IPenumbraApiUi api)
+    public static ActionProvider Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, api.CloseMainWindow);
 }

@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiRedraw.RedrawObject"/>
-public sealed class RedrawObject(DalamudPluginInterface pi)
+public sealed class RedrawObject(IDalamudPluginInterface pi)
     : ActionSubscriber<int, int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -17,12 +17,12 @@ public sealed class RedrawObject(DalamudPluginInterface pi)
         => base.Invoke(gameObjectIndex, (int)setting);
 
     /// <summary> Create a provider. </summary>
-    public static ActionProvider<int, int> Provider(DalamudPluginInterface pi, IPenumbraApiRedraw api)
+    public static ActionProvider<int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiRedraw api)
         => new(pi, Label, (a, b) => api.RedrawObject(a, (RedrawType)b));
 }
 
 /// <inheritdoc cref="IPenumbraApiRedraw.RedrawAll"/>
-public sealed class RedrawAll(DalamudPluginInterface pi)
+public sealed class RedrawAll(IDalamudPluginInterface pi)
     : ActionSubscriber<int>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -33,7 +33,7 @@ public sealed class RedrawAll(DalamudPluginInterface pi)
         => base.Invoke((int)setting);
 
     /// <summary> Create a provider. </summary>
-    public static ActionProvider<int> Provider(DalamudPluginInterface pi, IPenumbraApiRedraw api)
+    public static ActionProvider<int> Provider(IDalamudPluginInterface pi, IPenumbraApiRedraw api)
         => new(pi, Label, a => api.RedrawAll((RedrawType)a));
 }
 
@@ -44,10 +44,10 @@ public static class GameObjectRedrawn
     public const string Label = $"Penumbra.{nameof(GameObjectRedrawn)}";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<nint, int> Subscriber(DalamudPluginInterface pi, params Action<nint, int>[] actions)
+    public static EventSubscriber<nint, int> Subscriber(IDalamudPluginInterface pi, params Action<nint, int>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<nint, int> Provider(DalamudPluginInterface pi, IPenumbraApiRedraw api)
+    public static EventProvider<nint, int> Provider(IDalamudPluginInterface pi, IPenumbraApiRedraw api)
         => new(pi, Label, t => api.GameObjectRedrawn += t.Invoke, t => api.GameObjectRedrawn -= t.Invoke);
 }

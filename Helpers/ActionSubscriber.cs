@@ -14,7 +14,7 @@ public class ActionSubscriber
     public bool Valid
         => _subscriber != null;
 
-    protected ActionSubscriber(DalamudPluginInterface pi, string label)
+    protected ActionSubscriber(IDalamudPluginInterface pi, string label)
     {
         try
         {
@@ -41,7 +41,7 @@ public class ActionSubscriber<T1>
     public bool Valid
         => _subscriber != null;
 
-    protected ActionSubscriber(DalamudPluginInterface pi, string label)
+    protected ActionSubscriber(IDalamudPluginInterface pi, string label)
     {
         try
         {
@@ -68,7 +68,7 @@ public class ActionSubscriber<T1, T2>
     public bool Valid
         => _subscriber != null;
 
-    protected ActionSubscriber(DalamudPluginInterface pi, string label)
+    protected ActionSubscriber(IDalamudPluginInterface pi, string label)
     {
         try
         {
@@ -95,7 +95,7 @@ public class ActionSubscriber<T1, T2, T3>
     public bool Valid
         => _subscriber != null;
 
-    protected ActionSubscriber(DalamudPluginInterface pi, string label)
+    protected ActionSubscriber(IDalamudPluginInterface pi, string label)
     {
         try
         {

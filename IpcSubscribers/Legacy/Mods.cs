@@ -6,7 +6,7 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers.Legacy;
 
-public sealed class GetMods(DalamudPluginInterface pi)
+public sealed class GetMods(IDalamudPluginInterface pi)
     : FuncSubscriber<IList<(string, string)>>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetMods)}";
@@ -15,7 +15,7 @@ public sealed class GetMods(DalamudPluginInterface pi)
         => base.Invoke();
 }
 
-public sealed class ReloadMod(DalamudPluginInterface pi)
+public sealed class ReloadMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(ReloadMod)}";
@@ -24,7 +24,7 @@ public sealed class ReloadMod(DalamudPluginInterface pi)
         => base.Invoke(modDirectory, modName);
 }
 
-public sealed class InstallMod(DalamudPluginInterface pi)
+public sealed class InstallMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(InstallMod)}";
@@ -33,7 +33,7 @@ public sealed class InstallMod(DalamudPluginInterface pi)
         => base.Invoke(modDirectory);
 }
 
-public sealed class AddMod(DalamudPluginInterface pi)
+public sealed class AddMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(AddMod)}";
@@ -42,7 +42,7 @@ public sealed class AddMod(DalamudPluginInterface pi)
         => base.Invoke(modDirectory);
 }
 
-public sealed class DeleteMod(DalamudPluginInterface pi)
+public sealed class DeleteMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(DeleteMod)}";
@@ -51,7 +51,7 @@ public sealed class DeleteMod(DalamudPluginInterface pi)
         => base.Invoke(modDirectory, modName);
 }
 
-public sealed class GetModPath(DalamudPluginInterface pi)
+public sealed class GetModPath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, (PenumbraApiEc, string, bool)>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(GetModPath)}";
@@ -60,7 +60,7 @@ public sealed class GetModPath(DalamudPluginInterface pi)
         => base.Invoke(modDirectory, modName);
 }
 
-public sealed class SetModPath(DalamudPluginInterface pi)
+public sealed class SetModPath(IDalamudPluginInterface pi)
     : FuncSubscriber<string, string, string, PenumbraApiEc>(pi, Label)
 {
     public const string Label = $"Penumbra.{nameof(SetModPath)}";

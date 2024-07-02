@@ -17,7 +17,7 @@ public class FuncSubscriber<TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -47,7 +47,7 @@ public class FuncSubscriber<T1, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -77,7 +77,7 @@ public class FuncSubscriber<T1, T2, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -107,7 +107,7 @@ public class FuncSubscriber<T1, T2, T3, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -137,7 +137,7 @@ public class FuncSubscriber<T1, T2, T3, T4, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -167,7 +167,7 @@ public class FuncSubscriber<T1, T2, T3, T4, T5, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
@@ -197,7 +197,7 @@ public class FuncSubscriber<T1, T2, T3, T4, T5, T6, TRet>
         => _subscriber != null;
 
     /// <inheritdoc cref="FuncSubscriber{TRet}"/>
-    protected FuncSubscriber(DalamudPluginInterface pi, string label)
+    protected FuncSubscriber(IDalamudPluginInterface pi, string label)
     {
         _label = label;
         try
