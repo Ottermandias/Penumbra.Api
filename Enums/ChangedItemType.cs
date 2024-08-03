@@ -11,4 +11,6 @@ public enum ChangedItemType
     Customization,
     ItemOffhand,
     Unknown,
+    Emote,
+    Model,
 }
