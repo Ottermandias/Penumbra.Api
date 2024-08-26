@@ -31,4 +31,7 @@ public enum TextureType
 
     /// <summary> Convert the texture to BC3 and save as .dds. </summary>
     Bc7Dds = 8,
+
+    /// <summary> Convert the texture to .tga. </summary>
+    Targa = 9,
 }
