@@ -5,12 +5,13 @@ namespace Penumbra.Api.Enums;
 /// </summary>
 public enum ChangedItemType
 {
-    None,
-    Item,
-    Action,
-    Customization,
-    ItemOffhand,
-    Unknown,
-    Emote,
-    Model,
+    None          = 0,
+    Item          = 1,
+    Action        = 2,
+    Customization = 3,
+    ItemOffhand   = 4,
+    Unknown       = 5,
+    Emote         = 6,
+    Model         = 7,
+    CustomArmor   = 8,
 }
