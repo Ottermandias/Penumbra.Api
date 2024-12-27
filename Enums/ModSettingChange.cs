@@ -28,4 +28,7 @@ public enum ModSettingChange
 
     /// <summary> A mod was edited. Only invoked on edits affecting the current players collection and for that for now. </summary>
     Edited,
+
+    /// <summary> A temporary setting was added, removed or changed. </summary>
+    TemporarySetting,
 }

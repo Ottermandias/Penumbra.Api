@@ -25,5 +25,8 @@ public enum PenumbraApiEc
     InvalidIdentifier            = 16,
     SystemDisposed               = 17,
     AssignmentDeletionFailed     = 18,
+
+    TemporarySettingDisallowed   = 19,
+
     UnknownError                 = 255,
 }
