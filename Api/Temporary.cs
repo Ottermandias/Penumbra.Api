@@ -5,6 +5,64 @@ namespace Penumbra.Api.Api;
 /// <summary> API methods pertaining to the management of temporary collections and mods. </summary>
 public interface IPenumbraApiTemporary
 {
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="collectionId"> The collection to manipulate. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="inherit"> Whether the mod should be forced to inherit from parent collections (if this is true, the other settings do not matter). </param>
+    /// <param name="enabled"> Whether the mod should be enabled or disabled. </param>
+    /// <param name="priority"> The desired priority for the mod. </param>
+    /// <param name="options"> The new settings for the mod, as a map of Group Name -> All enabled Options (should be only one for single select groups).</param>
+    /// <param name="source"> A string to describe the source of those temporary settings. This is displayed to the user. </param>
+    /// <param name="key"> An optional lock to prevent other plugins and the user from changing these settings. Changes in mod structure will still remove the settings. Use 0 for no lock. </param>
+    /// <returns> Success, CollectionMissing if the collection does not exist, TemporarySettingImpossible if the collection can not have settings, ModMissing if the mod can not be identified, TemporarySettingDisallowed if there is already a temporary setting with a different key, OptionGroupMissing if a group can not be found, OptionMissing if an option can not be found. </returns>
+    /// <remarks> If not all groups are set in <paramref name="options"/>, they will be set to their default settings. </remarks>
+    public PenumbraApiEc SetTemporaryModSettings(Guid collectionId, string modDirectory, string modName, bool inherit, bool enabled, int priority,
+        IReadOnlyDictionary<string, IReadOnlyList<string>> options, string source, int key);
+
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="objectIndex"> The game object index of the object whose collection you want to change. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="inherit"> Whether the mod should be forced to inherit from parent collections (if this is true, the other settings do not matter). </param>
+    /// <param name="enabled"> Whether the mod should be enabled or disabled. </param>
+    /// <param name="priority"> The desired priority for the mod. </param>
+    /// <param name="options"> The new settings for the mod, as a map of Group Name -> All enabled Options (should be only one for single select groups).</param>
+    /// <param name="source"> A string to describe the source of those temporary settings. This is displayed to the user. </param>
+    /// <param name="key"> An optional lock to prevent other plugins and the user from changing these settings. Changes in mod structure will still remove the settings. Use 0 for no lock. </param>
+    /// <returns> Success, InvalidArgument if the game object does not exist, TemporarySettingImpossible if the collection can not have settings, ModMissing if the mod can not be identified, TemporarySettingDisallowed if there is already a temporary setting with a different key, OptionGroupMissing if a group can not be found, OptionMissing if an option can not be found. </returns>
+    /// <remarks> If not all groups are set in <paramref name="options"/>, they will be set to their default settings. </remarks>
+    public PenumbraApiEc SetTemporaryModSettingsPlayer(int objectIndex, string modDirectory, string modName, bool inherit, bool enabled, int priority,
+        IReadOnlyDictionary<string, IReadOnlyList<string>> options, string source, int key);
+
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="collectionId"> The collection to manipulate. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="key"> An optional key to a potential lock applied to those settings. </param>
+    /// <returns> Success, NothingDone if no temporary settings could be removed with this key, CollectionMissing if the collection does not exist, TemporarySettingDisallowed if the key did not correspond to the lock. </returns>
+    public PenumbraApiEc RemoveTemporaryModSettings(Guid collectionId, string modDirectory, string modName, int key);
+
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="objectIndex"> The game object index of the object whose collection you want to change. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="key"> An optional key to a potential lock applied to those settings. </param>
+    /// <returns> Success, NothingDone if the mod did not have temporary settings in this collection, InvalidArgument if the game object does not exist, TemporarySettingDisallowed if the key did not correspond to the lock. </returns>
+    public PenumbraApiEc RemoveTemporaryModSettingsPlayer(int objectIndex, string modDirectory, string modName, int key);
+
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="collectionId"> The collection to manipulate. </param>
+    /// <param name="key"> An optional key to a lock applied to those settings. All settings that can be removed with this key will be removed, all others ignored. </param>
+    /// <returns> Success, NothingDone if no temporary settings could be removed with this key, CollectionMissing if the collection does not exist. </returns>
+    public PenumbraApiEc RemoveAllTemporaryModSettings(Guid collectionId, int key);
+
+    /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
+    /// <param name="objectIndex"> The game object index of the object whose collection you want to change. </param>
+    /// <param name="key"> An optional key to a lock applied to those settings. All settings that can be removed with this key will be removed, all others ignored. </param>
+    /// <returns> Success, NothingDone if no temporary settings could be removed with this key, InvalidArgument if the game object does not exist. </returns>
+    public PenumbraApiEc RemoveAllTemporaryModSettingsPlayer(int objectIndex, int key);
+
     /// <summary> Create a temporary collection. </summary>
     /// <param name="name"> The name for the collection. Arbitrary and only used internally for debugging. </param>
     /// <returns> The GUID of the created temporary collection. </returns>
