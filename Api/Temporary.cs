@@ -14,7 +14,7 @@ public interface IPenumbraApiTemporary
     /// <param name="priority"> The desired priority for the mod. </param>
     /// <param name="options"> The new settings for the mod, as a map of Group Name -> All enabled Options (should be only one for single select groups).</param>
     /// <param name="source"> A string to describe the source of those temporary settings. This is displayed to the user. </param>
-    /// <param name="key"> An optional lock to prevent other plugins and the user from changing these settings. Changes in mod structure will still remove the settings. Use 0 for no lock. </param>
+    /// <param name="key"> An optional lock to prevent other plugins and the user from changing these settings. Changes in mod structure will still remove the settings. Use 0 for no lock, or negative numbers for an identification lock that does not prevent the user from editing the temporary settings, but allows you to use <seealso cref="RemoveAllTemporaryModSettings"/> with the same key to only remove your settings. </param>
     /// <returns> Success, CollectionMissing if the collection does not exist, TemporarySettingImpossible if the collection can not have settings, ModMissing if the mod can not be identified, TemporarySettingDisallowed if there is already a temporary setting with a different key, OptionGroupMissing if a group can not be found, OptionMissing if an option can not be found. </returns>
     /// <remarks> If not all groups are set in <paramref name="options"/>, they will be set to their default settings. </remarks>
     public PenumbraApiEc SetTemporaryModSettings(Guid collectionId, string modDirectory, string modName, bool inherit, bool enabled, int priority,
@@ -53,7 +53,7 @@ public interface IPenumbraApiTemporary
 
     /// <summary> Temporarily set the settings of a mod in a collection to given values. </summary>
     /// <param name="collectionId"> The collection to manipulate. </param>
-    /// <param name="key"> An optional key to a lock applied to those settings. All settings that can be removed with this key will be removed, all others ignored. </param>
+    /// <param name="key"> An optional key to a lock applied to those settings. All settings that use this key will be removed, all others ignored. </param>
     /// <returns> Success, NothingDone if no temporary settings could be removed with this key, CollectionMissing if the collection does not exist. </returns>
     public PenumbraApiEc RemoveAllTemporaryModSettings(Guid collectionId, int key);
 

@@ -131,8 +131,8 @@ public sealed class SetTemporaryModSettings(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(SetTemporaryModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.SetTemporaryModSettings"/>
-    public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string modName, bool inherit, bool enabled, int priority,
-        IReadOnlyDictionary<string, IReadOnlyList<string>> settings, string source, int key = 0)
+    public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, bool inherit, bool enabled, int priority,
+        IReadOnlyDictionary<string, IReadOnlyList<string>> settings, string source, int key = 0, string modName = "")
         => (PenumbraApiEc)Invoke(collectionId, modDirectory, modName, (inherit, enabled, priority, settings), source, key);
 
     /// <summary> Create a provider. </summary>
@@ -149,8 +149,8 @@ public sealed class SetTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(SetTemporaryModSettingsPlayer)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.SetTemporaryModSettingsPlayer"/>
-    public PenumbraApiEc Invoke(int objectIndex, string modDirectory, string modName, bool inherit, bool enabled, int priority,
-        IReadOnlyDictionary<string, IReadOnlyList<string>> settings, string source, int key = 0)
+    public PenumbraApiEc Invoke(int objectIndex, string modDirectory, bool inherit, bool enabled, int priority,
+        IReadOnlyDictionary<string, IReadOnlyList<string>> settings, string source, int key = 0, string modName = "")
         => (PenumbraApiEc)Invoke(objectIndex, modDirectory, modName, (inherit, enabled, priority, settings), source, key);
 
     /// <summary> Create a provider. </summary>
@@ -167,7 +167,7 @@ public sealed class RemoveTemporaryModSettings(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettings"/>
-    public new PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string modName, int key = 0)
+    public new PenumbraApiEc Invoke(Guid collectionId, string modDirectory, int key = 0, string modName = "")
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectory, modName, key);
 
     /// <summary> Create a provider. </summary>
@@ -183,7 +183,7 @@ public sealed class RemoveTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettingsPlayer)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettingsPlayer"/>
-    public new PenumbraApiEc Invoke(int objectIndex, string modDirectory, string modName, int key = 0)
+    public new PenumbraApiEc Invoke(int objectIndex, string modDirectory, int key = 0, string modName = "")
         => (PenumbraApiEc)base.Invoke(objectIndex, modDirectory, modName, key);
 
     /// <summary> Create a provider. </summary>
