@@ -167,7 +167,7 @@ public sealed class RemoveTemporaryModSettings(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettings)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettings"/>
-    public new PenumbraApiEc Invoke(Guid collectionId, string modDirectory, int key = 0, string modName = "")
+    public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, int key = 0, string modName = "")
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectory, modName, key);
 
     /// <summary> Create a provider. </summary>
@@ -183,7 +183,7 @@ public sealed class RemoveTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettingsPlayer)}.V5";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettingsPlayer"/>
-    public new PenumbraApiEc Invoke(int objectIndex, string modDirectory, int key = 0, string modName = "")
+    public PenumbraApiEc Invoke(int objectIndex, string modDirectory, int key = 0, string modName = "")
         => (PenumbraApiEc)base.Invoke(objectIndex, modDirectory, modName, key);
 
     /// <summary> Create a provider. </summary>
