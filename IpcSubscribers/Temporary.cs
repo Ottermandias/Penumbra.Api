@@ -222,3 +222,55 @@ public sealed class RemoveAllTemporaryModSettingsPlayer(IDalamudPluginInterface 
     public static FuncProvider<int, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, (a, b) => (int)api.RemoveAllTemporaryModSettingsPlayer(a, b));
 }
+
+/// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettings"/>
+public sealed class QueryTemporaryModSettings(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, string, string, int, (int, (bool, bool, int, Dictionary<string, List<string>>)?, string)>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(QueryTemporaryModSettings)}.V5";
+
+    /// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettings"/>
+    public PenumbraApiEc Invoke(Guid collectionId, string modDirectory,
+        out (bool ForceInherit, bool Enabled, int Priority, Dictionary<string, List<string>> Settings)? settings, out string source,
+        int key = 0, string modName = "")
+    {
+        (var ec, settings, source) = Invoke(collectionId, modDirectory, modName, key);
+        return (PenumbraApiEc)ec;
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, string, string, int, (int, (bool, bool, int, Dictionary<string, List<string>>)?, string)> Provider(
+        IDalamudPluginInterface pi, IPenumbraApiTemporary api)
+        => new(pi, Label, (a, b, c, d) =>
+        {
+            var (ex, settings, source) = api.QueryTemporaryModSettings(a, b, c, d);
+            return ((int)ex, settings, source);
+        });
+}
+
+/// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettingsPlayer"/>
+public sealed class QueryTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
+    : FuncSubscriber<int, string, string, int, (int, (bool, bool, int, Dictionary<string, List<string>>)?, string)>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(QueryTemporaryModSettingsPlayer)}.V5";
+
+    /// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettingsPlayer"/>
+    public PenumbraApiEc Invoke(int objectIndex, string modDirectory,
+        out (bool ForceInherit, bool Enabled, int Priority, Dictionary<string, List<string>> Settings)? settings, out string source,
+        int key = 0, string modName = "")
+    {
+        (var ec, settings, source) = Invoke(objectIndex, modDirectory, modName, key);
+        return (PenumbraApiEc)ec;
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<int, string, string, int, (int, (bool, bool, int, Dictionary<string, List<string>>)?, string)> Provider(
+        IDalamudPluginInterface pi, IPenumbraApiTemporary api)
+        => new(pi, Label, (a, b, c, d) =>
+        {
+            var (ex, settings, source) = api.QueryTemporaryModSettingsPlayer(a, b, c, d);
+            return ((int)ex, settings, source);
+        });
+}

@@ -119,4 +119,29 @@ public interface IPenumbraApiTemporary
     /// <param name="priority">The initially provided priority.</param>
     /// <returns>CollectionMissing, NothingDone or Success.</returns>
     public PenumbraApiEc RemoveTemporaryMod(string tag, Guid collectionId, int priority);
+
+    /// <summary> Get the current temporary settings of a mod in the given collection. </summary>
+    /// <param name="collectionId"> The collection to query. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="key"> The key for the settings lock.</param>
+    /// <returns>
+    /// The settings as (ForceInherit, Enabled, Priority, Settings) or null if none are registered,
+    /// the registered source for the temporary settings or empty,
+    /// and Success, CollectionMissing, ModMissing or TemporarySettingDisallowed if the used key was > 0 and different from the provided key.
+    /// </returns>
+    public (PenumbraApiEc ErrorCode, (bool, bool, int, Dictionary<string, List<string>>)?, string) QueryTemporaryModSettings(Guid collectionId, string modDirectory,
+        string modName, int key);
+
+    /// <summary> Get the current temporary settings of a mod in the collection assigned to a given game object. </summary>
+    /// <param name="objectIndex"> The game object index of the object whose collection you want to change. </param>
+    /// <param name="modDirectory"> Specify the mod via its directory name. </param>
+    /// <param name="modName"> Specify the mod via its (non-unique) display name. </param>
+    /// <param name="key"> The key for the settings lock.</param>
+    /// <returns>
+    /// The settings as (ForceInherit, Enabled, Priority, Settings) or null if none are registered,
+    /// the registered source for the temporary settings or empty,
+    /// and Success, InvalidArgument if the game object does not exist, ModMissing, or TemporarySettingDisallowed if the used key was > 0 and different from the provided key.
+    /// </returns>
+    public (PenumbraApiEc ErrorCode, (bool, bool, int, Dictionary<string, List<string>>)? Settings, string Source) QueryTemporaryModSettingsPlayer(int objectIndex, string modDirectory, string modName, int key);
 }
