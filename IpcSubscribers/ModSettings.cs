@@ -7,6 +7,8 @@ namespace Penumbra.Api.IpcSubscribers;
 
 using CurrentSettingsBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool)?>;
 using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?>;
+using CurrentSettingsTempBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
+using CurrentSettingsTemp = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
 
 /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
 public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
@@ -45,6 +47,57 @@ public sealed class GetCurrentModSettings(IDalamudPluginInterface pi)
         => new(pi, Label, (a, b, c, d) =>
         {
             var (ret, t) = api.GetCurrentModSettings(a, b, c, d);
+            return ((int)ret, t);
+        });
+}
+
+/// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettingsWithTemp"/>
+public sealed class GetCurrentModSettingsWithTemp(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, string, string, bool, bool, int, CurrentSettingsTempBase>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetCurrentModSettingsWithTemp)}";
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettingsWithTemp"/>
+    public new CurrentSettingsTemp Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false,
+        bool ignoreTemporary = false, int key = 0)
+    {
+        var (ret, t) = base.Invoke(collectionId, modDirectory, modName, ignoreInheritance, ignoreTemporary, key);
+        return ((PenumbraApiEc)ret, t);
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, string, string, bool, bool, int, CurrentSettingsTempBase> Provider(IDalamudPluginInterface pi,
+        IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c, d, e, f) =>
+        {
+            var (ret, t) = api.GetCurrentModSettingsWithTemp(a, b, c, d, e, f);
+            return ((int)ret, t);
+        });
+}
+
+/// <inheritdoc cref="IPenumbraApiModSettings.GetAllModSettings"/>
+public sealed class GetAllModSettings(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, bool, bool, int, (int, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?)>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetAllModSettings)}";
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.GetAllModSettings"/>
+    public new (PenumbraApiEc, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?) Invoke(Guid collectionId,
+        bool ignoreInheritance = false, bool ignoreTemporary = false, int key = 0)
+    {
+        var (ret, t) = base.Invoke(collectionId, ignoreInheritance, ignoreTemporary, key);
+        return ((PenumbraApiEc)ret, t);
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, bool, bool, int, (int, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?)>
+        Provider(IDalamudPluginInterface pi,
+            IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c, d) =>
+        {
+            var (ret, t) = api.GetAllModSettings(a, b, c, d);
             return ((int)ret, t);
         });
 }

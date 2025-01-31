@@ -19,10 +19,25 @@ public interface IPenumbraApiModSettings
     /// <param name="modDirectory">Specify the mod via its directory name.</param>
     /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
     /// <param name="ignoreInheritance">Whether the settings need to be from the given collection or can be inherited from any other by it. (True: given collection only)</param>
+    /// <param name="ignoreTemporary"> Whether the settings need to be actual settings or can be temporary. </param>
+    /// <param name="key"> The key for the settings lock. If <paramref name="ignoreTemporary"/> is false, settings with a key greater than 0 that is different from this will be ignored. </param>
     /// <returns>ModMissing, CollectionMissing or Success. <para />
     /// On Success, a tuple of Enabled State, Priority, a dictionary of option group names and lists of enabled option names and a bool whether the settings are inherited (true) or not.</returns>
+    public (PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool, bool)?) GetCurrentModSettingsWithTemp(Guid collectionId,
+        string modDirectory, string modName, bool ignoreInheritance, bool ignoreTemporary, int key);
+
+    /// <inheritdoc cref="GetCurrentModSettingsWithTemp"/>
     public (PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?) GetCurrentModSettings(Guid collectionId,
         string modDirectory, string modName, bool ignoreInheritance);
+
+    /// <summary> Obtain the enabled state, the priority, the settings of all mods in the specified collection. </summary>
+    /// <param name="collectionId"> Specify the collection. </param>
+    /// <param name="ignoreInheritance"> Whether the settings need to be from the given collection or can be inherited from any other by it. (True: given collection only) </param>
+    /// <param name="ignoreTemporary"> Whether the settings need to be actual settings or can be temporary. </param>
+    /// <param name="key"> The key for the settings lock. If <paramref name="ignoreTemporary"/> is false, settings with a key greater than 0 that is different from this will be ignored. </param>
+    /// <returns> CollectionMissing or Success, on Success, a dictionary of mod directory names to a tuple of (Enabled, Priority, Settings, Inherited, Temporary). Mods that have no settings at all are left out. </returns>
+    public (PenumbraApiEc, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?) GetAllModSettings(Guid collectionId,
+        bool ignoreInheritance, bool ignoreTemporary, int key);
 
     /// <summary> Try to set the inheritance state of a mod in a collection. </summary>
     /// <returns>ModMissing, CollectionMissing, InvalidArgument (GUID is nil), NothingChanged or Success.</returns>
