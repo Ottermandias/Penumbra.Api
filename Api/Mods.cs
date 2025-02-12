@@ -65,10 +65,14 @@ public interface IPenumbraApiMods
 
     /// <summary> Get a dictionary of dictionaries to check all mods changed items. </summary>
     /// <returns> A dictionary of mod identifier to changed item dictionary. </returns>
+    /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on access if the mod storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
     public IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>> GetChangedItemAdapterDictionary();
 
     /// <summary> Get a list of dictionaries to check all mods changed items. </summary>
     /// <returns> A list all mods changed item dictionaries. </returns>
-    /// <remarks> The order of mods is unspecified, but the same as in GetModList (assuming no changes in mods have taken place between calls). </remarks>
+    /// <remarks>
+    ///     The order of mods is unspecified, but the same as in GetModList (assuming no changes in mods have taken place between calls). <br/>
+    ///     Throws an <seealso cref="ObjectDisposedException"/> on access if the mod storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>.
+    /// </remarks>
     public IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)> GetChangedItemAdapterList();
 }

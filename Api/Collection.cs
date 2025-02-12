@@ -59,4 +59,8 @@ public interface IPenumbraApiCollection
     /// or Success, as well as the name of the previous collection (empty if no assignment existed).</returns>
     public (PenumbraApiEc, (Guid Id, string Name)? OldCollection) SetCollectionForObject(int gameObjectIdx, Guid? collectionId, bool allowCreateNew,
         bool allowDelete);
+
+    /// <summary> Obtain a function object that can check if the current collection contains a given changed item. </summary>
+    /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on invocation if the collection storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
+    public Func<string, bool> CheckCurrentChangedItemFunc();
 }
