@@ -62,4 +62,13 @@ public interface IPenumbraApiMods
     /// <summary> Get the overall changed items of a single mod given by its <paramref name="modDirectory"/> name or <paramref name="modName"/>, regardless of settings. </summary>
     /// <returns> A possibly empty dictionary of affected items and known objects or null. </returns>
     public Dictionary<string, object?> GetChangedItems(string modDirectory, string modName);
+
+    /// <summary> Get a dictionary of dictionaries to check all mods changed items. </summary>
+    /// <returns> A dictionary of mod identifier to changed item dictionary. </returns>
+    public IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>> GetChangedItemAdapterDictionary();
+
+    /// <summary> Get a list of dictionaries to check all mods changed items. </summary>
+    /// <returns> A list all mods changed item dictionaries. </returns>
+    /// <remarks> The order of mods is unspecified, but the same as in GetModList (assuming no changes in mods have taken place between calls). </remarks>
+    public IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)> GetChangedItemAdapterList();
 }

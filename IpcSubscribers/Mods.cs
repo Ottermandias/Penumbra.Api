@@ -184,3 +184,35 @@ public sealed class GetChangedItems(IDalamudPluginInterface pi)
     public static FuncProvider<string, string, Dictionary<string, object?>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, api.GetChangedItems);
 }
+
+/// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterDictionary"/>
+public sealed class GetChangedItemAdapterDictionary(IDalamudPluginInterface pi)
+    : FuncSubscriber<IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetChangedItemAdapterDictionary)}";
+
+    /// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterDictionary"/>
+    public new IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>> Invoke()
+        => base.Invoke();
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, api.GetChangedItemAdapterDictionary);
+}
+
+/// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterList"/>
+public sealed class GetChangedItemAdapterList(IDalamudPluginInterface pi)
+    : FuncSubscriber<IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetChangedItemAdapterList)}";
+
+    /// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterList"/>
+    public new IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)> Invoke()
+        => base.Invoke();
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, api.GetChangedItemAdapterList);
+}
