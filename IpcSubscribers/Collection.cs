@@ -138,17 +138,17 @@ public sealed class SetCollectionForObject(IDalamudPluginInterface pi)
 
 /// <inheritdoc cref="IPenumbraApiCollection.CheckCurrentChangedItemFunc"/>
 public sealed class CheckCurrentChangedItemFunc(IDalamudPluginInterface pi)
-    : FuncSubscriber<Func<string, bool>>(pi, Label)
+    : FuncSubscriber<Func<string, (string ModDirectory, string ModName)[]>>(pi, Label)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CheckCurrentChangedItemFunc)}";
 
     /// <inheritdoc cref="IPenumbraApiCollection.CheckCurrentChangedItemFunc"/>
-    public new Func<string, bool> Invoke()
+    public new Func<string, (string ModDirectory, string ModName)[]> Invoke()
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<Func<string, bool>>
+    public static FuncProvider<Func<string, (string ModDirectory, string ModName)[]>>
         Provider(IDalamudPluginInterface pi, IPenumbraApiCollection api)
         => new(pi, Label, api.CheckCurrentChangedItemFunc);
 }
