@@ -29,4 +29,11 @@ public enum GroupType
     /// Each combination of options is its own data container, resulting in 2^N separate data containers.
     /// </summary>
     Combining,
+
+    /// <summary>
+    /// A group consisting of multiple separate subgroups where the options can depend on each other.
+    /// Each subgroup behaves the same way as its regular group type, just with optional dependencies on the other options.
+    /// The total number of options is still limited by the settings bit size.
+    /// </summary>
+    Complex,
 }
