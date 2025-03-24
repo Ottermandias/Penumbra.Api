@@ -1,22 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Dalamud.NET.Sdk/12.0.0">
     <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
-        <LangVersion>preview</LangVersion>
-        <PlatformTarget>x64</PlatformTarget>
         <AssemblyTitle>Penumbra.Api</AssemblyTitle>
-        <Company></Company>
         <Product>Penumbra</Product>
-        <Copyright>Copyright © 2024</Copyright>
-        <FileVersion>5.6.0.0</FileVersion>
-        <AssemblyVersion>5.6.0.0</AssemblyVersion>
-        <PackageVersion>5.6.0</PackageVersion>
+        <Copyright>Copyright © 2025</Copyright>
+        <FileVersion>5.6.1.0</FileVersion>
+        <AssemblyVersion>5.6.1.0</AssemblyVersion>
+        <PackageVersion>5.6.1</PackageVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <OutputPath>bin\$(Configuration)\</OutputPath>
-        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <Nullable>enable</Nullable>
-        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -39,32 +30,6 @@
         <DebugType>pdbonly</DebugType>
         <NoWarn>1701;1702;1591</NoWarn>
     </PropertyGroup>
-
-    <PropertyGroup>
-        <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('Windows'))">$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
-        <DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('Linux'))">$(HOME)/.xlcore/dalamud/Hooks/dev/</DalamudLibPath>
-        <DalamudLibPath Condition="$([MSBuild]::IsOSPlatform('OSX'))">$(HOME)/Library/Application Support/XIV on Mac/dalamud/Hooks/dev/</DalamudLibPath>
-        <DalamudLibPath Condition="$(DALAMUD_HOME) != ''">$(DALAMUD_HOME)/</DalamudLibPath>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Reference Include="Dalamud">
-            <HintPath>$(DalamudLibPath)Dalamud.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Lumina">
-            <HintPath>$(DalamudLibPath)Lumina.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Newtonsoft.Json">
-            <HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />

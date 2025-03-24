@@ -63,3 +63,17 @@ public enum ResourceType : uint
     Waoe    = 0x77616F65,
     Wtd     = 0x00777464,
 }
+
+public static class ResourceTypeExtensions
+{
+    public static ResourceType FromExtension(ReadOnlySpan<byte> ext)
+        => ext.Length switch
+        {
+            0 => ResourceType.Unknown,
+            1 => (ResourceType)(ext[0] | 32),
+            2 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8)),
+            3 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8) | ((ext[2] | 32) << 16)),
+            4 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8) | ((ext[2] | 32) << 16) | ((ext[2] | 32) << 24)),
+            _ => ResourceType.Unknown,
+        };
+}
