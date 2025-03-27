@@ -24,6 +24,10 @@
         <Use_DalamudPackager>false</Use_DalamudPackager>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
