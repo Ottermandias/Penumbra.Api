@@ -4,6 +4,21 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
+/// <summary>Triggered when Penumbra starts launching before any actual initialization of the plugin. </summary>
+public static class Launching
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(Launching)}";
+
+    /// <summary> Create a new event subscriber. The passed values are the major and minor API version being setup. </summary>
+    public static EventSubscriber<int, int> Subscriber(IDalamudPluginInterface pi, params Action<int, int>[] actions)
+        => new(pi, Label, actions);
+
+    /// <summary> Create a provider. </summary>
+    public static EventProvider<int, int> Provider(IDalamudPluginInterface pi)
+        => new(pi, Label);
+}
+
 /// <summary>Triggered when the Penumbra API is initialized and ready.</summary>
 public static class Initialized
 {
