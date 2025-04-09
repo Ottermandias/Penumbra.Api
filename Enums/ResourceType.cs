@@ -76,4 +76,15 @@ public static class ResourceTypeExtensions
             4 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8) | ((ext[2] | 32) << 16) | ((ext[2] | 32) << 24)),
             _ => ResourceType.Unknown,
         };
+
+    public static ResourceType FromExtension(ReadOnlySpan<char> ext)
+        => ext.Length switch
+        {
+            0 => ResourceType.Unknown,
+            1 => (ResourceType)((byte)ext[0] | 32),
+            2 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8)),
+            3 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[2] | 32) << 16)),
+            4 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[2] | 32) << 16) | (((byte)ext[2] | 32) << 24)),
+            _ => ResourceType.Unknown,
+        };
 }
