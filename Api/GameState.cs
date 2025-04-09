@@ -17,6 +17,14 @@ public interface IPenumbraApiGameState
     /// <returns>The parent game object index.</returns>
     public int GetCutsceneParentIndex(int actorIdx);
 
+    /// <summary> Obtain a function object to get the parent of a cutscene actor from Penumbra. </summary>
+    /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on invocation if the cutscene storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
+    public Func<int, int> GetCutsceneParentIndexFunc();
+
+    /// <summary> Obtain a function object to get the game object a draw object belongs to from Penumbra. </summary>
+    /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on invocation if the draw object storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
+    public Func<nint, nint> GetGameObjectFromDrawObjectFunc();
+
     /// <summary>
     /// Set the cutscene parent of <paramref name="copyIdx"/> in Penumbras internal state to a new value.
     /// </summary>

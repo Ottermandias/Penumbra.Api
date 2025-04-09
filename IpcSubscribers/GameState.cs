@@ -50,7 +50,7 @@ public sealed class SetCutsceneParentIndex(IDalamudPluginInterface pi)
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<int, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
-        => new(pi, Label, (a, b) => (int) api.SetCutsceneParentIndex(a, b));
+        => new(pi, Label, (a, b) => (int)api.SetCutsceneParentIndex(a, b));
 }
 
 /// <inheritdoc cref="IPenumbraApiGameState.CreatingCharacterBase"/>
@@ -97,4 +97,36 @@ public static class GameObjectResourcePathResolved
     /// <summary> Create a provider. </summary>
     public static EventProvider<nint, string, string> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
         => new(pi, Label, t => api.GameObjectResourceResolved += t.Invoke, t => api.GameObjectResourceResolved -= t.Invoke);
+}
+
+/// <inheritdoc cref="IPenumbraApiGameState.GetCutsceneParentIndexFunc"/>
+public sealed class GetCutsceneParentIndexFunc(IDalamudPluginInterface pi)
+    : FuncSubscriber<Func<int, int>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetCutsceneParentIndexFunc)}";
+
+    /// <inheritdoc cref="GetCutsceneParentIndexFunc"/>
+    public new Func<int, int> Invoke()
+        => base.Invoke();
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Func<int, int>> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
+        => new(pi, Label, api.GetCutsceneParentIndexFunc);
+}
+
+/// <inheritdoc cref="IPenumbraApiGameState.GetGameObjectFromDrawObjectFunc"/>
+public sealed class GetGameObjectFromDrawObjectFunc(IDalamudPluginInterface pi)
+    : FuncSubscriber<Func<nint, nint>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetGameObjectFromDrawObjectFunc)}";
+
+    /// <inheritdoc cref="GetGameObjectFromDrawObjectFunc"/>
+    public new Func<nint, nint> Invoke()
+        => base.Invoke();
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Func<nint, nint>> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
+        => new(pi, Label, api.GetGameObjectFromDrawObjectFunc);
 }
