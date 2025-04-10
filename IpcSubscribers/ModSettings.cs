@@ -93,8 +93,7 @@ public sealed class GetAllModSettings(IDalamudPluginInterface pi)
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<Guid, bool, bool, int, (int, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?)>
-        Provider(IDalamudPluginInterface pi,
-            IPenumbraApiModSettings api)
+        Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) =>
         {
             var (ret, t) = api.GetAllModSettings(a, b, c, d);
