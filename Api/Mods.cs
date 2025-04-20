@@ -33,7 +33,7 @@ public interface IPenumbraApiMods
     /// <returns>The base directory name of the deleted mod.</returns>
     public event Action<string>? ModDeleted;
 
-    /// <summary> Triggers whenever a mod is deleted. </summary>
+    /// <summary> Triggers whenever a mod is added. </summary>
     /// <returns>The base directory name of the new mod.</returns>
     public event Action<string>? ModAdded;
 
