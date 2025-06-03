@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using Dalamud.Plugin;
 using Penumbra.Api.Api;
 using Penumbra.Api.Helpers;
@@ -50,7 +51,7 @@ public static class Disposed
 }
 
 /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
-public class ApiVersion(IDalamudPluginInterface pi) 
+public class ApiVersion(IDalamudPluginInterface pi)
     : FuncSubscriber<(int Breaking, int Features)>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -116,6 +117,7 @@ public static class ModDirectoryChanged
 public class GetEnabledState(IDalamudPluginInterface pi)
     : FuncSubscriber<bool>(pi, Label)
 {
+    /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetEnabledState)}";
 
     /// <inheritdoc cref="IPenumbraApiPluginState.GetEnabledState"/>
@@ -140,4 +142,36 @@ public static class EnabledChange
     /// <summary> Create a provider. </summary>
     public static EventProvider<bool> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
         => new(pi, Label, (t => api.EnabledChange += t, t => api.EnabledChange -= t));
+}
+
+/// <inheritdoc cref="IPenumbraApiPluginState.SupportedFeatures"/>
+public class SupportedFeatures(IDalamudPluginInterface pi)
+    : FuncSubscriber<FrozenSet<string>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(SupportedFeatures)}";
+
+    /// <inheritdoc cref="IPenumbraApiPluginState.SupportedFeatures"/>
+    public new FrozenSet<string> Invoke()
+        => base.Invoke();
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<FrozenSet<string>> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
+        => new(pi, Label, () => api.SupportedFeatures);
+}
+
+/// <inheritdoc cref="IPenumbraApiPluginState.CheckSupportedFeatures"/>
+public class CheckSupportedFeatures(IDalamudPluginInterface pi)
+    : FuncSubscriber<IEnumerable<string>, string[]>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(CheckSupportedFeatures)}";
+
+    /// <inheritdoc cref="IPenumbraApiPluginState.CheckSupportedFeatures"/>
+    public new string[] Invoke(params IEnumerable<string> requiredFeatures)
+        => base.Invoke(requiredFeatures);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IEnumerable<string>, string[]> Provider(IDalamudPluginInterface pi, IPenumbraApiPluginState api)
+        => new(pi, Label, api.CheckSupportedFeatures);
 }

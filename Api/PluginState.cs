@@ -1,3 +1,5 @@
+using System.Collections.Frozen;
+
 namespace Penumbra.Api.Api;
 
 /// <summary> API methods pertaining to Penumbras own state. </summary>
@@ -23,4 +25,12 @@ public interface IPenumbraApiPluginState
     /// </summary>
     /// <returns>True if the new state is enabled, false if the new state is disabled</returns>
     public event Action<bool>? EnabledChange;
+
+    /// <summary> Check whether all the given features are supported by this Penumbra version. </summary>
+    /// <param name="requiredFeatures"> The features to check for. </param>
+    /// <returns> A list of required features that are unsupported by this Penumbra version, which is empty if everything is supported. </returns>
+    public string[] CheckSupportedFeatures(IEnumerable<string> requiredFeatures);
+
+    /// <summary> Get the list of specific new features that are currently supported by this Penumbra version. </summary>
+    public FrozenSet<string> SupportedFeatures { get; }
 }
