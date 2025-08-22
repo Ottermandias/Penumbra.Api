@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
@@ -40,6 +41,14 @@ public interface IPenumbraApiMods
     /// <summary> Triggers whenever a mods base name is changed from inside Penumbra. </summary>
     /// <returns>The previous base directory name of the mod and the new base directory name of the mod.</returns>
     public event Action<string, string>? ModMoved;
+
+    /// <summary> Triggers whenever a .pcp file writes its character.json file out. </summary>
+    /// <returns> The JObject written to the file and the index of the game object parsed. </returns>
+    public event Action<JObject, ushort>? CreatingPcp;
+
+    /// <summary> Triggers whenever a mod with a character.json file is installed and the file is processed. </summary>
+    /// <returns> The parsed JObject from the file, the identifier of the installed mod and the GUID of the created collection. </returns>
+    public event Action<JObject, string, Guid>? ParsingPcp;
 
     /// <summary>
     /// Get the internal full filesystem path including search order for the specified mod
