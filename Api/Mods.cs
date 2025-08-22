@@ -8,7 +8,7 @@ public interface IPenumbraApiMods
     /// <returns>A list of all installed mods. The first string is their directory name, the second string is their mod name.</returns>
     public Dictionary<string, string> GetModList();
 
-    /// <summary> Try to unpack and install a valid mod file (.pmp, .ttmp, .ttmp2) as if installed manually. </summary>
+    /// <summary> Try to unpack and install a valid mod file (.pmp, .pcp, .ttmp, .ttmp2) as if installed manually. </summary>
     /// <param name="modFilePackagePath">The file that should be unpacked.</param>
     /// <returns>Success, MissingFile. Success does not indicate successful installing, just successful queueing for install.</returns>
     public PenumbraApiEc InstallMod(string modFilePackagePath);
