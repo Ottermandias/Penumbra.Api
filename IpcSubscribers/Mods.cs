@@ -135,14 +135,14 @@ public static class ModMoved
 public static class CreatingPcp
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CreatingPcp)}";
+    public const string Label = $"Penumbra.{nameof(CreatingPcp)}.V2";
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<JObject, ushort> Subscriber(IDalamudPluginInterface pi, params Action<JObject, ushort>[] actions)
+    public static EventSubscriber<JObject, ushort, string> Subscriber(IDalamudPluginInterface pi, params Action<JObject, ushort, string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
-    public static EventProvider<JObject, ushort> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+    public static EventProvider<JObject, ushort, string> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (t => api.CreatingPcp += t, t => api.CreatingPcp -= t));
 }
 
