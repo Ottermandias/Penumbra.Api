@@ -10,17 +10,20 @@ namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiTemporary.CreateTemporaryCollection"/>
 public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
-    : FuncSubscriber<string, Guid>(pi, Label)
+    : FuncSubscriber<string, string, (PenumbraApiEc, Guid)>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}.V5";
+    public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}.V6";
 
     /// <inheritdoc cref="IPenumbraApiTemporary.CreateTemporaryCollection"/>
-    public new Guid Invoke(string name = "")
-        => base.Invoke(name);
+    public PenumbraApiEc Invoke(string identity, string name, out Guid collection)
+    {
+        (var ret, collection) = Invoke(identity, name);
+        return ret;
+    }
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
+    public static FuncProvider<string, string, (PenumbraApiEc, Guid)> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
         => new(pi, Label, api.CreateTemporaryCollection);
 }
 

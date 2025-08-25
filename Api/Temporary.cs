@@ -64,9 +64,10 @@ public interface IPenumbraApiTemporary
     public PenumbraApiEc RemoveAllTemporaryModSettingsPlayer(int objectIndex, int key);
 
     /// <summary> Create a temporary collection. </summary>
+    /// <param name="identity"> The identity of the requester. </param>
     /// <param name="name"> The name for the collection. Arbitrary and only used internally for debugging. </param>
-    /// <returns> The GUID of the created temporary collection. </returns>
-    public Guid CreateTemporaryCollection(string name);
+    /// <returns> The state of the operation and on success the GUID of the created temporary collection. </returns>
+    public (PenumbraApiEc, Guid) CreateTemporaryCollection(string identity, string name);
 
     /// <summary> Remove the temporary collection of the given name. </summary>
     /// <param name="collectionId"> The chosen temporary collection to remove. </param>
