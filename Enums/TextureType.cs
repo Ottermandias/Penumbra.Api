@@ -26,12 +26,30 @@ public enum TextureType
     /// <summary> Convert the texture to BC3 and save as .dds. </summary>
     Bc3Dds = 6,
 
-    /// <summary> Convert the texture to BC3 and save as .tex. </summary>
+    /// <summary> Convert the texture to BC7 and save as .tex. </summary>
     Bc7Tex = 7,
 
-    /// <summary> Convert the texture to BC3 and save as .dds. </summary>
+    /// <summary> Convert the texture to BC7 and save as .dds. </summary>
     Bc7Dds = 8,
 
     /// <summary> Convert the texture to .tga. </summary>
     Targa = 9,
+
+    /// <summary> Convert the texture to BC1 and save as .tex. </summary>
+    Bc1Tex = 10,
+
+    /// <summary> Convert the texture to BC1 and save as .dds. </summary>
+    Bc1Dds = 11,
+
+    /// <summary> Convert the texture to BC4 and save as .tex. </summary>
+    Bc4Tex = 12,
+
+    /// <summary> Convert the texture to BC4 and save as .dds. </summary>
+    Bc4Dds = 13,
+
+    /// <summary> Convert the texture to BC5 and save as .tex. </summary>
+    Bc5Tex = 14,
+
+    /// <summary> Convert the texture to BC5 and save as .dds. </summary>
+    Bc5Dds = 15,
 }
