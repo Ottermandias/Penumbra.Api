@@ -37,6 +37,24 @@ public sealed class RedrawAll(IDalamudPluginInterface pi)
         => new(pi, Label, a => api.RedrawAll((RedrawType)a));
 }
 
+/// <inheritdoc cref="IPenumbraApiRedraw.RedrawCollectionMembers" />
+public sealed class RedrawCollectionMembers(IDalamudPluginInterface pi)
+    : ActionSubscriber<Guid,int>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(RedrawCollectionMembers)}";
+
+    /// <inheritdoc cref="IPenumbraApiRedraw.RedrawCollectionMembers"/>
+    public void Invoke(Guid collection,  RedrawType setting = RedrawType.Redraw)
+        => base.Invoke(collection, (int)setting);
+
+    /// <summary> Create a provider. </summary>
+    public static ActionProvider<Guid,int> Provider(IDalamudPluginInterface pi, IPenumbraApiRedraw api)
+        => new(pi, Label, (a, b) => api.RedrawCollectionMembers(a, (RedrawType)b));
+}
+
+    
+
 /// <inheritdoc cref="IPenumbraApiRedraw.GameObjectRedrawn" />
 public static class GameObjectRedrawn
 {
