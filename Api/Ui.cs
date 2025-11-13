@@ -56,4 +56,23 @@ public interface IPenumbraApiUi
 
     /// <summary> Close the Penumbra main config window. </summary>
     public void CloseMainWindow();
+
+    /// <summary>
+    /// Registers a section named "Integration with {Plugin}" in Penumbra's settings.
+    /// </summary>
+    /// <param name="draw">A function that draws the section's contents using ImGui.</param>
+    /// <returns>InvalidArgument if <paramref name="draw"/> is invalid,
+    /// NothingChanged if the section was already registered,
+    /// Success otherwise.</returns>
+    /// <remarks>Each plugin can only register one section. Trying to register another will replace the previous one.</remarks>
+    public PenumbraApiEc RegisterSettingsSection(Action draw);
+
+    /// <summary>
+    /// Unregisters a section previously registered with <see cref="RegisterSettingsSection"/>.
+    /// </summary>
+    /// <param name="draw">The function previously passed to <see cref="RegisterSettingsSection"/>.</param>
+    /// <returns>NothingChanged if the section was not registered,
+    /// Success otherwise.</returns>
+    /// <remarks>Sections are automatically unregistered if the plugin that owns them is unloaded, but it is still strongly recommended to explicitly call this function.</remarks>
+    public PenumbraApiEc UnregisterSettingsSection(Action draw);
 }

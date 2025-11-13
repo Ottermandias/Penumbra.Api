@@ -128,3 +128,35 @@ public sealed class CloseMainWindow(IDalamudPluginInterface pi)
     public static ActionProvider Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
         => new(pi, Label, api.CloseMainWindow);
 }
+
+/// <inheritdoc cref="IPenumbraApiUi.RegisterSettingsSection"/>
+public sealed class RegisterSettingsSection(IDalamudPluginInterface pi)
+    : FuncSubscriber<Action, int>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra{nameof(RegisterSettingsSection)}";
+
+    /// <inheritdoc cref="IPenumbraApiUi.RegisterSettingsSection"/>
+    public new PenumbraApiEc Invoke(Action draw)
+        => (PenumbraApiEc)base.Invoke(draw);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Action, int> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
+        => new(pi, Label, draw => (int)api.RegisterSettingsSection(draw));
+}
+
+/// <inheritdoc cref="IPenumbraApiUi.UnregisterSettingsSection"/>
+public sealed class UnregisterSettingsSection(IDalamudPluginInterface pi)
+    : FuncSubscriber<Action, int>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra{nameof(UnregisterSettingsSection)}";
+
+    /// <inheritdoc cref="IPenumbraApiUi.UnregisterSettingsSection"/>
+    public new PenumbraApiEc Invoke(Action draw)
+        => (PenumbraApiEc)base.Invoke(draw);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Action, int> Provider(IDalamudPluginInterface pi, IPenumbraApiUi api)
+        => new(pi, Label, draw => (int)api.UnregisterSettingsSection(draw));
+}
