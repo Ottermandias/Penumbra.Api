@@ -16,6 +16,13 @@ public interface IPenumbraApiRedraw
     public void RedrawAll(RedrawType setting);
 
     /// <summary>
+    /// Queue redrawing of members of a specified collection
+    /// </summary>
+    /// <param name="collectionId"></param>
+    /// <param name="setting"></param>
+    public void RedrawCollectionMembers(Guid collectionId, RedrawType setting);
+    
+    /// <summary>
     /// Triggered whenever a game object is redrawn via Penumbra.
     /// </summary>
     /// /<returns><inheritdoc cref="GameObjectRedrawnDelegate"/></returns>
