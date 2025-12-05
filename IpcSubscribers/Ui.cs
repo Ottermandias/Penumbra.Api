@@ -118,7 +118,7 @@ public sealed class CloseMainWindow(IDalamudPluginInterface pi)
     : ActionSubscriber(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra{nameof(CloseMainWindow)}";
+    public const string Label = $"Penumbra.{nameof(CloseMainWindow)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.CloseMainWindow"/>
     public new void Invoke()
