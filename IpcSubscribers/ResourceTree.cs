@@ -14,6 +14,10 @@ public sealed class GetGameObjectResourcePaths(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetGameObjectResourcePaths.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcePaths"/>
     public new Dictionary<string, HashSet<string>>?[] Invoke(params ushort[] gameObjectIndices)
         => base.Invoke(gameObjectIndices);
@@ -31,6 +35,10 @@ public sealed class GetPlayerResourcePaths(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetPlayerResourcePaths)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetPlayerResourcePaths.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcePaths"/>
     public new Dictionary<ushort, Dictionary<string, HashSet<string>>> Invoke()
         => base.Invoke();
@@ -47,6 +55,10 @@ public sealed class GetGameObjectResourcesOfType(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetGameObjectResourcesOfType.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcesOfType"/>
     public IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?[] Invoke(ResourceType type, bool withUiData = false,
@@ -67,6 +79,10 @@ public sealed class GetPlayerResourcesOfType(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetPlayerResourcesOfType.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourcesOfType"/>
     public Dictionary<ushort, IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>> Invoke(ResourceType type, bool withUiData = false)
@@ -89,6 +105,10 @@ public sealed class GetGameObjectResourceTrees(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetGameObjectResourceTrees.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourceTrees"/>
     public new ResourceTreeDto?[] Invoke(bool withUiData = false, params ushort[] gameObjectIndices)
         => Array.ConvertAll(base.Invoke(withUiData, gameObjectIndices), o => o?.ToObject<ResourceTreeDto>());
@@ -105,6 +125,10 @@ public sealed class GetPlayerResourceTrees(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetPlayerResourceTrees.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourceTrees"/>
     public new Dictionary<ushort, ResourceTreeDto> Invoke(bool withUiData = false)

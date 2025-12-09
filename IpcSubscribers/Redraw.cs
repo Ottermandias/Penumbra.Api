@@ -12,6 +12,10 @@ public sealed class RedrawObject(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RedrawObject)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RedrawObject.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiRedraw.RedrawObject"/>
     public void Invoke(int gameObjectIndex, RedrawType setting = RedrawType.Redraw)
         => base.Invoke(gameObjectIndex, (int)setting);
@@ -27,6 +31,10 @@ public sealed class RedrawAll(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RedrawAll)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RedrawAll.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiRedraw.RedrawAll"/>
     public void Invoke(RedrawType setting = RedrawType.Redraw)
@@ -44,6 +52,10 @@ public sealed class RedrawCollectionMembers(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RedrawCollectionMembers)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RedrawCollectionMembers"u8;
+
     /// <inheritdoc cref="IPenumbraApiRedraw.RedrawCollectionMembers"/>
     public void Invoke(Guid collection,  RedrawType setting = RedrawType.Redraw)
         => base.Invoke(collection, (int)setting);
@@ -60,6 +72,10 @@ public static class GameObjectRedrawn
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GameObjectRedrawn)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GameObjectRedrawn"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, int> Subscriber(IDalamudPluginInterface pi, params Action<nint, int>[] actions)

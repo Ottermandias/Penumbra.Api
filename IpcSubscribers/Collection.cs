@@ -12,6 +12,10 @@ public sealed class GetCollections(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCollections)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCollections.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollections"/>
     public new Dictionary<Guid, string> Invoke()
         => base.Invoke();
@@ -27,6 +31,10 @@ public sealed class GetCollectionsByIdentifier(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCollectionsByIdentifier)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCollectionsByIdentifier"u8;
 
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionsByIdentifier"/>
     public new List<(Guid Id, string Name)> Invoke(string name)
@@ -44,6 +52,10 @@ public sealed class GetChangedItemsForCollection(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetChangedItemsForCollection)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetChangedItemsForCollection"u8;
+
     /// <inheritdoc cref="IPenumbraApiCollection.GetChangedItemsForCollection"/>
     public new Dictionary<string, object?> Invoke(Guid collectionId)
         => base.Invoke(collectionId);
@@ -59,6 +71,10 @@ public sealed class GetCollection(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCollection)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCollection"u8;
 
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollection"/>
     public (Guid Id, string Name)? Invoke(ApiCollectionType type)
@@ -76,6 +92,10 @@ public sealed class GetCollectionForObject(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCollectionForObject.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionForObject"/>
     public new (bool ObjectValid, bool IndividualSet, (Guid Id, string Name) EffectiveCollection) Invoke(int gameObjectIdx)
         => base.Invoke(gameObjectIdx);
@@ -92,6 +112,10 @@ public sealed class SetCollection(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetCollection)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetCollection"u8;
 
     /// <inheritdoc cref="IPenumbraApiCollection.SetCollectionForObject"/>
     public (PenumbraApiEc, (Guid Id, string Name)? OldCollection) Invoke(ApiCollectionType type, Guid? collectionId,
@@ -118,6 +142,10 @@ public sealed class SetCollectionForObject(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetCollectionForObject.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiCollection.SetCollectionForObject"/>
     public new (PenumbraApiEc, (Guid Id, string Name)? OldCollection) Invoke(int gameObjectIdx, Guid? collectionId, bool allowCreateNew = true,
         bool allowDelete = true)
@@ -142,6 +170,10 @@ public sealed class CheckCurrentChangedItemFunc(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CheckCurrentChangedItemFunc)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CheckCurrentChangedItemFunc"u8;
 
     /// <inheritdoc cref="IPenumbraApiCollection.CheckCurrentChangedItemFunc"/>
     public new Func<string, (string ModDirectory, string ModName)[]> Invoke()

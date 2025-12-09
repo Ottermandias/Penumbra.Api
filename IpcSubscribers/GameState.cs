@@ -12,6 +12,10 @@ public sealed class GetDrawObjectInfo(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetDrawObjectInfo)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetDrawObjectInfo.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiGameState.GetDrawObjectInfo"/>
     public new (nint GameObject, (Guid Id, string Name) AssociatedCollection) Invoke(nint drawObjectAddress)
         => base.Invoke(drawObjectAddress);
@@ -27,6 +31,10 @@ public sealed class GetCutsceneParentIndex(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCutsceneParentIndex)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCutsceneParentIndex"u8;
 
     /// <inheritdoc cref="IPenumbraApiGameState.GetCutsceneParentIndex"/>
     public new int Invoke(int actorIndex)
@@ -44,6 +52,10 @@ public sealed class SetCutsceneParentIndex(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetCutsceneParentIndex.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiGameState.SetCutsceneParentIndex"/>
     public new PenumbraApiEc Invoke(int copyIdx, int newParentIdx)
         => (PenumbraApiEc)base.Invoke(copyIdx, newParentIdx);
@@ -58,6 +70,10 @@ public static class CreatingCharacterBase
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CreatingCharacterBase)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CreatingCharacterBase.V5"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, Guid, nint, nint, nint> Subscriber(IDalamudPluginInterface pi,
@@ -75,6 +91,10 @@ public static class CreatedCharacterBase
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CreatedCharacterBase)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CreatedCharacterBase.V5"u8;
+
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, Guid, nint> Subscriber(IDalamudPluginInterface pi, params Action<nint, Guid, nint>[] actions)
         => new(pi, Label, actions);
@@ -89,6 +109,10 @@ public static class GameObjectResourcePathResolved
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GameObjectResourcePathResolved)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GameObjectResourcePathResolved"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<nint, string, string> Subscriber(IDalamudPluginInterface pi, params Action<nint, string, string>[] actions)
@@ -106,6 +130,10 @@ public sealed class GetCutsceneParentIndexFunc(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetCutsceneParentIndexFunc)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetCutsceneParentIndexFunc"u8;
+
     /// <inheritdoc cref="GetCutsceneParentIndexFunc"/>
     public new Func<int, int> Invoke()
         => base.Invoke();
@@ -121,6 +149,10 @@ public sealed class GetGameObjectFromDrawObjectFunc(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetGameObjectFromDrawObjectFunc)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetGameObjectFromDrawObjectFunc"u8;
 
     /// <inheritdoc cref="GetGameObjectFromDrawObjectFunc"/>
     public new Func<nint, nint> Invoke()

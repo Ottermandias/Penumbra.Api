@@ -11,6 +11,10 @@ public static class Launching
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(Launching)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.Launching"u8;
+
     /// <summary> Create a new event subscriber. The passed values are the major and minor API version being setup. </summary>
     public static EventSubscriber<int, int> Subscriber(IDalamudPluginInterface pi, params Action<int, int>[] actions)
         => new(pi, Label, actions);
@@ -26,6 +30,10 @@ public static class Initialized
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(Initialized)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.Initialized"u8;
+
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber Subscriber(IDalamudPluginInterface pi, params Action[] actions)
         => new(pi, Label, actions);
@@ -40,6 +48,10 @@ public static class Disposed
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(Disposed)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.Disposed"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber Subscriber(IDalamudPluginInterface pi, params Action[] actions)
@@ -57,6 +69,10 @@ public class ApiVersion(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ApiVersion)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ApiVersion.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiBase.ApiVersion"/>
     public new (int Breaking, int Features) Invoke()
         => base.Invoke();
@@ -72,6 +88,10 @@ public class GetModDirectory(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetModDirectory)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetModDirectory"u8;
 
     /// <inheritdoc cref="IPenumbraApiPluginState.GetModDirectory"/>
     public new string Invoke()
@@ -89,6 +109,10 @@ public class GetConfiguration(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetConfiguration)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetConfiguration"u8;
+
     /// <inheritdoc cref="IPenumbraApiPluginState.GetConfiguration"/>
     public new string Invoke()
         => base.Invoke();
@@ -103,6 +127,10 @@ public static class ModDirectoryChanged
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ModDirectoryChanged)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ModDirectoryChanged"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string, bool> Subscriber(IDalamudPluginInterface pi, params Action<string, bool>[] actions)
@@ -120,6 +148,10 @@ public class GetEnabledState(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetEnabledState)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetEnabledState"u8;
+
     /// <inheritdoc cref="IPenumbraApiPluginState.GetEnabledState"/>
     public new bool Invoke()
         => base.Invoke();
@@ -134,6 +166,10 @@ public static class EnabledChange
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(EnabledChange)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.EnabledChange"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<bool> Subscriber(IDalamudPluginInterface pi, params Action<bool>[] actions)
@@ -151,6 +187,10 @@ public class SupportedFeatures(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SupportedFeatures)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SupportedFeatures"u8;
+
     /// <inheritdoc cref="IPenumbraApiPluginState.SupportedFeatures"/>
     public new FrozenSet<string> Invoke()
         => base.Invoke();
@@ -166,6 +206,10 @@ public class CheckSupportedFeatures(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CheckSupportedFeatures)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CheckSupportedFeatures"u8;
 
     /// <inheritdoc cref="IPenumbraApiPluginState.CheckSupportedFeatures"/>
     public new string[] Invoke(params IEnumerable<string> requiredFeatures)

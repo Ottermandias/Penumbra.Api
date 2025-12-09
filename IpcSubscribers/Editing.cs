@@ -12,6 +12,10 @@ public sealed class ConvertTextureFile(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ConvertTextureFile)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ConvertTextureFile"u8;
+
     /// <inheritdoc cref="IPenumbraApiEditing.ConvertTextureFile"/>
     public Task Invoke(string inputFile, string outputFile, TextureType textureType, bool mipMaps = true)
         => Invoke(inputFile, outputFile, (int)textureType, mipMaps);
@@ -27,6 +31,10 @@ public sealed class ConvertTextureData(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ConvertTextureData)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ConvertTextureData"u8;
 
     /// <inheritdoc cref="IPenumbraApiEditing.ConvertTextureData"/>
     public Task Invoke(byte[] rgbaData, int width, string outputFile, TextureType textureType, bool mipMaps = true)

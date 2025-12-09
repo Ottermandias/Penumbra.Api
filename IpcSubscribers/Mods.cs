@@ -13,6 +13,10 @@ public sealed class GetModList(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetModList)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetModList"u8;
+
     /// <inheritdoc cref="IPenumbraApiMods.GetModList"/>
     public new Dictionary<string, string> Invoke()
         => base.Invoke();
@@ -28,6 +32,10 @@ public sealed class InstallMod(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(InstallMod)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.InstallMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
     public new PenumbraApiEc Invoke(string modFilePackagePath)
@@ -45,6 +53,10 @@ public sealed class ReloadMod(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ReloadMod)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ReloadMod.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiMods.ReloadMod"/>
     public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
@@ -60,6 +72,10 @@ public sealed class AddMod(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(AddMod)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.AddMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.AddMod"/>
     public new PenumbraApiEc Invoke(string modDirectory)
@@ -77,6 +93,10 @@ public sealed class DeleteMod(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(DeleteMod)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.DeleteMod.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiMods.DeleteMod"/>
     public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
@@ -91,6 +111,10 @@ public static class ModDeleted
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ModDeleted)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ModDeleted"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
@@ -107,6 +131,10 @@ public static class ModAdded
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ModAdded)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ModAdded"u8;
+
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string> Subscriber(IDalamudPluginInterface pi, params Action<string>[] actions)
         => new(pi, Label, actions);
@@ -121,6 +149,10 @@ public static class ModMoved
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ModMoved)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ModMoved"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<string, string> Subscriber(IDalamudPluginInterface pi, params Action<string, string>[] actions)
@@ -137,6 +169,10 @@ public static class CreatingPcp
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CreatingPcp)}.V2";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CreatingPcp.V2"u8;
+
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<JObject, ushort, string> Subscriber(IDalamudPluginInterface pi, params Action<JObject, ushort, string>[] actions)
         => new(pi, Label, actions);
@@ -151,6 +187,10 @@ public static class ParsingPcp
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(ParsingPcp)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ParsingPcp"u8;
 
     /// <summary> Create a new event subscriber. </summary>
     public static EventSubscriber<JObject, string, Guid> Subscriber(IDalamudPluginInterface pi, params Action<JObject, string, Guid>[] actions)
@@ -167,6 +207,10 @@ public sealed class GetModPath(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetModPath)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetModPath.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.GetModPath"/>
     public new (PenumbraApiEc, string FullPath, bool FullDefault, bool NameDefault) Invoke(string modDirectory, string modName = "")
@@ -191,6 +235,10 @@ public sealed class SetModPath(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetModPath)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetModPath.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiMods.SetModPath"/>
     public new PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName, newPath);
@@ -206,6 +254,10 @@ public sealed class GetChangedItems(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetChangedItems)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetChangedItems.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.GetChangedItems"/>
     public new Dictionary<string, object?> Invoke(string modDirectory, string modName)
@@ -223,6 +275,10 @@ public sealed class GetChangedItemAdapterDictionary(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetChangedItemAdapterDictionary)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetChangedItemAdapterDictionary"u8;
+
     /// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterDictionary"/>
     public new IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>> Invoke()
         => base.Invoke();
@@ -238,6 +294,10 @@ public sealed class GetChangedItemAdapterList(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetChangedItemAdapterList)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetChangedItemAdapterList"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.GetChangedItemAdapterList"/>
     public new IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)> Invoke()

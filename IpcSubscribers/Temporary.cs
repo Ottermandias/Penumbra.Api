@@ -15,6 +15,10 @@ public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}.V6";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.CreateTemporaryCollection.V6"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.CreateTemporaryCollection"/>
     public PenumbraApiEc Invoke(string identity, string name, out Guid collection)
     {
@@ -34,6 +38,10 @@ public sealed class DeleteTemporaryCollection(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(DeleteTemporaryCollection)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.DeleteTemporaryCollection.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.DeleteTemporaryCollection"/>
     public new PenumbraApiEc Invoke(Guid collectionId)
         => (PenumbraApiEc)base.Invoke(collectionId);
@@ -50,6 +58,10 @@ public sealed class AssignTemporaryCollection(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(AssignTemporaryCollection)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.AssignTemporaryCollection.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.AssignTemporaryCollection"/>
     public new PenumbraApiEc Invoke(Guid collectionId, int actorIndex, bool forceAssignment = true)
         => (PenumbraApiEc)base.Invoke(collectionId, actorIndex, forceAssignment);
@@ -65,6 +77,10 @@ public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(AddTemporaryModAll)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.AddTemporaryModAll.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryModAll"/>
     public new PenumbraApiEc Invoke(string tag, Dictionary<string, string> paths, string manipString, int priority)
@@ -83,6 +99,10 @@ public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(AddTemporaryMod)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.AddTemporaryMod.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryMod"/>
     public new PenumbraApiEc Invoke(string tag, Guid collectionId, Dictionary<string, string> paths, string manipString, int priority)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, paths, manipString, priority);
@@ -99,6 +119,10 @@ public sealed class RemoveTemporaryModAll(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModAll)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveTemporaryModAll.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModAll"/>
     public new PenumbraApiEc Invoke(string tag, int priority)
@@ -117,6 +141,10 @@ public sealed class RemoveTemporaryMod(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryMod)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveTemporaryMod.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryMod"/>
     public new PenumbraApiEc Invoke(string tag, Guid collectionId, int priority)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, priority);
@@ -132,6 +160,10 @@ public sealed class SetTemporaryModSettings(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetTemporaryModSettings)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetTemporaryModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.SetTemporaryModSettings"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, bool inherit, bool enabled, int priority,
@@ -151,6 +183,10 @@ public sealed class SetTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(SetTemporaryModSettingsPlayer)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.SetTemporaryModSettingsPlayer.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.SetTemporaryModSettingsPlayer"/>
     public PenumbraApiEc Invoke(int objectIndex, string modDirectory, bool inherit, bool enabled, int priority,
         IReadOnlyDictionary<string, IReadOnlyList<string>> settings, string source, int key = 0, string modName = "")
@@ -169,6 +205,10 @@ public sealed class RemoveTemporaryModSettings(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettings)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveTemporaryModSettings.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettings"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, int key = 0, string modName = "")
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectory, modName, key);
@@ -184,6 +224,10 @@ public sealed class RemoveTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModSettingsPlayer)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveTemporaryModSettingsPlayer.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModSettingsPlayer"/>
     public PenumbraApiEc Invoke(int objectIndex, string modDirectory, int key = 0, string modName = "")
@@ -201,6 +245,10 @@ public sealed class RemoveAllTemporaryModSettings(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveAllTemporaryModSettings)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveAllTemporaryModSettings.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveAllTemporaryModSettings"/>
     public new PenumbraApiEc Invoke(Guid collectionId, int key = 0)
         => (PenumbraApiEc)base.Invoke(collectionId, key);
@@ -217,6 +265,10 @@ public sealed class RemoveAllTemporaryModSettingsPlayer(IDalamudPluginInterface 
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(RemoveAllTemporaryModSettingsPlayer)}.V5";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.RemoveAllTemporaryModSettingsPlayer.V5"u8;
+
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveAllTemporaryModSettingsPlayer"/>
     public new PenumbraApiEc Invoke(int objectIndex, int key = 0)
         => (PenumbraApiEc)base.Invoke(objectIndex, key);
@@ -232,6 +284,10 @@ public sealed class QueryTemporaryModSettings(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(QueryTemporaryModSettings)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.QueryTemporaryModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettings"/>
     public PenumbraApiEc Invoke(Guid collectionId, string modDirectory,
@@ -258,6 +314,10 @@ public sealed class QueryTemporaryModSettingsPlayer(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(QueryTemporaryModSettingsPlayer)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.QueryTemporaryModSettingsPlayer.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.QueryTemporaryModSettingsPlayer"/>
     public PenumbraApiEc Invoke(int objectIndex, string modDirectory,

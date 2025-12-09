@@ -11,6 +11,10 @@ public sealed class GetPlayerMetaManipulations(IDalamudPluginInterface pi)
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetPlayerMetaManipulations)}";
 
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetPlayerMetaManipulations"u8;
+
     /// <inheritdoc cref="IPenumbraApiMeta.GetPlayerMetaManipulations"/>
     public new string Invoke()
         => base.Invoke();
@@ -26,6 +30,10 @@ public sealed class GetMetaManipulations(IDalamudPluginInterface pi)
 {
     /// <summary> The label. </summary>
     public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetMetaManipulations.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMeta.GetMetaManipulations"/>
     public new string Invoke(int gameObjectIdx)
