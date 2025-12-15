@@ -30,6 +30,18 @@ public interface IPenumbraApiModSettings
     public (PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?) GetCurrentModSettings(Guid collectionId,
         string modDirectory, string modName, bool ignoreInheritance);
 
+
+    /// <summary>
+    /// Obtain the enabled state, the priority, the settings of a mod given by its <paramref name="modDirectory" /> name or <paramref name="modName" /> in all collections.
+    /// </summary>
+    /// <param name="modDirectory">Specify the mod via its directory name.</param>
+    /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
+    /// <param name="settings"> The returned settings per collection ID. </param>
+    /// <param name="ignoreTemporaryCollections"> Whether only persistent collections are returned. This does not toggle of temporary settings, only collections. </param>
+    /// <returns> ModMissing or Success. <para />
+    /// On Success, a dictionary from collection GUID to tuples of Enabled State, Priority, a dictionary of option group names and lists of enabled option names, a bool whether the settings are inherited (true) or not, and a bool whether the settings are temporary or not. </returns>
+    public PenumbraApiEc GetSettingsInAllCollections(string modDirectory, string modName, out Dictionary<Guid, (bool, int, Dictionary<string, List<string>>, bool, bool)> settings, bool ignoreTemporaryCollections = false);
+
     /// <summary> Obtain the enabled state, the priority, the settings of all mods in the specified collection. </summary>
     /// <param name="collectionId"> Specify the collection. </param>
     /// <param name="ignoreInheritance"> Whether the settings need to be from the given collection or can be inherited from any other by it. (True: given collection only) </param>

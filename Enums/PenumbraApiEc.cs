@@ -31,5 +31,7 @@ public enum PenumbraApiEc
 
     InvalidCredentials = 21,
 
+    CollectionInactive = 22,
+
     UnknownError = 255,
 }

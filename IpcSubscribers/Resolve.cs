@@ -1,5 +1,6 @@
 using Dalamud.Plugin;
 using Penumbra.Api.Api;
+using Penumbra.Api.Enums;
 using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
@@ -62,6 +63,29 @@ public sealed class ResolveGameObjectPath(IDalamudPluginInterface pi)
     /// <summary> Create a provider. </summary>
     public static FuncProvider<string, int, string> Provider(IDalamudPluginInterface pi, IPenumbraApiResolve api)
         => new(pi, Label, api.ResolveGameObjectPath);
+}
+
+/// <inheritdoc cref="IPenumbraApiResolve.ResolvePath"/>
+public sealed class ResolvePath(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, string, (int, string?)>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(ResolvePath)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ResolvePath"u8;
+
+    /// <inheritdoc cref="IPenumbraApiResolve.ResolvePath"/>
+    public PenumbraApiEc Invoke(Guid collection, string gamePath, out string? resolvedPath)
+    {
+        (var ret, resolvedPath) = base.Invoke(collection, gamePath);
+        return (PenumbraApiEc)ret;
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, string, (int, string?)> Provider(IDalamudPluginInterface pi, IPenumbraApiResolve api)
+        => new(pi, Label, (a, b) => ((int)api.ResolvePath(a, b, out var c), c));
 }
 
 /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPath"/>
@@ -142,6 +166,36 @@ public sealed class ResolvePlayerPaths(IDalamudPluginInterface pi)
     /// <summary> Create a provider. </summary>
     public static FuncProvider<string[], string[], (string[], string[][])> Provider(IDalamudPluginInterface pi, IPenumbraApiResolve api)
         => new(pi, Label, api.ResolvePlayerPaths);
+}
+
+/// <inheritdoc cref="IPenumbraApiResolve.ResolvePaths"/>
+public sealed class ResolvePaths(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, string[], string[], (int, string[], string[][])>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(ResolvePaths)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ResolvePaths"u8;
+
+    /// <inheritdoc cref="IPenumbraApiResolve.ResolvePaths"/>
+    public PenumbraApiEc Invoke(Guid collection, string[] forward, string[] reverse, out string[] forwardResolved, out string[][] reverseResolved)
+    {
+        (var ret, forwardResolved, reverseResolved) = base.Invoke(collection, forward, reverse);
+        return (PenumbraApiEc)ret;
+    }
+
+    /// <inheritdoc cref="IPenumbraApiResolve.ResolvePaths"/>
+    public PenumbraApiEc Invoke(Guid collection, string[] forward, out string[]? forwardResolved)
+    {
+        (var ret, forwardResolved, _) = base.Invoke(collection, forward, []);
+        return (PenumbraApiEc)ret;
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, string[], string[], (int, string[], string[][])> Provider(IDalamudPluginInterface pi, IPenumbraApiResolve api)
+        => new(pi, Label, (a, b, c) => ((int)api.ResolvePaths(a, b, c, out var f, out var r), f, r));
 }
 
 /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPathsAsync"/>

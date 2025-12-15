@@ -117,6 +117,31 @@ public sealed class GetAllModSettings(IDalamudPluginInterface pi)
         });
 }
 
+/// <inheritdoc cref="IPenumbraApiModSettings.GetSettingsInAllCollections"/>
+public sealed class GetSettingsInAllCollections(IDalamudPluginInterface pi)
+    : FuncSubscriber<string, string, bool, (int, Dictionary<Guid, (bool, int, Dictionary<string, List<string>>, bool, bool)>)>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetSettingsInAllCollections)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetSettingsInAllCollections"u8;
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.GetSettingsInAllCollections"/>
+    public PenumbraApiEc Invoke(string modDirectory, out Dictionary<Guid, (bool, int, Dictionary<string, List<string>>, bool, bool)> settings,
+        bool ignoreTemporaryCollections = false, string modName = "")
+    {
+        (var ret, settings) = base.Invoke(modDirectory, modName, ignoreTemporaryCollections);
+        return (PenumbraApiEc)ret;
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<string, string, bool, (int, Dictionary<Guid, (bool, int, Dictionary<string, List<string>>, bool, bool)>)>
+        Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c) => ((int)api.GetSettingsInAllCollections(a, b, out var r, c), r));
+}
+
 /// <inheritdoc cref="IPenumbraApiModSettings.TryInheritMod"/>
 public sealed class TryInheritMod(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, string, string, bool, int>(pi, Label)
