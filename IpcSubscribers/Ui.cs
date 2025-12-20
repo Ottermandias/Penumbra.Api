@@ -166,7 +166,7 @@ public sealed class RegisterSettingsSection(IDalamudPluginInterface pi)
     : FuncSubscriber<Action, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra{nameof(RegisterSettingsSection)}";
+    public const string Label = $"Penumbra.{nameof(RegisterSettingsSection)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.RegisterSettingsSection"/>
     public new PenumbraApiEc Invoke(Action draw)
@@ -182,7 +182,7 @@ public sealed class UnregisterSettingsSection(IDalamudPluginInterface pi)
     : FuncSubscriber<Action, int>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra{nameof(UnregisterSettingsSection)}";
+    public const string Label = $"Penumbra.{nameof(UnregisterSettingsSection)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.UnregisterSettingsSection"/>
     public new PenumbraApiEc Invoke(Action draw)
