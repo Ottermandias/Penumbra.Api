@@ -45,6 +45,22 @@ public sealed class GetCollectionsByIdentifier(IDalamudPluginInterface pi)
         => new(pi, Label, api.GetCollectionsByIdentifier);
 }
 
+/// <inheritdoc cref="IPenumbraApiCollection.GetResolvedFilesForCollection"/>
+public sealed class GetResolvedFilesForCollection(IDalamudPluginInterface pi)
+    : FuncSubscriber<Guid, Dictionary<string, string>>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetResolvedFilesForCollection)}";
+
+    /// <inheritdoc cref="IPenumbraApiCollection.GetResolvedFilesForCollection"/>
+    public new Dictionary<string, string> Invoke(Guid collectionId)
+        => base.Invoke(collectionId);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<Guid, Dictionary<string, string>> Provider(IDalamudPluginInterface pi, IPenumbraApiCollection api)
+        => new(pi, Label, api.GetResolvedFilesForCollection);
+}
+
 /// <inheritdoc cref="IPenumbraApiCollection.GetChangedItemsForCollection"/>
 public sealed class GetChangedItemsForCollection(IDalamudPluginInterface pi)
     : FuncSubscriber<Guid, Dictionary<string, object?>>(pi, Label)
@@ -184,3 +200,20 @@ public sealed class CheckCurrentChangedItemFunc(IDalamudPluginInterface pi)
         Provider(IDalamudPluginInterface pi, IPenumbraApiCollection api)
         => new(pi, Label, api.CheckCurrentChangedItemFunc);
 }
+
+/// <inheritdoc cref="IPenumbraApiCollection.ResolvedFileChanged" />
+public static class ResolvedFileChanged
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(ResolvedFileChanged)}";
+
+    /// <summary> Create a new event subscriber. </summary>
+    public static EventSubscriber<ResolvedFileChange, Guid, string, string, string, string> Subscriber(IDalamudPluginInterface pi,
+        params Action<ResolvedFileChange, Guid, string, string, string, string>[] actions)
+        => new(pi, Label, actions);
+
+    /// <summary> Create a provider. </summary>
+    public static EventProvider<ResolvedFileChange, Guid, string, string, string, string> Provider(IDalamudPluginInterface pi, IPenumbraApiCollection api)
+        => new(pi, Label, t => api.ResolvedFileChanged += t.Invoke, t => api.ResolvedFileChanged -= t.Invoke);
+}
+

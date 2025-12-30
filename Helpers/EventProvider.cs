@@ -463,3 +463,80 @@ public sealed class EventProvider<T1, T2, T3, T4, T5> : IDisposable
     ~EventProvider()
         => Dispose();
 }
+
+/// <inheritdoc cref="EventProvider"/> 
+public sealed class EventProvider<T1, T2, T3, T4, T5, T6> : IDisposable
+{
+    private readonly IPluginLog _log;
+    private ICallGateProvider<T1, T2, T3, T4, T5, T6, object?>? _provider;
+    private Delegate? _unsubscriber;
+
+    public EventProvider(IDalamudPluginInterface pi, string label,
+        (Action<Action<T1, T2, T3, T4, T5, T6>> Add, Action<Action<T1, T2, T3, T4, T5, T6>> Del)? subscribe = null)
+    {
+        _unsubscriber = null;
+        _log = PluginLogHelper.GetLog(pi);
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, T6, object?>(label);
+            subscribe?.Add(Invoke);
+            _unsubscriber = subscribe?.Del;
+        }
+        catch (Exception e)
+        {
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+    }
+
+    public EventProvider(IDalamudPluginInterface pi, string label, Action<EventProvider<T1, T2, T3, T4, T5, T6>> add,
+        Action<EventProvider<T1, T2, T3, T4, T5, T6>> del)
+    {
+        _unsubscriber = null;
+        _log = PluginLogHelper.GetLog(pi);
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, T6, object?>(label);
+            add(this);
+            _unsubscriber = del;
+        }
+        catch (Exception e)
+        {
+            _log.Error($"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+    }
+
+    /// <inheritdoc cref="EventProvider.Invoke"/>
+    public void Invoke(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f)
+    {
+        try
+        {
+            _provider?.SendMessage(a, b, c, d, e, f);
+        }
+        catch (Exception ex)
+        {
+            _log.Error($"Exception thrown on IPC event:\n{ex}");
+        }
+    }
+
+    public void Dispose()
+    {
+        switch (_unsubscriber)
+        {
+            case Action<Action<T1, T2, T3, T4, T5, T6>> a:
+                a(Invoke);
+                break;
+            case Action<EventProvider<T1, T2, T3, T4, T5, T6>> b:
+                b(this);
+                break;
+        }
+
+        _unsubscriber = null;
+        _provider = null;
+        GC.SuppressFinalize(this);
+    }
+
+    ~EventProvider()
+        => Dispose();
+}

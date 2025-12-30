@@ -17,6 +17,10 @@ public interface IPenumbraApiCollection
     /// </summary>
     public List<(Guid Id, string Name)> GetCollectionsByIdentifier(string identifier);
 
+    /// <returns>A dictionary of resolved files in <paramref name="collectionId"/> via GUID, and their resolved file paths.</returns>
+    public Dictionary<string, string> GetResolvedFilesForCollection(Guid collectionId);
+
+
     /// <returns>A dictionary of affected items in <paramref name="collectionId"/> via GUID and known objects or null.</returns>
     public Dictionary<string, object?> GetChangedItemsForCollection(Guid collectionId);
 
@@ -63,4 +67,11 @@ public interface IPenumbraApiCollection
     /// <summary> Obtain a function object that can check if the current collection contains a given changed item by listing the mods changing it. </summary>
     /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on invocation if the collection storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
     public Func<string, (string ModDirectory, string ModName)[]> CheckCurrentChangedItemFunc();
+
+    /// <summary>
+    /// Triggered whenever a resolved file is Added, Removed, or Replaced from a Collection, or from FullRecompute.
+    /// Intended for those desiring to track a CollectionCache's ResolvedFiles after obtaining initial state. 
+    /// </summary>
+    /// <returns><inheritdoc cref="ResolvedFileChangedDelegate"/></returns>
+    public event ResolvedFileChangedDelegate? ResolvedFileChanged;
 }
