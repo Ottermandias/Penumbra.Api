@@ -20,7 +20,6 @@ public interface IPenumbraApiCollection
     /// <returns>A dictionary of resolved files in <paramref name="collectionId"/> via GUID, and their resolved file paths.</returns>
     public Dictionary<string, string> GetResolvedFilesForCollection(Guid collectionId);
 
-
     /// <returns>A dictionary of affected items in <paramref name="collectionId"/> via GUID and known objects or null.</returns>
     public Dictionary<string, object?> GetChangedItemsForCollection(Guid collectionId);
 
