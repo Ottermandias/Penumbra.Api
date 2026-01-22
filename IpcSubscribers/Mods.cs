@@ -1,3 +1,4 @@
+using System.Reflection;
 using Dalamud.Plugin;
 using Newtonsoft.Json.Linq;
 using Penumbra.Api.Api;
@@ -174,7 +175,8 @@ public static class CreatingPcp
         => "Penumbra.CreatingPcp.V2"u8;
 
     /// <summary> Create a new event subscriber. </summary>
-    public static EventSubscriber<JObject, ushort, string> Subscriber(IDalamudPluginInterface pi, params Action<JObject, ushort, string>[] actions)
+    public static EventSubscriber<JObject, ushort, string> Subscriber(IDalamudPluginInterface pi,
+        params Action<JObject, ushort, string>[] actions)
         => new(pi, Label, actions);
 
     /// <summary> Create a provider. </summary>
@@ -199,6 +201,26 @@ public static class ParsingPcp
     /// <summary> Create a provider. </summary>
     public static EventProvider<JObject, string, Guid> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, (t => api.ParsingPcp += t, t => api.ParsingPcp -= t));
+}
+
+/// <inheritdoc cref="IPenumbraApiMods.ModUsageQueried" />
+public static class ModUsageQueried
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(ModUsageQueried)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.ModUsageQueried"u8;
+
+    /// <summary> Create a new event subscriber. </summary>
+    public static EventSubscriber<string, string, Dictionary<Assembly, (bool, string)>> Subscriber(IDalamudPluginInterface pi,
+        params Action<string, string, Dictionary<Assembly, (bool, string)>>[] actions)
+        => new(pi, Label, actions);
+
+    /// <summary> Create a provider. </summary>
+    public static EventProvider<string, string, Dictionary<Assembly, (bool, string)>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, (t => api.ModUsageQueried += t, t => api.ModUsageQueried -= t));
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.GetModPath"/>
@@ -284,7 +306,8 @@ public sealed class GetChangedItemAdapterDictionary(IDalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<IReadOnlyDictionary<string, IReadOnlyDictionary<string, object?>>> Provider(IDalamudPluginInterface pi,
+        IPenumbraApiMods api)
         => new(pi, Label, api.GetChangedItemAdapterDictionary);
 }
 
@@ -304,6 +327,7 @@ public sealed class GetChangedItemAdapterList(IDalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)>> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+    public static FuncProvider<IReadOnlyList<(string ModDirectory, IReadOnlyDictionary<string, object?> ChangedItems)>> Provider(
+        IDalamudPluginInterface pi, IPenumbraApiMods api)
         => new(pi, Label, api.GetChangedItemAdapterList);
 }

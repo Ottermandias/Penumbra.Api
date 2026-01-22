@@ -16,4 +16,5 @@ public enum TabType
     ResourceManager  = 7,
     OnScreen         = 8,
     Messages         = 9,
+    Management       = 10,
 }
