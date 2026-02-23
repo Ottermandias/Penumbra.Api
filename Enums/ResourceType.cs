@@ -71,9 +71,9 @@ public static class ResourceTypeExtensions
         {
             0 => ResourceType.Unknown,
             1 => (ResourceType)(ext[0] | 32),
-            2 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8)),
-            3 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8) | ((ext[2] | 32) << 16)),
-            4 => (ResourceType)(ext[0] | 32 | ((ext[1] | 32) << 8) | ((ext[2] | 32) << 16) | ((ext[2] | 32) << 24)),
+            2 => (ResourceType)(ext[1] | 32 | ((ext[0] | 32) << 8)),
+            3 => (ResourceType)(ext[2] | 32 | ((ext[1] | 32) << 8) | ((ext[0] | 32) << 16)),
+            4 => (ResourceType)(ext[3] | 32 | ((ext[2] | 32) << 8) | ((ext[1] | 32) << 16) | ((ext[0] | 32) << 24)),
             _ => ResourceType.Unknown,
         };
 
@@ -82,9 +82,9 @@ public static class ResourceTypeExtensions
         {
             0 => ResourceType.Unknown,
             1 => (ResourceType)((byte)ext[0] | 32),
-            2 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8)),
-            3 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[2] | 32) << 16)),
-            4 => (ResourceType)((byte)ext[0] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[2] | 32) << 16) | (((byte)ext[2] | 32) << 24)),
+            2 => (ResourceType)((byte)ext[1] | 32 | (((byte)ext[0] | 32) << 8)),
+            3 => (ResourceType)((byte)ext[2] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[0] | 32) << 16)),
+            4 => (ResourceType)((byte)ext[3] | 32 | (((byte)ext[2] | 32) << 8) | (((byte)ext[1] | 32) << 16) | (((byte)ext[0] | 32) << 24)),
             _ => ResourceType.Unknown,
         };
 }
