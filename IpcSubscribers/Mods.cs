@@ -27,6 +27,26 @@ public sealed class GetModList(IDalamudPluginInterface pi)
         => new(pi, Label, api.GetModList);
 }
 
+/// <inheritdoc cref="IPenumbraApiMods.GetModListAdapter"/>
+public sealed class GetModListAdapter(IDalamudPluginInterface pi)
+    : FuncSubscriber<IDisposable>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetModListAdapter)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetModListAdapter"u8;
+
+    /// <inheritdoc cref="IPenumbraApiMods.GetModListAdapter"/>
+    public new ModListWrapper Invoke()
+        => new(base.Invoke());
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IDisposable> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, api.GetModListAdapter);
+}
+
 /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
 public sealed class InstallMod(IDalamudPluginInterface pi)
     : FuncSubscriber<string, int>(pi, Label)

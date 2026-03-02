@@ -7,8 +7,11 @@ namespace Penumbra.Api.Api;
 /// <summary> API methods pertaining to management of mods. </summary>
 public interface IPenumbraApiMods
 {
-    /// <returns>A list of all installed mods. The first string is their directory name, the second string is their mod name.</returns>
+    /// <returns> A list of all installed mods. The first string is their directory name, the second string is their mod name. </returns>
     public Dictionary<string, string> GetModList();
+
+    /// <returns> A synchronized list of all installed mods. Intended for IPC type-erased communication. </returns>
+    public IDisposable GetModListAdapter();
 
     /// <summary> Try to unpack and install a valid mod file (.pmp, .pcp, .ttmp, .ttmp2) as if installed manually. </summary>
     /// <param name="modFilePackagePath">The file that should be unpacked.</param>

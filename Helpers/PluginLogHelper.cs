@@ -7,7 +7,7 @@ namespace Penumbra.Api.Helpers;
 internal class PluginLogHelper
 {
     [PluginService]
-    private static IPluginLog? _log { get; set; }
+    private static IPluginLog? Log { get; set; }
 
     private PluginLogHelper(IDalamudPluginInterface pi)
         => pi.Inject(this);
@@ -17,10 +17,10 @@ internal class PluginLogHelper
 
     public static IPluginLog GetLog(IDalamudPluginInterface pi)
     {
-        if (_log != null)
-            return _log;
+        if (Log != null)
+            return Log;
 
         _ = new PluginLogHelper(pi);
-        return _log!;
+        return Log!;
     }
 }
