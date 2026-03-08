@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Penumbra.Api.Enums;
 
 public enum ResourceType : uint
@@ -66,25 +68,55 @@ public enum ResourceType : uint
 
 public static class ResourceTypeExtensions
 {
-    public static ResourceType FromExtension(ReadOnlySpan<byte> ext)
-        => ext.Length switch
-        {
-            0 => ResourceType.Unknown,
-            1 => (ResourceType)(ext[0] | 32),
-            2 => (ResourceType)(ext[1] | 32 | ((ext[0] | 32) << 8)),
-            3 => (ResourceType)(ext[2] | 32 | ((ext[1] | 32) << 8) | ((ext[0] | 32) << 16)),
-            4 => (ResourceType)(ext[3] | 32 | ((ext[2] | 32) << 8) | ((ext[1] | 32) << 16) | ((ext[0] | 32) << 24)),
-            _ => ResourceType.Unknown,
-        };
+    extension(ResourceType)
+    {
 
-    public static ResourceType FromExtension(ReadOnlySpan<char> ext)
-        => ext.Length switch
+        public static ResourceType FromExtension(ReadOnlySpan<byte> ext)
+            => ext.Length switch
+            {
+                0 => ResourceType.Unknown,
+                1 => (ResourceType)(ext[0] | 32),
+                2 => (ResourceType)(ext[1] | 32 | ((ext[0] | 32) << 8)),
+                3 => (ResourceType)(ext[2] | 32 | ((ext[1] | 32) << 8) | ((ext[0] | 32) << 16)),
+                4 => (ResourceType)(ext[3] | 32 | ((ext[2] | 32) << 8) | ((ext[1] | 32) << 16) | ((ext[0] | 32) << 24)),
+                _ => ResourceType.Unknown,
+            };
+
+        public static ResourceType FromExtension(ReadOnlySpan<char> ext)
+            => ext.Length switch
+            {
+                0 => ResourceType.Unknown,
+                1 => (ResourceType)((byte)ext[0] | 32),
+                2 => (ResourceType)((byte)ext[1] | 32 | (((byte)ext[0] | 32) << 8)),
+                3 => (ResourceType)((byte)ext[2] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[0] | 32) << 16)),
+                4 => (ResourceType)((byte)ext[3] | 32 | (((byte)ext[2] | 32) << 8) | (((byte)ext[1] | 32) << 16) | (((byte)ext[0] | 32) << 24)),
+                _ => ResourceType.Unknown,
+            };
+
+
+        public static ResourceType FromPath(ReadOnlySpan<byte> path)
         {
-            0 => ResourceType.Unknown,
-            1 => (ResourceType)((byte)ext[0] | 32),
-            2 => (ResourceType)((byte)ext[1] | 32 | (((byte)ext[0] | 32) << 8)),
-            3 => (ResourceType)((byte)ext[2] | 32 | (((byte)ext[1] | 32) << 8) | (((byte)ext[0] | 32) << 16)),
-            4 => (ResourceType)((byte)ext[3] | 32 | (((byte)ext[2] | 32) << 8) | (((byte)ext[1] | 32) << 16) | (((byte)ext[0] | 32) << 24)),
-            _ => ResourceType.Unknown,
-        };
+            // This is mostly an adaptation of Path.GetExtension to ROS<byte>.
+            var length = path.Length;
+            for (var index = length - 1; index >= 0; --index)
+            {
+                var c = path[index];
+                if (c is (byte)'.')
+                    return index != length - 1 ? FromExtension(path[(index + 1)..]) : ResourceType.Unknown;
+
+                if (c is (byte)'/' or (byte)'\\')
+                    break;
+            }
+
+            return ResourceType.Unknown;
+        }
+
+        public static ResourceType FromPath(ReadOnlySpan<char> path)
+        {
+            var extension = Path.GetExtension(path);
+            return extension.IsEmpty
+                ? ResourceType.Unknown
+                : FromExtension(extension[1..]);
+        }
+    }
 }
