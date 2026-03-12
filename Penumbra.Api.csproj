@@ -8,6 +8,7 @@
         <PackageVersion>5.15.0</PackageVersion>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <OutputPath>bin\$(Configuration)\</OutputPath>
+        <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
     </PropertyGroup>
 
     <PropertyGroup>
