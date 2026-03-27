@@ -1,3 +1,4 @@
+using System.Collections.Frozen;
 using System.IO;
 
 namespace Penumbra.Api.Enums;
@@ -68,8 +69,12 @@ public enum ResourceType : uint
 
 public static class ResourceTypeExtensions
 {
-    extension(ResourceType)
+    private static readonly FrozenSet<ResourceType> KnownTypes = Enum.GetValues<ResourceType>().ToFrozenSet();
+
+    extension(ResourceType type)
     {
+        public bool Known
+            => type is not ResourceType.Unknown && KnownTypes.Contains(type);
 
         public static ResourceType FromExtension(ReadOnlySpan<byte> ext)
             => ext.Length switch
