@@ -9,6 +9,8 @@ using CurrentSettingsBase = ValueTuple<int, (bool, int, Dictionary<string, List<
 using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?>;
 using CurrentSettingsTempBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
 using CurrentSettingsTemp = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
+using GroupPriorityResultBase = ValueTuple<int, int?>;
+using GroupPriorityResult = ValueTuple<PenumbraApiEc, int?>;
 
 /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
 public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
@@ -200,6 +202,74 @@ public sealed class TrySetModPriority(IDalamudPluginInterface pi)
     /// <summary> Create a provider. </summary>
     public static FuncProvider<Guid, string, string, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
         => new(pi, Label, (a, b, c, d) => (int)api.TrySetModPriority(a, b, c, d));
+}
+
+/// <inheritdoc cref="IPenumbraApiModSettings.TryGetModGroupPriority"/>
+public sealed class TryGetModGroupPriority(IDalamudPluginInterface pi)
+    : FuncSubscriber<string, string, string, GroupPriorityResultBase>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(TryGetModGroupPriority)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.TryGetModGroupPriority.V5"u8;
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.TryGetModGroupPriority"/>
+    public new GroupPriorityResult Invoke(string modDirectory, string optionGroupName, string modName = "")
+    {
+        var (ret, priority) = base.Invoke(modDirectory, modName, optionGroupName);
+        return ((PenumbraApiEc)ret, priority);
+    }
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<string, string, string, GroupPriorityResultBase> Provider(IDalamudPluginInterface pi,
+        IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c) =>
+        {
+            var (ret, priority) = api.TryGetModGroupPriority(a, b, c);
+            return ((int)ret, priority);
+        });
+}
+
+/// <inheritdoc cref="IPenumbraApiModSettings.TrySetModGroupPriority"/>
+public sealed class TrySetModGroupPriority(IDalamudPluginInterface pi)
+    : FuncSubscriber<string, string, string, int, int>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(TrySetModGroupPriority)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.TrySetModGroupPriority.V5"u8;
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModGroupPriority"/>
+    public PenumbraApiEc Invoke(string modDirectory, string optionGroupName, int priority, string modName = "")
+        => (PenumbraApiEc)base.Invoke(modDirectory, modName, optionGroupName, priority);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<string, string, string, int, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c, d) => (int)api.TrySetModGroupPriority(a, b, c, d));
+}
+
+/// <inheritdoc cref="IPenumbraApiModSettings.NotifyTemporaryModSettingsChangedPlayer"/>
+public sealed class NotifyTemporaryModSettingsChangedPlayer(IDalamudPluginInterface pi)
+    : FuncSubscriber<int, string, string, int>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(NotifyTemporaryModSettingsChangedPlayer)}.V5";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.NotifyTemporaryModSettingsChangedPlayer.V5"u8;
+
+    /// <inheritdoc cref="IPenumbraApiModSettings.NotifyTemporaryModSettingsChangedPlayer"/>
+    public new PenumbraApiEc Invoke(int objectIndex, string modDirectory, string modName = "")
+        => (PenumbraApiEc)base.Invoke(objectIndex, modDirectory, modName);
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<int, string, string, int> Provider(IDalamudPluginInterface pi, IPenumbraApiModSettings api)
+        => new(pi, Label, (a, b, c) => (int)api.NotifyTemporaryModSettingsChangedPlayer(a, b, c));
 }
 
 /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSetting"/>

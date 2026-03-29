@@ -63,6 +63,36 @@ public interface IPenumbraApiModSettings
     /// <returns>ModMissing, CollectionMissing, InvalidArgument (GUID is nil), NothingChanged or Success.</returns>
     public PenumbraApiEc TrySetModPriority(Guid collectionId, string modDirectory, string modName, int priority);
 
+    /// <summary> Get the priority of an option group in a mod. </summary>
+    /// <remarks>This is a generic mod-editing operation and not limited to temporary or exclusive flows.</remarks>
+    /// <param name="modDirectory">Specify the mod via its directory name.</param>
+    /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
+    /// <param name="optionGroupName">Specify the option group by its name.</param>
+    /// <returns>ModMissing, OptionGroupMissing or Success and on success the current group priority.</returns>
+    public (PenumbraApiEc, int?) TryGetModGroupPriority(string modDirectory, string modName, string optionGroupName);
+
+    /// <summary> Try to set the priority of an option group in a mod. </summary>
+    /// <remarks>This is a generic mod-editing operation and not limited to temporary or exclusive flows.</remarks>
+    /// <param name="modDirectory">Specify the mod via its directory name.</param>
+    /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
+    /// <param name="optionGroupName">Specify the option group by its name.</param>
+    /// <param name="priority">Specify the new group priority.</param>
+    /// <returns>ModMissing, OptionGroupMissing, NothingChanged or Success.</returns>
+    public PenumbraApiEc TrySetModGroupPriority(string modDirectory, string modName, string optionGroupName, int priority);
+
+    /// <summary>
+    /// Notify Penumbra that temporary mod settings changed in one player/mod context.
+    /// </summary>
+    /// <remarks>
+    /// Intended for plugin-driven temporary or exclusive playback cleanup where temporary state is already cleared,
+    /// but Penumbra UI/cache presentation for that player/mod should be refreshed immediately.
+    /// </remarks>
+    /// <param name="objectIndex">The object table index used to resolve the player-associated collection context.</param>
+    /// <param name="modDirectory">Specify the mod via its directory name.</param>
+    /// <param name="modName">Specify the mod via its (non-unique) display name.</param>
+    /// <returns>InvalidArgument, ModMissing or Success.</returns>
+    public PenumbraApiEc NotifyTemporaryModSettingsChangedPlayer(int objectIndex, string modDirectory, string modName);
+
     /// <summary> Try to set a specific option group of a mod in the given collection to a specific value. </summary>
     /// <remarks>Removes inheritance. Single Selection groups should provide a single option, Multi Selection can provide multiple.
     /// If any setting can not be found, it will not change anything.</remarks>
