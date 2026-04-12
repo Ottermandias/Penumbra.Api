@@ -5,10 +5,10 @@ using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
-using CurrentSettingsBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool)?>;
 using CurrentSettings = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?>;
-using CurrentSettingsTempBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
+using CurrentSettingsBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool)?>;
 using CurrentSettingsTemp = ValueTuple<PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
+using CurrentSettingsTempBase = ValueTuple<int, (bool, int, Dictionary<string, List<string>>, bool, bool)?>;
 
 /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
 public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
