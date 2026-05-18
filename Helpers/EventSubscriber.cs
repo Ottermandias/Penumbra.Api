@@ -580,3 +580,97 @@ public sealed class EventSubscriber<T1, T2, T3, T4, T5> : IDisposable
     ~EventSubscriber()
         => Dispose();
 }
+
+/// <summary><inheritdoc cref="EventSubscriber"/> </summary>
+public sealed class EventSubscriber<T1, T2, T3, T4, T5, T6> : IDisposable
+{
+    private readonly string _label;
+    private readonly IPluginLog _log;
+    private readonly Dictionary<Action<T1, T2, T3, T4, T5, T6>, Action<T1, T2, T3, T4, T5, T6>> _delegates = new();
+    private ICallGateSubscriber<T1, T2, T3, T4, T5, T6, object?>? _subscriber;
+    private bool _disabled;
+
+    public EventSubscriber(IDalamudPluginInterface pi, string label, params Action<T1, T2, T3, T4, T5, T6>[] actions)
+    {
+        _label = label;
+        _log = PluginLogHelper.GetLog(pi);
+        try
+        {
+            _subscriber = pi.GetIpcSubscriber<T1, T2, T3, T4, T5, T6, object?>(label);
+            foreach (var action in actions)
+                Event += action;
+
+            _disabled = false;
+        }
+        catch (Exception e)
+        {
+            _log.Error($"Error registering IPC Subscriber for {label}\n{e}");
+            _subscriber = null;
+        }
+    }
+
+    /// <summary><inheritdoc cref="EventSubscriber.Enable"/> </summary>
+    public void Enable()
+    {
+        if (_disabled && _subscriber != null)
+        {
+            foreach (var action in _delegates.Values)
+                _subscriber.Subscribe(action);
+
+            _disabled = false;
+        }
+    }
+
+    /// <summary><inheritdoc cref="EventSubscriber.Disable"/> </summary>
+    public void Disable()
+    {
+        if (!_disabled)
+        {
+            if (_subscriber != null)
+                foreach (var action in _delegates.Values)
+                    _subscriber.Unsubscribe(action);
+
+            _disabled = true;
+        }
+    }
+
+    /// <summary><inheritdoc cref="EventSubscriber.Event"/> </summary>
+    public event Action<T1, T2, T3, T4, T5, T6> Event
+    {
+        add
+        {
+            if (_subscriber != null && !_delegates.ContainsKey(value))
+            {
+                void Action(T1 a, T2 b, T3 c, T4 d, T5 e, T6 f)
+                {
+                    try
+                    {
+                        value(a, b, c, d, e, f);
+                    }
+                    catch (Exception ex)
+                    {
+                        _log.Error($"Exception invoking IPC event {_label}:\n{ex}");
+                    }
+                }
+
+                if (_delegates.TryAdd(value, Action) && !_disabled)
+                    _subscriber.Subscribe(Action);
+            }
+        }
+        remove
+        {
+            if (_subscriber != null && _delegates.Remove(value, out var action))
+                _subscriber.Unsubscribe(action);
+        }
+    }
+
+    public void Dispose()
+    {
+        Disable();
+        _subscriber = null;
+        _delegates.Clear();
+    }
+
+    ~EventSubscriber()
+        => Dispose();
+}
