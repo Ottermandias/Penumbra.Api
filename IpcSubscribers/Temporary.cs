@@ -27,8 +27,8 @@ public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
     }
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, string, (PenumbraApiEc, Guid)> Provider(IDalamudPluginInterface pi, IPenumbraApiTemporary api)
-        => new(pi, Label, api.CreateTemporaryCollection);
+    public static FuncProvider<string, string, (PenumbraApiEc, Guid)> Provider(IDalamudPluginInterface pi, HashSet<CallerPlugin> callers, IPenumbraApiTemporary api)
+        => new(pi, callers, Label, api.CreateTemporaryCollection);
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.DeleteTemporaryCollection"/>
@@ -87,9 +87,9 @@ public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi,
+    public static FuncProvider<string, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi, HashSet<CallerPlugin> callers,
         IPenumbraApiTemporary api)
-        => new(pi, Label, (a, b, c, d) => (int)api.AddTemporaryModAll(a, b, c, d));
+        => new(pi, callers, Label, (a, b, c, d) => (int)api.AddTemporaryModAll(a, b, c, d));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryMod"/>
@@ -108,9 +108,9 @@ public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<string, Guid, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi,
+    public static FuncProvider<string, Guid, Dictionary<string, string>, string, int, int> Provider(IDalamudPluginInterface pi, HashSet<CallerPlugin> callers,
         IPenumbraApiTemporary api)
-        => new(pi, Label, (a, b, c, d, e) => (int)api.AddTemporaryMod(a, b, c, d, e));
+        => new(pi, callers, Label, (a, b, c, d, e) => (int)api.AddTemporaryMod(a, b, c, d, e));
 }
 
 /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModAll"/>

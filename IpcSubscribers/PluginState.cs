@@ -78,8 +78,8 @@ public class ApiVersion(IDalamudPluginInterface pi)
         => base.Invoke();
 
     /// <summary> Create a provider. </summary>
-    public static FuncProvider<(int Breaking, int Features)> Provider(IDalamudPluginInterface pi, IPenumbraApiBase api)
-        => new(pi, Label, () => api.ApiVersion);
+    public static FuncProvider<(int Breaking, int Features)> Provider(IDalamudPluginInterface pi, HashSet<CallerPlugin> callers, IPenumbraApiBase api)
+        => new(pi, callers, Label, () => api.ApiVersion);
 }
 
 /// <inheritdoc cref="IPenumbraApiPluginState.GetModDirectory"/>

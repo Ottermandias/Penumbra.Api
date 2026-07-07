@@ -1,3 +1,4 @@
+using System.Text;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 
@@ -23,6 +24,30 @@ public sealed class FuncProvider<TRet> : IDisposable
         }
 
         _provider?.RegisterFunc(func);
+    }
+
+    public FuncProvider(IDalamudPluginInterface pi, HashSet<CallerPlugin> plugins, string label, Func<TRet> func)
+    {
+        try
+        {
+            _provider = pi.GetIpcProvider<TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+
+        var log = PluginLogHelper.GetLog(pi);
+        _provider?.RegisterFunc(() =>
+        {
+            var context = _provider.GetContext();
+            if (context?.SourcePlugin is { } plugin)
+                plugins.Add(new CallerPlugin(plugin));
+            else
+                log.Debug($"Unknown plugin executed {label}.");
+            return func();
+        });
     }
 
     public void Dispose()
@@ -87,6 +112,30 @@ public sealed class FuncProvider<T1, T2, TRet> : IDisposable
         _provider?.RegisterFunc(func);
     }
 
+    public FuncProvider(IDalamudPluginInterface pi, HashSet<CallerPlugin> plugins, string label, Func<T1, T2, TRet> func)
+    {
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+
+        var log = PluginLogHelper.GetLog(pi);
+        _provider?.RegisterFunc((a, b) =>
+        {
+            var context = _provider.GetContext();
+            if (context?.SourcePlugin is { } plugin)
+                plugins.Add(new CallerPlugin(plugin));
+            else
+                log.Debug($"Unknown plugin executed {label}.");
+            return func(a, b);
+        });
+    }
+
     public void Dispose()
     {
         _provider?.UnregisterFunc();
@@ -149,6 +198,30 @@ public sealed class FuncProvider<T1, T2, T3, T4, TRet> : IDisposable
         _provider?.RegisterFunc(func);
     }
 
+    public FuncProvider(IDalamudPluginInterface pi, HashSet<CallerPlugin> plugins, string label, Func<T1, T2, T3, T4, TRet> func)
+    {
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+
+        var log = PluginLogHelper.GetLog(pi);
+        _provider?.RegisterFunc((a, b, c, d) =>
+        {
+            var context = _provider.GetContext();
+            if (context?.SourcePlugin is { } plugin)
+                plugins.Add(new CallerPlugin(plugin));
+            else
+                log.Debug($"Unknown plugin executed {label}.");
+            return func(a, b, c, d);
+        });
+    }
+
     public void Dispose()
     {
         _provider?.UnregisterFunc();
@@ -178,6 +251,30 @@ public sealed class FuncProvider<T1, T2, T3, T4, T5, TRet> : IDisposable
         }
 
         _provider?.RegisterFunc(func);
+    }
+
+    public FuncProvider(IDalamudPluginInterface pi, HashSet<CallerPlugin> plugins, string label, Func<T1, T2, T3, T4, T5, TRet> func)
+    {
+        try
+        {
+            _provider = pi.GetIpcProvider<T1, T2, T3, T4, T5, TRet>(label);
+        }
+        catch (Exception e)
+        {
+            PluginLogHelper.WriteError(pi, $"Error registering IPC Provider for {label}\n{e}");
+            _provider = null;
+        }
+
+        var log = PluginLogHelper.GetLog(pi);
+        _provider?.RegisterFunc((a, b, c, d, e) =>
+        {
+            var context = _provider.GetContext();
+            if (context?.SourcePlugin is { } plugin)
+                plugins.Add(new CallerPlugin(plugin));
+            else
+                log.Debug($"Unknown plugin executed {label}.");
+            return func(a, b, c, d, e);
+        });
     }
 
     public void Dispose()
