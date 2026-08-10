@@ -40,3 +40,15 @@ public delegate void CreatedCharacterBaseDelegate(nint gameObject, Guid collecti
 /// the original <paramref name="gamePath" /> that was resolved by Penumbra, <para />
 /// the resulting <paramref name="localPath" /> returned by Penumbra.</returns>
 public delegate void GameObjectResourceResolvedDelegate(nint gameObject, string gamePath, string localPath);
+
+/// <summary>
+/// Used whenever a collection's ResolvedFiles update in any way.
+/// </summary>
+/// <returns>The <paramref name="type" /> of change, <para />
+/// the <paramref name="collectionId" /> in which the resolved file changed, <para />
+/// the <paramref name="modName" /> of the mod responsible for the change, <para />
+/// the <paramref name="gamePath" /> that was changed, <para />
+/// the old <paramref name="oldLocalPath" /> before the change, <para />
+/// the new <paramref name="newLocalPath" /> after the change.</returns>
+public delegate void ResolvedFileChangedDelegate(ResolvedFileChange type, Guid collectionId, string modName, string gamePath, string oldLocalPath, string newLocalPath);
+
