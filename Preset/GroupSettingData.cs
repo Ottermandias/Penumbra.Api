@@ -207,7 +207,7 @@ public static class GroupSettingDataExtensions
                             JsonTokenType.String => j.GetString() switch
                             {
                                 "Enabled" or "enabled" or "True" or "true"     => OptionState.Enabled,
-                                "Disabled" or "disabled" or "False" or "false" => OptionState.Enabled,
+                                "Disabled" or "disabled" or "False" or "false" => OptionState.Disabled,
                                 "Toggle" or "toggle"                           => OptionState.Toggle,
                                 _                                              => OptionState.Ignored,
                             },
