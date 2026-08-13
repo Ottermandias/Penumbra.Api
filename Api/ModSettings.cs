@@ -30,7 +30,6 @@ public interface IPenumbraApiModSettings
     public (PenumbraApiEc, (bool, int, Dictionary<string, List<string>>, bool)?) GetCurrentModSettings(Guid collectionId,
         string modDirectory, string modName, bool ignoreInheritance);
 
-
     /// <summary>
     /// Obtain the enabled state, the priority, the settings of a mod given by its <paramref name="modDirectory" /> name or <paramref name="modName" /> in all collections.
     /// </summary>
