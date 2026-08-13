@@ -38,4 +38,7 @@ public interface IPenumbraApi : IPenumbraApiBase
 
     /// <inheritdoc cref="IPenumbraApiUi"/>
     public IPenumbraApiUi Ui { get; }
+
+    /// <inheritdoc cref="IPenumbraApiPresets"/>
+    public IPenumbraApiPresets Presets { get; }
 }
