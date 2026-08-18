@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -20,7 +20,7 @@ public sealed class ReloadMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(ReloadMod)}";
 
-    public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => base.Invoke(modDirectory, modName);
 }
 
@@ -29,7 +29,7 @@ public sealed class InstallMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(InstallMod)}";
 
-    public new PenumbraApiEc Invoke(string modDirectory)
+    public PenumbraApiEc Invoke(string modDirectory)
         => base.Invoke(modDirectory);
 }
 
@@ -38,7 +38,7 @@ public sealed class AddMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(AddMod)}";
 
-    public new PenumbraApiEc Invoke(string modDirectory)
+    public PenumbraApiEc Invoke(string modDirectory)
         => base.Invoke(modDirectory);
 }
 
@@ -47,7 +47,7 @@ public sealed class DeleteMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(DeleteMod)}";
 
-    public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => base.Invoke(modDirectory, modName);
 }
 
@@ -56,7 +56,7 @@ public sealed class GetModPath(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetModPath)}";
 
-    public new (PenumbraApiEc ErrorCode, string Path, bool IsDefault) Invoke(string modDirectory, string modName = "")
+    public (PenumbraApiEc ErrorCode, string Path, bool IsDefault) Invoke(string modDirectory, string modName = "")
         => base.Invoke(modDirectory, modName);
 }
 
@@ -65,6 +65,6 @@ public sealed class SetModPath(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(SetModPath)}";
 
-    public new PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")
         => base.Invoke(modDirectory, modName, newPath);
 }

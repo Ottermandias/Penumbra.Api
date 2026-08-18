@@ -1,5 +1,4 @@
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.Api;
 

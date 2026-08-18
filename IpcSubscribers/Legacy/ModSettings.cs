@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -13,7 +13,7 @@ public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetAvailableModSettings)}";
 
-    public new IDictionary<string, (IList<string>, GroupType)>? Invoke(string modDirectory, string modName = "")
+    public IDictionary<string, (IList<string>, GroupType)>? Invoke(string modDirectory, string modName = "")
         => base.Invoke(modDirectory, modName);
 }
 
@@ -22,7 +22,7 @@ public sealed class GetCurrentModSettings(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetCurrentModSettings)}";
 
-    public new CurrentSettings Invoke(string collectionName, string modDirectory, string modName = "", bool ignoreInheritance = false)
+    public CurrentSettings Invoke(string collectionName, string modDirectory, string modName = "", bool ignoreInheritance = false)
         => base.Invoke(collectionName, modDirectory, modName, ignoreInheritance);
 }
 
@@ -58,7 +58,7 @@ public sealed class TrySetModSetting(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(TrySetModSetting)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectory, string groupName, string setting, string modName = "")
+    public PenumbraApiEc Invoke(string collectionName, string modDirectory, string groupName, string setting, string modName = "")
         => base.Invoke(collectionName, modDirectory, modName, groupName, setting);
 }
 
@@ -86,6 +86,6 @@ public sealed class CopyModSettings(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(CopyModSettings)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, string modDirectoryFrom, string modDirectoryTo)
+    public PenumbraApiEc Invoke(string collectionName, string modDirectoryFrom, string modDirectoryTo)
         => base.Invoke(collectionName, modDirectoryFrom, modDirectoryTo);
 }

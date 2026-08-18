@@ -1,5 +1,5 @@
 using Dalamud.Plugin;
-using Penumbra.Api.Helpers;
+using Luna;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -10,7 +10,7 @@ public sealed class GetMetaManipulations(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetMetaManipulations)}";
 
-    public new string Invoke(string objectName)
+    public string Invoke(string objectName)
         => base.Invoke(objectName);
 }
 
@@ -19,6 +19,6 @@ public sealed class GetGameObjectMetaManipulations(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectMetaManipulations)}";
 
-    public new string Invoke(int objectIndex)
+    public string Invoke(int objectIndex)
         => base.Invoke(objectIndex);
 }

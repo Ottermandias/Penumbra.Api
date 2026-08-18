@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -11,6 +11,6 @@ public sealed class OpenMainWindow(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(OpenMainWindow)}";
 
-    public new PenumbraApiEc Invoke(TabType tab, string modName, string modDirectory = "")
+    public PenumbraApiEc Invoke(TabType tab, string modName, string modDirectory = "")
         => base.Invoke(tab, modName, modDirectory);
 }

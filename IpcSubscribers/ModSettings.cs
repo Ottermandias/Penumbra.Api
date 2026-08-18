@@ -1,7 +1,7 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -22,7 +22,7 @@ public sealed class GetAvailableModSettings(IDalamudPluginInterface pi)
         => "Penumbra.GetAvailableModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetAvailableModSettings"/>
-    public new IReadOnlyDictionary<string, (string[], GroupType)>? Invoke(string modDirectory, string modName = "")
+    public IReadOnlyDictionary<string, (string[], GroupType)>? Invoke(string modDirectory, string modName = "")
         => AvailableModSettings.Create(base.Invoke(modDirectory, modName));
 
     /// <summary> Create a provider. </summary>
@@ -43,7 +43,7 @@ public sealed class GetCurrentModSettings(IDalamudPluginInterface pi)
         => "Penumbra.GetCurrentModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettings"/>
-    public new CurrentSettings Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false)
+    public CurrentSettings Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false)
     {
         var (ret, t) = base.Invoke(collectionId, modDirectory, modName, ignoreInheritance);
         return ((PenumbraApiEc)ret, t);
@@ -71,7 +71,7 @@ public sealed class GetCurrentModSettingsWithTemp(IDalamudPluginInterface pi)
         => "Penumbra.GetCurrentModSettingsWithTemp"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetCurrentModSettingsWithTemp"/>
-    public new CurrentSettingsTemp Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false,
+    public CurrentSettingsTemp Invoke(Guid collectionId, string modDirectory, string modName = "", bool ignoreInheritance = false,
         bool ignoreTemporary = false, int key = 0)
     {
         var (ret, t) = base.Invoke(collectionId, modDirectory, modName, ignoreInheritance, ignoreTemporary, key);
@@ -100,7 +100,7 @@ public sealed class GetAllModSettings(IDalamudPluginInterface pi)
         => "Penumbra.GetAllModSettings"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.GetAllModSettings"/>
-    public new (PenumbraApiEc, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?) Invoke(Guid collectionId,
+    public (PenumbraApiEc, Dictionary<string, (bool, int, Dictionary<string, List<string>>, bool, bool)>?) Invoke(Guid collectionId,
         bool ignoreInheritance = false, bool ignoreTemporary = false, int key = 0)
     {
         var (ret, t) = base.Invoke(collectionId, ignoreInheritance, ignoreTemporary, key);
@@ -214,7 +214,7 @@ public sealed class TrySetModSetting(IDalamudPluginInterface pi)
         => "Penumbra.TrySetModSetting.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.TrySetModSetting"/>
-    public new PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string optionGroupName, string optionName, string modName = "")
+    public PenumbraApiEc Invoke(Guid collectionId, string modDirectory, string optionGroupName, string optionName, string modName = "")
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectory, modName, optionGroupName, optionName);
 
     /// <summary> Create a provider. </summary>
@@ -276,7 +276,7 @@ public sealed class CopyModSettings(IDalamudPluginInterface pi)
         => "Penumbra.CopyModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiModSettings.CopyModSettings"/>
-    public new PenumbraApiEc Invoke(Guid? collectionId, string modDirectoryFrom, string modDirectoryTo)
+    public PenumbraApiEc Invoke(Guid? collectionId, string modDirectoryFrom, string modDirectoryTo)
         => (PenumbraApiEc)base.Invoke(collectionId, modDirectoryFrom, modDirectoryTo);
 
     /// <summary> Create a provider. </summary>

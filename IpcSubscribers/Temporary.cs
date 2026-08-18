@@ -1,7 +1,7 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 using PseudoModSetting =
     System.ValueTuple<bool, bool, int,
         System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IReadOnlyList<string>>>;
@@ -43,7 +43,7 @@ public sealed class DeleteTemporaryCollection(IDalamudPluginInterface pi)
         => "Penumbra.DeleteTemporaryCollection.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.DeleteTemporaryCollection"/>
-    public new PenumbraApiEc Invoke(Guid collectionId)
+    public PenumbraApiEc Invoke(Guid collectionId)
         => (PenumbraApiEc)base.Invoke(collectionId);
 
     /// <summary> Create a provider. </summary>
@@ -63,7 +63,7 @@ public sealed class AssignTemporaryCollection(IDalamudPluginInterface pi)
         => "Penumbra.AssignTemporaryCollection.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AssignTemporaryCollection"/>
-    public new PenumbraApiEc Invoke(Guid collectionId, int actorIndex, bool forceAssignment = true)
+    public PenumbraApiEc Invoke(Guid collectionId, int actorIndex, bool forceAssignment = true)
         => (PenumbraApiEc)base.Invoke(collectionId, actorIndex, forceAssignment);
 
     /// <summary> Create a provider. </summary>
@@ -83,7 +83,7 @@ public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
         => "Penumbra.AddTemporaryModAll.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryModAll"/>
-    public new PenumbraApiEc Invoke(string tag, Dictionary<string, string> paths, string manipString, int priority)
+    public PenumbraApiEc Invoke(string tag, Dictionary<string, string> paths, string manipString, int priority)
         => (PenumbraApiEc)base.Invoke(tag, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
@@ -104,7 +104,7 @@ public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
         => "Penumbra.AddTemporaryMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.AddTemporaryMod"/>
-    public new PenumbraApiEc Invoke(string tag, Guid collectionId, Dictionary<string, string> paths, string manipString, int priority)
+    public PenumbraApiEc Invoke(string tag, Guid collectionId, Dictionary<string, string> paths, string manipString, int priority)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, paths, manipString, priority);
 
     /// <summary> Create a provider. </summary>
@@ -125,7 +125,7 @@ public sealed class RemoveTemporaryModAll(IDalamudPluginInterface pi)
         => "Penumbra.RemoveTemporaryModAll.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryModAll"/>
-    public new PenumbraApiEc Invoke(string tag, int priority)
+    public PenumbraApiEc Invoke(string tag, int priority)
         => (PenumbraApiEc)base.Invoke(tag, priority);
 
     /// <summary> Create a provider. </summary>
@@ -146,7 +146,7 @@ public sealed class RemoveTemporaryMod(IDalamudPluginInterface pi)
         => "Penumbra.RemoveTemporaryMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveTemporaryMod"/>
-    public new PenumbraApiEc Invoke(string tag, Guid collectionId, int priority)
+    public PenumbraApiEc Invoke(string tag, Guid collectionId, int priority)
         => (PenumbraApiEc)base.Invoke(tag, collectionId, priority);
 
     /// <summary> Create a provider. </summary>
@@ -250,7 +250,7 @@ public sealed class RemoveAllTemporaryModSettings(IDalamudPluginInterface pi)
         => "Penumbra.RemoveAllTemporaryModSettings.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveAllTemporaryModSettings"/>
-    public new PenumbraApiEc Invoke(Guid collectionId, int key = 0)
+    public PenumbraApiEc Invoke(Guid collectionId, int key = 0)
         => (PenumbraApiEc)base.Invoke(collectionId, key);
 
     /// <summary> Create a provider. </summary>
@@ -270,7 +270,7 @@ public sealed class RemoveAllTemporaryModSettingsPlayer(IDalamudPluginInterface 
         => "Penumbra.RemoveAllTemporaryModSettingsPlayer.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiTemporary.RemoveAllTemporaryModSettingsPlayer"/>
-    public new PenumbraApiEc Invoke(int objectIndex, int key = 0)
+    public PenumbraApiEc Invoke(int objectIndex, int key = 0)
         => (PenumbraApiEc)base.Invoke(objectIndex, key);
 
     /// <summary> Create a provider. </summary>

@@ -1,7 +1,8 @@
 using System.Runtime.CompilerServices;
+using Luna;
 using Penumbra.Api.Enums;
 
-namespace Penumbra.Api.Helpers;
+namespace Penumbra.Api;
 
 /// <summary> Wrapper dictionary. </summary>
 public sealed class GameResourceDict(IReadOnlyDictionary<nint, (string, string, uint)> dict)

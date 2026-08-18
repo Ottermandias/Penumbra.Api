@@ -17,6 +17,9 @@ public enum ModState : byte
 
     /// <summary> Invert the state of the mod in this collection. </summary>
     Toggle,
+
+    /// <summary> Remove temporary settings if there are any, and do nothing else. </summary>
+    RemoveTemporary,
 }
 
 /// <summary> States to set an option group's settings to. </summary>

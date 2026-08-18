@@ -1,4 +1,5 @@
 using System.Reflection;
+using Dalamud.Plugin.Ipc;
 using Newtonsoft.Json.Linq;
 using Penumbra.Api.Enums;
 
@@ -11,7 +12,11 @@ public interface IPenumbraApiMods
     public Dictionary<string, string> GetModList();
 
     /// <returns> A synchronized list of all installed mods. Intended for IPC type-erased communication. </returns>
-    public IDisposable GetModListAdapter();
+    public IDisposable GetModListAdapterOld();
+
+    /// <returns> Get a data share adapter for mod handling. </returns>
+    /// <param name="owner"> The requesting plugin for the adapter. </param>
+    public IIdDataShareAdapter GetModManagerAdapter(string owner);
 
     /// <summary> Try to unpack and install a valid mod file (.pmp, .pcp, .ttmp, .ttmp2) as if installed manually. </summary>
     /// <param name="modFilePackagePath">The file that should be unpacked.</param>

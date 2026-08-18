@@ -1,3 +1,4 @@
+using Dalamud.Plugin.Ipc;
 using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
@@ -7,6 +8,10 @@ public interface IPenumbraApiCollection
 {
     /// <returns> A list of the GUIDs of all currently installed collections together with their display names, excluding the empty collection. </returns>
     public Dictionary<Guid, string> GetCollections();
+
+    /// <summary> Get a data share adapter for collection handling. </summary>
+    /// <param name="owner"> The requesting plugin for the adapter. </param>
+    public IIdDataShareAdapter GetCollectionManagerAdapter(string owner);
 
     /// <summary> Returns all collections for which either
     /// <list type="number">

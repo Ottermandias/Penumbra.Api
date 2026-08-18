@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -36,7 +36,7 @@ public sealed class GetMetaManipulations(IDalamudPluginInterface pi)
         => "Penumbra.GetMetaManipulations.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMeta.GetMetaManipulations"/>
-    public new string Invoke(int gameObjectIdx)
+    public string Invoke(int gameObjectIdx)
         => base.Invoke(gameObjectIdx);
 
     /// <summary> Create a provider. </summary>

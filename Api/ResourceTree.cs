@@ -1,6 +1,5 @@
 using Newtonsoft.Json.Linq;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.Api;
 

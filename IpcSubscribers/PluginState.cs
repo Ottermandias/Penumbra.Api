@@ -1,7 +1,7 @@
 using System.Collections.Frozen;
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -212,7 +212,7 @@ public class CheckSupportedFeatures(IDalamudPluginInterface pi)
         => "Penumbra.CheckSupportedFeatures"u8;
 
     /// <inheritdoc cref="IPenumbraApiPluginState.CheckSupportedFeatures"/>
-    public new string[] Invoke(params IEnumerable<string> requiredFeatures)
+    public string[] Invoke(params IEnumerable<string> requiredFeatures)
         => base.Invoke(requiredFeatures);
 
     /// <summary> Create a provider. </summary>

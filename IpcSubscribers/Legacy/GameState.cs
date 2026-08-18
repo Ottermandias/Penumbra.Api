@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -11,7 +11,7 @@ public sealed class GetDrawObjectInfo(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetDrawObjectInfo)}";
 
-    public new (nint GameObjectAddress, string CollectionName) Invoke(nint drawObjectAddress)
+    public (nint GameObjectAddress, string CollectionName) Invoke(nint drawObjectAddress)
         => base.Invoke(drawObjectAddress);
 }
 
@@ -20,7 +20,7 @@ public sealed class SetCutsceneParentIndex(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(SetCutsceneParentIndex)}";
 
-    public new PenumbraApiEc Invoke(int cutsceneObjectIndex, int newParentIndex)
+    public PenumbraApiEc Invoke(int cutsceneObjectIndex, int newParentIndex)
         => base.Invoke(cutsceneObjectIndex, newParentIndex);
 }
 

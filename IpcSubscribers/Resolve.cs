@@ -1,7 +1,7 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -17,7 +17,7 @@ public sealed class ResolveDefaultPath(IDalamudPluginInterface pi)
         => "Penumbra.ResolveDefaultPath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveDefaultPath"/>
-    public new string Invoke(string gamePath)
+    public string Invoke(string gamePath)
         => base.Invoke(gamePath);
 
     /// <summary> Create a provider. </summary>
@@ -37,7 +37,7 @@ public sealed class ResolveInterfacePath(IDalamudPluginInterface pi)
         => "Penumbra.ResolveInterfacePath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveInterfacePath"/>
-    public new string Invoke(string gamePath)
+    public string Invoke(string gamePath)
         => base.Invoke(gamePath);
 
     /// <summary> Create a provider. </summary>
@@ -57,7 +57,7 @@ public sealed class ResolveGameObjectPath(IDalamudPluginInterface pi)
         => "Penumbra.ResolveGameObjectPath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolveGameObjectPath"/>
-    public new string Invoke(string gamePath, int gameObjectIdx)
+    public string Invoke(string gamePath, int gameObjectIdx)
         => base.Invoke(gamePath, gameObjectIdx);
 
     /// <summary> Create a provider. </summary>
@@ -100,7 +100,7 @@ public sealed class ResolvePlayerPath(IDalamudPluginInterface pi)
         => "Penumbra.ResolvePlayerPath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPath"/>
-    public new string Invoke(string gamePath)
+    public string Invoke(string gamePath)
         => base.Invoke(gamePath);
 
     /// <summary> Create a provider. </summary>
@@ -120,7 +120,7 @@ public sealed class ReverseResolveGameObjectPath(IDalamudPluginInterface pi)
         => "Penumbra.ReverseResolveGameObjectPath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ReverseResolveGameObjectPath"/>
-    public new string[] Invoke(string gamePath, int gameObjectIdx)
+    public string[] Invoke(string gamePath, int gameObjectIdx)
         => base.Invoke(gamePath, gameObjectIdx);
 
     /// <summary> Create a provider. </summary>
@@ -140,7 +140,7 @@ public sealed class ReverseResolvePlayerPath(IDalamudPluginInterface pi)
         => "Penumbra.ReverseResolvePlayerPath"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ReverseResolvePlayerPath"/>
-    public new string[] Invoke(string gamePath)
+    public string[] Invoke(string gamePath)
         => base.Invoke(gamePath);
 
     /// <summary> Create a provider. </summary>
@@ -160,7 +160,7 @@ public sealed class ResolvePlayerPaths(IDalamudPluginInterface pi)
         => "Penumbra.ResolvePlayerPaths"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPaths"/>
-    public new (string[], string[][]) Invoke(string[] forward, string[] reverse)
+    public (string[], string[][]) Invoke(string[] forward, string[] reverse)
         => base.Invoke(forward, reverse);
 
     /// <summary> Create a provider. </summary>
@@ -210,7 +210,7 @@ public sealed class ResolvePlayerPathsAsync(IDalamudPluginInterface pi)
         => "Penumbra.ResolvePlayerPathsAsync"u8;
 
     /// <inheritdoc cref="IPenumbraApiResolve.ResolvePlayerPathsAsync"/>
-    public new Task<(string[], string[][])> Invoke(string[] forward, string[] reverse)
+    public Task<(string[], string[][])> Invoke(string[] forward, string[] reverse)
         => base.Invoke(forward, reverse);
 
     /// <summary> Create a provider. </summary>

@@ -1,5 +1,5 @@
 using Dalamud.Plugin;
-using Penumbra.Api.Helpers;
+using Luna;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -10,7 +10,7 @@ public sealed class ResolveCharacterPath(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(ResolveCharacterPath)}";
 
-    public new string Invoke(string gamePath, string characterName)
+    public string Invoke(string gamePath, string characterName)
         => base.Invoke(gamePath, characterName);
 }
 
@@ -19,6 +19,6 @@ public sealed class ReverseResolvePath(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(ReverseResolvePath)}";
 
-    public new string Invoke(string gamePath, string characterName)
+    public string Invoke(string gamePath, string characterName)
         => base.Invoke(gamePath, characterName);
 }

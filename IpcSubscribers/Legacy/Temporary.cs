@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -11,7 +11,7 @@ public sealed class CreateTemporaryCollection(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(CreateTemporaryCollection)}";
 
-    public new (PenumbraApiEc ErrorCode, string CollectionName) Invoke(string tag, string character, bool forceOverwrite)
+    public (PenumbraApiEc ErrorCode, string CollectionName) Invoke(string tag, string character, bool forceOverwrite)
         => base.Invoke(tag, character, forceOverwrite);
 }
 
@@ -20,7 +20,7 @@ public sealed class RemoveTemporaryCollection(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryCollection)}";
 
-    public new PenumbraApiEc Invoke(string collectionName)
+    public PenumbraApiEc Invoke(string collectionName)
         => base.Invoke(collectionName);
 }
 
@@ -29,7 +29,7 @@ public sealed class CreateNamedTemporaryCollection(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(CreateNamedTemporaryCollection)}";
 
-    public new PenumbraApiEc Invoke(string collectionName)
+    public PenumbraApiEc Invoke(string collectionName)
         => base.Invoke(collectionName);
 }
 
@@ -38,7 +38,7 @@ public sealed class RemoveTemporaryCollectionByName(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryCollectionByName)}";
 
-    public new PenumbraApiEc Invoke(string collectionName)
+    public PenumbraApiEc Invoke(string collectionName)
         => base.Invoke(collectionName);
 }
 
@@ -47,7 +47,7 @@ public sealed class AssignTemporaryCollection(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(AssignTemporaryCollection)}";
 
-    public new PenumbraApiEc Invoke(string collectionName, int gameObjectIndex, bool force)
+    public PenumbraApiEc Invoke(string collectionName, int gameObjectIndex, bool force)
         => base.Invoke(collectionName, gameObjectIndex, force);
 }
 
@@ -56,7 +56,7 @@ public sealed class AddTemporaryModAll(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(AddTemporaryModAll)}";
 
-    public new PenumbraApiEc Invoke(string tag, Dictionary<string, string> files, string meta, int priority = 0)
+    public PenumbraApiEc Invoke(string tag, Dictionary<string, string> files, string meta, int priority = 0)
         => base.Invoke(tag, files, meta, priority);
 }
 
@@ -65,7 +65,7 @@ public sealed class AddTemporaryMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(AddTemporaryMod)}";
 
-    public new PenumbraApiEc Invoke(string tag, string collectionName, Dictionary<string, string> files, string meta, int priority = 0)
+    public PenumbraApiEc Invoke(string tag, string collectionName, Dictionary<string, string> files, string meta, int priority = 0)
         => base.Invoke(tag, collectionName, files, meta, priority);
 }
 
@@ -74,7 +74,7 @@ public sealed class RemoveTemporaryModAll(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryModAll)}";
 
-    public new PenumbraApiEc Invoke(string tag, int priority = 0)
+    public PenumbraApiEc Invoke(string tag, int priority = 0)
         => base.Invoke(tag, priority);
 }
 
@@ -83,6 +83,6 @@ public sealed class RemoveTemporaryMod(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(RemoveTemporaryMod)}";
 
-    public new PenumbraApiEc Invoke(string tag, string collectionName, int priority = 0)
+    public PenumbraApiEc Invoke(string tag, string collectionName, int priority = 0)
         => base.Invoke(tag, collectionName, priority);
 }

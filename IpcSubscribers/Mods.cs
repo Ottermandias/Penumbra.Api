@@ -1,9 +1,11 @@
 using System.Reflection;
 using Dalamud.Plugin;
+using Dalamud.Plugin.Ipc;
+using Luna;
 using Newtonsoft.Json.Linq;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
+using Penumbra.Api.Wrappers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -27,24 +29,44 @@ public sealed class GetModList(IDalamudPluginInterface pi)
         => new(pi, Label, api.GetModList);
 }
 
-/// <inheritdoc cref="IPenumbraApiMods.GetModListAdapter"/>
-public sealed class GetModListAdapter(IDalamudPluginInterface pi)
+/// <inheritdoc cref="IPenumbraApiMods.GetModListAdapterOld"/>
+public sealed class GetModListAdapterOld(IDalamudPluginInterface pi)
     : FuncSubscriber<IDisposable>(pi, Label)
 {
     /// <summary> The label. </summary>
-    public const string Label = $"Penumbra.{nameof(GetModListAdapter)}";
+    public const string Label = "Penumbra.GetModListAdapter";
 
     /// <summary> The label as UTF8 string. </summary>
     public static ReadOnlySpan<byte> LabelU8
         => "Penumbra.GetModListAdapter"u8;
 
-    /// <inheritdoc cref="IPenumbraApiMods.GetModListAdapter"/>
-    public new ModListWrapper Invoke()
+    /// <inheritdoc cref="IPenumbraApiMods.GetModListAdapterOld"/>
+    public new ModManagerWrapperOld Invoke()
         => new(base.Invoke());
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IDisposable> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
-        => new(pi, Label, api.GetModListAdapter);
+        => new(pi, Label, api.GetModListAdapterOld);
+}
+
+/// <inheritdoc cref="IPenumbraApiMods.GetModManagerAdapter"/>
+public sealed class GetModManagerAdapter(IDalamudPluginInterface pi)
+    : FuncSubscriber<IIdDataShareAdapter>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetModManagerAdapter)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetModManagerAdapter"u8;
+
+    /// <inheritdoc cref="IPenumbraApiMods.GetModManagerAdapter"/>
+    public new ModManagerWrapper Invoke()
+        => ModManagerWrapper.Create(base.Invoke())!;
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)
+        => new(pi, Label, api.GetModManagerAdapter);
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
@@ -59,7 +81,7 @@ public sealed class InstallMod(IDalamudPluginInterface pi)
         => "Penumbra.InstallMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.InstallMod"/>
-    public new PenumbraApiEc Invoke(string modFilePackagePath)
+    public PenumbraApiEc Invoke(string modFilePackagePath)
         => (PenumbraApiEc)base.Invoke(modFilePackagePath);
 
     /// <summary> Create a provider. </summary>
@@ -79,7 +101,7 @@ public sealed class ReloadMod(IDalamudPluginInterface pi)
         => "Penumbra.ReloadMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.ReloadMod"/>
-    public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
@@ -99,7 +121,7 @@ public sealed class AddMod(IDalamudPluginInterface pi)
         => "Penumbra.AddMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.AddMod"/>
-    public new PenumbraApiEc Invoke(string modDirectory)
+    public PenumbraApiEc Invoke(string modDirectory)
         => (PenumbraApiEc)base.Invoke(modDirectory);
 
     /// <summary> Create a provider. </summary>
@@ -119,7 +141,7 @@ public sealed class DeleteMod(IDalamudPluginInterface pi)
         => "Penumbra.DeleteMod.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.DeleteMod"/>
-    public new PenumbraApiEc Invoke(string modDirectory, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>
@@ -255,7 +277,7 @@ public sealed class GetModPath(IDalamudPluginInterface pi)
         => "Penumbra.GetModPath.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.GetModPath"/>
-    public new (PenumbraApiEc, string FullPath, bool FullDefault, bool NameDefault) Invoke(string modDirectory, string modName = "")
+    public (PenumbraApiEc, string FullPath, bool FullDefault, bool NameDefault) Invoke(string modDirectory, string modName = "")
     {
         var (ret, fullPath, fullDefault, nameDefault) = base.Invoke(modDirectory, modName);
         return ((PenumbraApiEc)ret, fullPath, fullDefault, nameDefault);
@@ -282,7 +304,7 @@ public sealed class SetModPath(IDalamudPluginInterface pi)
         => "Penumbra.SetModPath.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.SetModPath"/>
-    public new PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")
+    public PenumbraApiEc Invoke(string modDirectory, string newPath, string modName = "")
         => (PenumbraApiEc)base.Invoke(modDirectory, modName, newPath);
 
     /// <summary> Create a provider. </summary>
@@ -302,7 +324,7 @@ public sealed class GetChangedItems(IDalamudPluginInterface pi)
         => "Penumbra.GetChangedItems.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiMods.GetChangedItems"/>
-    public new Dictionary<string, object?> Invoke(string modDirectory, string modName)
+    public Dictionary<string, object?> Invoke(string modDirectory, string modName)
         => base.Invoke(modDirectory, modName);
 
     /// <summary> Create a provider. </summary>

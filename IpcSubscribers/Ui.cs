@@ -1,7 +1,7 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -169,7 +169,7 @@ public sealed class RegisterSettingsSection(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(RegisterSettingsSection)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.RegisterSettingsSection"/>
-    public new PenumbraApiEc Invoke(Action draw)
+    public PenumbraApiEc Invoke(Action draw)
         => (PenumbraApiEc)base.Invoke(draw);
 
     /// <summary> Create a provider. </summary>
@@ -185,7 +185,7 @@ public sealed class UnregisterSettingsSection(IDalamudPluginInterface pi)
     public const string Label = $"Penumbra.{nameof(UnregisterSettingsSection)}";
 
     /// <inheritdoc cref="IPenumbraApiUi.UnregisterSettingsSection"/>
-    public new PenumbraApiEc Invoke(Action draw)
+    public PenumbraApiEc Invoke(Action draw)
         => (PenumbraApiEc)base.Invoke(draw);
 
     /// <summary> Create a provider. </summary>

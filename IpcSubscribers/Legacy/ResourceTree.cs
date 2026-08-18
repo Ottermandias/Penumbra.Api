@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 using ResourceType = Penumbra.Api.Enums.ResourceType;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -12,7 +12,7 @@ public sealed class GetGameObjectResourcePaths(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcePaths)}";
 
-    public new IReadOnlyDictionary<string, string[]>?[] Invoke(params ushort[] objectIndices)
+    public IReadOnlyDictionary<string, string[]>?[] Invoke(params ushort[] objectIndices)
         => base.Invoke(objectIndices);
 }
 
@@ -30,7 +30,7 @@ public sealed class GetGameObjectResourcesOfType(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourcesOfType)}";
 
-    public new IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?[] Invoke(ResourceType type, bool withUiData = false,
+    public IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>?[] Invoke(ResourceType type, bool withUiData = false,
         params ushort[] indices)
         => base.Invoke(type, withUiData, indices);
 }
@@ -40,7 +40,7 @@ public sealed class GetPlayerResourcesOfType(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetPlayerResourcesOfType)}";
 
-    public new IReadOnlyDictionary<ushort, IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>> Invoke(ResourceType type,
+    public IReadOnlyDictionary<ushort, IReadOnlyDictionary<nint, (string, string, ChangedItemIcon)>> Invoke(ResourceType type,
         bool withUiData = false)
         => base.Invoke(type, withUiData);
 }
@@ -50,7 +50,7 @@ public sealed class GetGameObjectResourceTrees(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetGameObjectResourceTrees)}";
 
-    public new ResourceTree?[] Invoke(bool withUiData = false, params ushort[] indices)
+    public ResourceTree?[] Invoke(bool withUiData = false, params ushort[] indices)
         => base.Invoke(withUiData, indices);
 }
 
@@ -59,7 +59,7 @@ public sealed class GetPlayerResourceTrees(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetPlayerResourceTrees)}";
 
-    public new IReadOnlyDictionary<ushort, ResourceTree> Invoke(bool withUiData = false)
+    public IReadOnlyDictionary<ushort, ResourceTree> Invoke(bool withUiData = false)
         => base.Invoke(withUiData);
 }
 

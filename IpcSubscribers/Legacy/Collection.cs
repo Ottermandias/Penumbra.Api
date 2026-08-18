@@ -1,6 +1,6 @@
 using Dalamud.Plugin;
+using Luna;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
@@ -47,7 +47,7 @@ public sealed class GetCharacterCollectionName(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetCharacterCollectionName)}";
 
-    public new (string, bool) Invoke(string characterName)
+    public (string, bool) Invoke(string characterName)
         => base.Invoke(characterName);
 }
 
@@ -56,7 +56,7 @@ public sealed class GetChangedItems(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetChangedItems)}";
 
-    public new IReadOnlyDictionary<string, object?> Invoke(string collectionName)
+    public IReadOnlyDictionary<string, object?> Invoke(string collectionName)
         => base.Invoke(collectionName);
 }
 
@@ -65,7 +65,7 @@ public sealed class GetCollectionForType(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetCollectionForType)}";
 
-    public new string Invoke(ApiCollectionType collectionType)
+    public string Invoke(ApiCollectionType collectionType)
         => base.Invoke(collectionType);
 }
 
@@ -74,7 +74,7 @@ public sealed class SetCollectionForType(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(SetCollectionForType)}";
 
-    public new (PenumbraApiEc ErrorCode, string OldCollectionName) Invoke(ApiCollectionType collectionType, string collectionName,
+    public (PenumbraApiEc ErrorCode, string OldCollectionName) Invoke(ApiCollectionType collectionType, string collectionName,
         bool allowCreateNew = true, bool allowDelete = true)
         => base.Invoke(collectionType, collectionName, allowCreateNew, allowDelete);
 }
@@ -84,7 +84,7 @@ public sealed class GetCollectionForObject(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(GetCollectionForObject)}";
 
-    public new (bool ObjectValid, bool IndividualSet, string CollectionName) Invoke(int objectIndex)
+    public (bool ObjectValid, bool IndividualSet, string CollectionName) Invoke(int objectIndex)
         => base.Invoke(objectIndex);
 }
 
@@ -93,7 +93,7 @@ public sealed class SetCollectionForObject(IDalamudPluginInterface pi)
 {
     public const string Label = $"Penumbra.{nameof(SetCollectionForObject)}";
 
-    public new (PenumbraApiEc ErrorCode, string OldCollectionName) Invoke(int objectIndex, string collectionName, bool allowCreateNew = true,
+    public (PenumbraApiEc ErrorCode, string OldCollectionName) Invoke(int objectIndex, string collectionName, bool allowCreateNew = true,
         bool allowDelete = true)
         => base.Invoke(objectIndex, collectionName, allowCreateNew, allowDelete);
 }

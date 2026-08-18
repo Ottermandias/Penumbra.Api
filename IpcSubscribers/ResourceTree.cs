@@ -1,9 +1,9 @@
 using System.Linq;
 using Dalamud.Plugin;
+using Luna;
 using Newtonsoft.Json.Linq;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Helpers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
@@ -19,7 +19,7 @@ public sealed class GetGameObjectResourcePaths(IDalamudPluginInterface pi)
         => "Penumbra.GetGameObjectResourcePaths.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourcePaths"/>
-    public new Dictionary<string, HashSet<string>>?[] Invoke(params ushort[] gameObjectIndices)
+    public Dictionary<string, HashSet<string>>?[] Invoke(params ushort[] gameObjectIndices)
         => base.Invoke(gameObjectIndices);
 
     /// <summary> Create a provider. </summary>
@@ -110,7 +110,7 @@ public sealed class GetGameObjectResourceTrees(IDalamudPluginInterface pi)
         => "Penumbra.GetGameObjectResourceTrees.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetGameObjectResourceTrees"/>
-    public new ResourceTreeDto?[] Invoke(bool withUiData = false, params ushort[] gameObjectIndices)
+    public ResourceTreeDto?[] Invoke(bool withUiData = false, params ushort[] gameObjectIndices)
         => Array.ConvertAll(base.Invoke(withUiData, gameObjectIndices), o => o?.ToObject<ResourceTreeDto>());
 
     /// <summary> Create a provider. </summary>
@@ -131,7 +131,7 @@ public sealed class GetPlayerResourceTrees(IDalamudPluginInterface pi)
         => "Penumbra.GetPlayerResourceTrees.V5"u8;
 
     /// <inheritdoc cref="IPenumbraApiResourceTree.GetPlayerResourceTrees"/>
-    public new Dictionary<ushort, ResourceTreeDto> Invoke(bool withUiData = false)
+    public Dictionary<ushort, ResourceTreeDto> Invoke(bool withUiData = false)
         => base.Invoke(withUiData).ToDictionary(kvp => kvp.Key, kvp => kvp.Value.ToObject<ResourceTreeDto>()!);
 
     /// <summary> Create a provider. </summary>
