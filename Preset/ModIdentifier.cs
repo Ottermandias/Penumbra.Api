@@ -14,6 +14,18 @@ public static class ModIdentifierExtensions
     /// <summary> Readonly Methods to use on the mod identifier. </summary>
     extension(in ModIdentifier id)
     {
+        /// <summary> Compare two mod identifiers. </summary>
+        /// <param name="other"> The other identifier. </param>
+        /// <returns> Lexicographical comparison of the names if they differ, otherwise lexicographical comparison of the identifiers if they differ. </returns>
+        public int CompareTo(ModIdentifier other)
+        {
+            var nameComparison = string.Compare(id.Name, other.Name, StringComparison.Ordinal);
+            if (nameComparison is not 0)
+                return nameComparison;
+
+            return string.Compare(id.Identifier, other.Identifier, StringComparison.OrdinalIgnoreCase);
+        }
+
         /// <summary> Get whether the identifier is empty. </summary>
         public bool IsEmpty
             => id.Identifier.Length is 0 && id.Name.Length is 0;

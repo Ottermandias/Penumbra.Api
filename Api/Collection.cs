@@ -67,5 +67,5 @@ public interface IPenumbraApiCollection
 
     /// <summary> Obtain a function object that can check if the current collection contains a given changed item by listing the mods changing it. </summary>
     /// <remarks> Throws an <seealso cref="ObjectDisposedException"/> on invocation if the collection storage is not valid anymore, so clear this on <seealso cref="IpcSubscribers.Disposed"/>. </remarks>
-    public Func<string, (string ModDirectory, string ModName)[]> CheckCurrentChangedItemFunc();
+    public Func<string, ModIdentifier[]> CheckCurrentChangedItemFunc();
 }

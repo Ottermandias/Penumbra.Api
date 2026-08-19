@@ -9,9 +9,16 @@ namespace Penumbra.Api.Preset;
 /// <summary> Methods to use on the data for a setting preset. </summary>
 public static class SettingPresetExtensions
 {
+    /// <summary> An empty preset. </summary>
+    public static readonly SettingPresetData EmptyData = Create();
+
     /// <summary> Readonly methods to use on the data for a setting preset. </summary>
     extension(ref readonly SettingPresetData data)
     {
+        /// <summary> An empty preset. </summary>
+        public static SettingPresetData Empty
+            => EmptyData;
+
         /// <summary> Whether a preset is valid. </summary>
         public bool Valid
             => data.Settings is not null;
@@ -54,11 +61,12 @@ public static class SettingPresetExtensions
             if (data._state is not (byte)ModState.Ignored)
                 writer.WriteString("State"u8, data._state switch
                 {
-                    (byte)ModState.Disabled  => "Disabled"u8,
-                    (byte)ModState.Enabled   => "Enabled"u8,
-                    (byte)ModState.Inherited => "Inherited"u8,
-                    (byte)ModState.Toggle    => "Toggle"u8,
-                    _                        => "Ignored"u8,
+                    (byte)ModState.Disabled        => "Disabled"u8,
+                    (byte)ModState.Enabled         => "Enabled"u8,
+                    (byte)ModState.Inherited       => "Inherited"u8,
+                    (byte)ModState.Toggle          => "Toggle"u8,
+                    (byte)ModState.RemoveTemporary => "RemoveTemporary"u8,
+                    _                              => "Ignored"u8,
                 });
             if (data._hasPriority)
                 writer.WriteNumber("Priority"u8, data._priority);
@@ -240,11 +248,12 @@ public static class SettingPresetExtensions
 
                 data._state = j.GetString() switch
                 {
-                    "Enabled" or "enabled"     => (byte)ModState.Enabled,
-                    "Disabled" or "disabled"   => (byte)ModState.Disabled,
-                    "Inherited" or "inherited" => (byte)ModState.Inherited,
-                    "Toggle" or "toggle"       => (byte)ModState.Toggle,
-                    _                          => (byte)ModState.Ignored,
+                    "Enabled" or "enabled"                 => (byte)ModState.Enabled,
+                    "Disabled" or "disabled"               => (byte)ModState.Disabled,
+                    "Inherited" or "inherited"             => (byte)ModState.Inherited,
+                    "Toggle" or "toggle"                   => (byte)ModState.Toggle,
+                    "RemoveTemporary" or "removetemporary" => (byte)ModState.RemoveTemporary,
+                    _                                      => (byte)ModState.Ignored,
                 };
                 return true;
             }
