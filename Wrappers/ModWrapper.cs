@@ -3,7 +3,9 @@ using Luna;
 
 namespace Penumbra.Api.Wrappers;
 
-public sealed class ModWrapper(IIdDataShareAdapter adapter) : BasicWrapper<ModWrapper, ModWrapper.Method>(adapter), IBasicWrapper<ModWrapper>
+/// <summary> A wrapper for a single mod. </summary>
+/// <remarks> These should generally only be used for the frame they're created in. </remarks>
+public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IBasicWrapper<ModWrapper>
 {
     /// <summary> The full path of the mod directory. </summary>
     public string ModPath
@@ -134,6 +136,10 @@ public sealed class ModWrapper(IIdDataShareAdapter adapter) : BasicWrapper<ModWr
         /// <inheritdoc cref="ModWrapper.RequiredFeatures"/>
         RequiredFeatures = 17,
     }
+
+    private ModWrapper(IIdDataShareAdapter adapter)
+        : base(adapter)
+    { }
 
     /// <inheritdoc/>
     public static ModWrapper? Create(IIdDataShareAdapter? adapter)

@@ -1,9 +1,31 @@
 using Dalamud.Plugin;
+using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
+using Penumbra.Api.Wrappers;
 
 namespace Penumbra.Api.IpcSubscribers;
+
+/// <inheritdoc cref="IPenumbraApiGameState.GetGameStateAdapter"/>
+public sealed class GetGameStateAdapter(IDalamudPluginInterface pi)
+    : FuncSubscriber<IIdDataShareAdapter>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetGameStateAdapter)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetGameStateAdapter"u8;
+
+    /// <inheritdoc cref="IPenumbraApiGameState.GetGameStateAdapter"/>
+    public new GameStateWrapper Invoke()
+        => GameStateWrapper.Create(base.Invoke())!;
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)
+        => new(pi, Label, api.GetGameStateAdapter);
+}
 
 /// <inheritdoc cref="IPenumbraApiGameState.GetDrawObjectInfo"/>
 public sealed class GetDrawObjectInfo(IDalamudPluginInterface pi)
