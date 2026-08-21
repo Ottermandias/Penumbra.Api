@@ -142,6 +142,6 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
     { }
 
     /// <inheritdoc/>
-    public static ModWrapper? Create(IIdDataShareAdapter? adapter)
+    static ModWrapper? IBasicWrapper<ModWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new ModWrapper(adapter);
 }

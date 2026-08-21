@@ -20,7 +20,7 @@ public sealed class GetGameStateAdapter(IDalamudPluginInterface pi)
 
     /// <inheritdoc cref="IPenumbraApiGameState.GetGameStateAdapter"/>
     public new GameStateWrapper Invoke()
-        => GameStateWrapper.Create(base.Invoke())!;
+        => BasicWrapper.Create<GameStateWrapper>(base.Invoke())!;
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)

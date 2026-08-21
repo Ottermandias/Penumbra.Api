@@ -1,14 +1,22 @@
+using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
 using Luna;
 using Penumbra.Api.Enums;
+using Penumbra.Api.IpcSubscribers;
 
 namespace Penumbra.Api.Wrappers;
 
 /// <summary> A wrapper around some persistent functions to query the game state from Penumbra. </summary>
 public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, GameStateWrapper.Method>, IBasicWrapper<GameStateWrapper>
 {
+    /// <summary> Request the corresponding adapter from Penumbra and create a wrapper. </summary>
+    /// <param name="pluginInterface"> The plugin interface. </param>
+    /// <returns> A game state wrapper. </returns>
+    public static GameStateWrapper Request(IDalamudPluginInterface pluginInterface)
+        => new GetGameStateAdapter(pluginInterface).Invoke();
+
     /// <summary> Get the game object currently being created. </summary>
     public GameObject* LastGameObject
         => (GameObject*)Invoke<nint>(Method.GetLastGameObject);
@@ -59,6 +67,6 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
     { }
 
     /// <inheritdoc/>
-    public static GameStateWrapper? Create(IIdDataShareAdapter? adapter)
+    static GameStateWrapper? IBasicWrapper<GameStateWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new GameStateWrapper(adapter);
 }

@@ -62,7 +62,7 @@ public sealed class GetModManagerAdapter(IDalamudPluginInterface pi)
 
     /// <inheritdoc cref="IPenumbraApiMods.GetModManagerAdapter"/>
     public new ModManagerWrapper Invoke()
-        => ModManagerWrapper.Create(base.Invoke())!;
+        => BasicWrapper.Create<ModManagerWrapper>(base.Invoke())!;
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)

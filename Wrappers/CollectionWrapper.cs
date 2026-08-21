@@ -187,7 +187,7 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
         EnumerateGroups,
     }
 
-    public static CollectionWrapper? Create(IIdDataShareAdapter? adapter)
+    static CollectionWrapper? IBasicWrapper<CollectionWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new CollectionWrapper(adapter);
 
     private CollectionWrapper(IIdDataShareAdapter adapter)
