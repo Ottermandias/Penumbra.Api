@@ -17,7 +17,7 @@ public static class SettingPresetExtensions
     {
         /// <summary> An empty preset. </summary>
         public static SettingPresetData Empty
-            => EmptyData;
+            => EmptyData.Clone();
 
         /// <summary> Whether a preset is valid. </summary>
         public bool Valid
