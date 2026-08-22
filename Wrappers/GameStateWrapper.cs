@@ -45,35 +45,32 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
 
     /// <summary>
     ///   Triggered when a character base is created and a corresponding gameObject could be found,
-    ///   before the Draw Object is actually created, so customize and equipdata can be manipulated beforehand.
+    ///   before the Draw Object is actually created, so customize and equip data can be manipulated beforehand.
     /// </summary>
-    /// <returns><inheritdoc cref="CreatingCharacterBaseDelegate"/></returns>
-    public event Action<nint, Guid, nint, nint, nint> CreatingCharacterBase
+    public event InAction<CreatingCharacterBaseArguments> CreatingCharacterBase
     {
-        add => Invoke(Method.SubscribeCreatingCharacterBase,      value);
-        remove => Invoke(Method.UnsubscribeCreatingCharacterBase, value);
+        add => AddDelegate(Method.CreatingCharacterBase, value, Convert);
+        remove => RemoveDelegate(Method.CreatingCharacterBase, value);
     }
 
     /// <summary>
     ///   Triggered after a character base was created if a corresponding gameObject could be found,
     ///   so you can apply flag changes after finishing.
     /// </summary>
-    /// <returns><inheritdoc cref="CreatedCharacterBaseDelegate"/></returns>
-    public event Action<nint, Guid, nint> CreatedCharacterBase
+    public event InAction<CreatedCharacterBaseArguments> CreatedCharacterBase
     {
-        add => Invoke(Method.SubscribeCreatedCharacterBase,    value);
-        remove => Invoke(Method.UnsubscribeCreatedCharacterBase, value);
+        add => AddDelegate(Method.CreatedCharacterBase, value, Convert);
+        remove => RemoveDelegate(Method.CreatedCharacterBase, value);
     }
 
     /// <summary>
     ///   Triggered whenever a resource is redirected by Penumbra for a specific, identified game object.
     ///   Does not trigger if the resource is not requested for a known game object.
     /// </summary>
-    /// <returns><inheritdoc cref="GameObjectResourceResolvedDelegate"/></returns>
-    public event Action<nint, string, string> GameObjectResourceResolved
+    public event InAction<GameObjectResourceResolvedArguments> GameObjectResourceResolved
     {
-        add => Invoke(Method.SubscribeGameObjectResourceResolved,      value);
-        remove => Invoke(Method.UnsubscribeGameObjectResourceResolved, value);
+        add => AddDelegate(Method.GameObjectResourceResolved, value, Convert);
+        remove => RemoveDelegate(Method.GameObjectResourceResolved, value);
     }
 
     /// <summary> The methods available for a game state adapter. </summary>
@@ -95,22 +92,13 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
         GetLastGameObject,
 
         /// <inheritdoc cref="GameStateWrapper.CreatingCharacterBase"/>
-        SubscribeCreatingCharacterBase,
-
-        /// <inheritdoc cref="GameStateWrapper.CreatingCharacterBase"/>
-        UnsubscribeCreatingCharacterBase,
+        CreatingCharacterBase,
 
         /// <inheritdoc cref="GameStateWrapper.CreatedCharacterBase"/>
-        SubscribeCreatedCharacterBase,
-
-        /// <inheritdoc cref="GameStateWrapper.CreatedCharacterBase"/>
-        UnsubscribeCreatedCharacterBase,
+        CreatedCharacterBase,
 
         /// <inheritdoc cref="GameStateWrapper.GameObjectResourceResolved"/>
-        SubscribeGameObjectResourceResolved,
-
-        /// <inheritdoc cref="GameStateWrapper.GameObjectResourceResolved"/>
-        UnsubscribeGameObjectResourceResolved,
+        GameObjectResourceResolved,
     }
 
     private GameStateWrapper(IIdDataShareAdapter adapter)
@@ -120,4 +108,33 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
     /// <inheritdoc/>
     static GameStateWrapper? IBasicWrapper<GameStateWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new GameStateWrapper(adapter);
+
+    private static Action<nint, Guid, nint, nint, nint> Convert(InAction<CreatingCharacterBaseArguments> a)
+        => (x, y, z, u, v) => a(new CreatingCharacterBaseArguments(x, y, z, u, v));
+
+    private static Action<nint, Guid, nint> Convert(InAction<CreatedCharacterBaseArguments> a)
+        => (x, y, z) => a(new CreatedCharacterBaseArguments(x, y, z));
+
+    private static Action<nint, string, string> Convert(InAction<GameObjectResourceResolvedArguments> a)
+        => (x, y, z) => a(new GameObjectResourceResolvedArguments(x, y, z));
 }
+
+/// <summary> The arguments for the <see cref="CreatingCharacterBase"/> event. </summary>
+/// <param name="GameObject"> The game object creating its draw object. </param>
+/// <param name="CollectionId"> The associated collection for the game object. </param>
+/// <param name="ModelId"> A pointer to the model ID being passed to the draw object creation. </param>
+/// <param name="Customize"> A pointer to the customize array being passed to the draw object creation. </param>
+/// <param name="EquipData"> A pointer to the equipment data being passed to the draw object creation. </param>
+public readonly record struct CreatingCharacterBaseArguments(nint GameObject, Guid CollectionId, nint ModelId, nint Customize, nint EquipData);
+
+/// <summary> The arguments for the <see cref="CreatedCharacterBase"/> event. </summary>
+/// <param name="GameObject"> The game object that created its draw object. </param>
+/// <param name="CollectionId"> The associated collection for the game object. </param>
+/// <param name="DrawObject"> The created draw object. </param>
+public readonly record struct CreatedCharacterBaseArguments(nint GameObject, Guid CollectionId, nint DrawObject);
+
+/// <summary> The arguments for the <see cref="GameObjectResourceResolvedArguments"/> event. </summary>
+/// <param name="GameObject"> The associated game object for this resource. </param>
+/// <param name="GamePath"> The original game path requested. </param>
+/// <param name="LocalPath"> The actual path loaded after redirections. </param>
+public readonly record struct GameObjectResourceResolvedArguments(nint GameObject, string GamePath, string LocalPath);

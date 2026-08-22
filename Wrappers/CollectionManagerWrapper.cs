@@ -4,12 +4,13 @@ using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.Enums;
 using Penumbra.Api.IpcSubscribers;
+using static Penumbra.Api.Wrappers.CollectionManagerWrapper;
 
 namespace Penumbra.Api.Wrappers;
 
 /// <summary> A wrapper for the collection manager. </summary>
 /// <remarks> This is persistent and can generally be kept for the lifetime of either your plugin or Penumbra itself. </remarks>
-public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWrapper, CollectionManagerWrapper.Method>,
+public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWrapper, Method>,
     IBasicWrapper<CollectionManagerWrapper>
 {
     /// <summary> Request the corresponding adapter from Penumbra and create a wrapper. </summary>
@@ -110,6 +111,13 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     public IEnumerable<ModIdentifier> CheckCurrentChangedItems(string itemName)
         => Invoke<string, IEnumerable<ModIdentifier>>(Method.CheckCurrentChangedItems, itemName)!;
 
+    /// <summary> Invoked whenever mod settings change in any collection. </summary>
+    public event InAction<ModSettingsChangedArguments>? ModSettingsChanged
+    {
+        add => AddDelegate(Method.ModSettingsChanged, value, Convert);
+        remove => RemoveDelegate(Method.ModSettingsChanged, value);
+    }
+
     /// <summary> The methods available for a collection manager adapter. </summary>
     public enum Method
     {
@@ -163,8 +171,8 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
         /// <inheritdoc cref="CollectionManagerWrapper.CheckCurrentChangedItems"/>
         CheckCurrentChangedItems,
-		
-		/// <inheritdoc cref="CollectionManagerWrapper.ModSettingsChanged"/>
+
+        /// <inheritdoc cref="CollectionManagerWrapper.ModSettingsChanged"/>
         ModSettingsChanged,
     }
 
@@ -175,4 +183,14 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     private CollectionManagerWrapper(IIdDataShareAdapter adapter)
         : base(adapter)
     { }
+
+    private static Action<int, Guid, string, bool> Convert(InAction<ModSettingsChangedArguments> a)
+        => (type, collection, mod, inherited) => a(new ModSettingsChangedArguments((ModSettingChange)type, collection, mod, inherited));
 }
+
+/// <summary> The arguments for the <see cref="CollectionManagerWrapper.ModSettingsChanged"/> event. </summary>
+/// <param name="Type"> The type of change. </param>
+/// <param name="Collection"> The affected collection. </param>
+/// <param name="ModIdentifier"> The affected mod's identifier (directory name). </param>
+/// <param name="Inherited"> Whether the change was inherited from a parent collection or not. </param>
+public readonly record struct ModSettingsChangedArguments(ModSettingChange Type, Guid Collection, string ModIdentifier, bool Inherited);
