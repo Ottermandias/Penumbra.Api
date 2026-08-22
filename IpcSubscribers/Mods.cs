@@ -50,7 +50,7 @@ public sealed class GetModListAdapterOld(IDalamudPluginInterface pi)
 }
 
 /// <inheritdoc cref="IPenumbraApiMods.GetModManagerAdapter"/>
-public sealed class GetModManagerAdapter(IDalamudPluginInterface pi)
+internal sealed class GetModManagerAdapter(IDalamudPluginInterface pi)
     : FuncSubscriber<IIdDataShareAdapter>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -59,10 +59,6 @@ public sealed class GetModManagerAdapter(IDalamudPluginInterface pi)
     /// <summary> The label as UTF8 string. </summary>
     public static ReadOnlySpan<byte> LabelU8
         => "Penumbra.GetModManagerAdapter"u8;
-
-    /// <inheritdoc cref="IPenumbraApiMods.GetModManagerAdapter"/>
-    public new ModManagerWrapper Invoke()
-        => BasicWrapper.Create<ModManagerWrapper>(base.Invoke())!;
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiMods api)

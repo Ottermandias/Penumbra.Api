@@ -39,8 +39,8 @@ public sealed class GetCollectionManagerAdapter(IDalamudPluginInterface pi)
         => "Penumbra.GetCollectionManagerAdapter"u8;
 
     /// <inheritdoc cref="IPenumbraApiCollection.GetCollectionManagerAdapter"/>
-    public new CollectionManagerWrapper Invoke()
-        => BasicWrapper.Create<CollectionManagerWrapper>(base.Invoke())!;
+    public new IIdDataShareAdapter Invoke()
+        => base.Invoke();
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiCollection api)

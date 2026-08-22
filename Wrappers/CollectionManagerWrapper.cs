@@ -1,24 +1,16 @@
 using System.Linq;
-using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.Enums;
 using Penumbra.Api.IpcSubscribers;
-using static Penumbra.Api.Wrappers.CollectionManagerWrapper;
 
 namespace Penumbra.Api.Wrappers;
 
 /// <summary> A wrapper for the collection manager. </summary>
 /// <remarks> This is persistent and can generally be kept for the lifetime of either your plugin or Penumbra itself. </remarks>
-public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWrapper, Method>,
+public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWrapper, CollectionManagerWrapper.Method>,
     IBasicWrapper<CollectionManagerWrapper>
 {
-    /// <summary> Request the corresponding adapter from Penumbra and create a wrapper. </summary>
-    /// <param name="pluginInterface"> The plugin interface. </param>
-    /// <returns> A collection manager wrapper. </returns>
-    public static CollectionManagerWrapper Request(IDalamudPluginInterface pluginInterface)
-        => new GetCollectionManagerAdapter(pluginInterface).Invoke();
-
     /// <summary> Get a reference to a collection by its current internal index. </summary>
     /// <remarks> This collection reference should not be kept alive long-term. Use with using. </remarks>
     public CollectionWrapper? GetByIndex(int index)
@@ -53,7 +45,7 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
     /// <summary> Get the identifying information for all available collections without creating reference wrappers. </summary>
     /// <returns> An enumeration of the persistent identifiers, non-anonymized names and indices of the collections. </returns>
-    public IEnumerable<(Guid Identifier, string Name, int Index)> GetNames()
+    public IEnumerable<(Guid Identifier, string Name, int Index)> EnumerateNames()
         => Invoke<IEnumerable<(Guid Identifier, string Name, int Index)>>(Method.GetNames) ?? [];
 
     /// <summary> Get a reference to the currently selected collection. </summary>
@@ -111,6 +103,18 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     public IEnumerable<ModIdentifier> CheckCurrentChangedItems(string itemName)
         => Invoke<string, IEnumerable<ModIdentifier>>(Method.CheckCurrentChangedItems, itemName)!;
 
+    /// <summary> Remove all applied temporary settings from the given collection. </summary>
+    /// <param name="collection"> The identifier of the collection. </param>
+    /// <param name="key"> The key for the settings to remove. </param>
+    public void RemoveAllTemporarySettings(Guid collection, int key)
+        => Invoke<Guid, int, int>(Method.RemoveAllTemporarySettings, collection, key);
+
+    /// <summary> Remove all applied temporary settings from the collection affecting an object. </summary>
+    /// <param name="gameObjectIndex"> The index of the object. </param>
+    /// <param name="key"> The key for the settings to remove. </param>
+    public void RemoveAllTemporarySettingsObject(int gameObjectIndex, int key)
+        => Invoke<int, int, int>(Method.RemoveAllTemporarySettingsObject, gameObjectIndex, key);
+
     /// <summary> Invoked whenever mod settings change in any collection. </summary>
     public event InAction<ModSettingsChangedArguments>? ModSettingsChanged
     {
@@ -157,7 +161,7 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
         /// <inheritdoc cref="CollectionManagerWrapper.GetByIndex"/>
         GetByIndex,
 
-        /// <inheritdoc cref="CollectionManagerWrapper.GetNames"/>
+        /// <inheritdoc cref="CollectionManagerWrapper.EnumerateNames"/>
         GetNames,
 
         /// <inheritdoc cref="CollectionManagerWrapper.TypeCollectionId"/>
@@ -177,7 +181,17 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
         /// <inheritdoc cref="CollectionManagerWrapper.ModSettingsChanged"/>
         ModSettingsChanged,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.RemoveAllTemporarySettings"/>
+        RemoveAllTemporarySettings,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.RemoveAllTemporarySettingsObject"/>
+        RemoveAllTemporarySettingsObject,
     }
+
+    /// <summary> Create a new collection manager wrapper without a connection to an adapter. </summary>
+    public CollectionManagerWrapper()
+    { }
 
     /// <inheritdoc/>
     static CollectionManagerWrapper? IBasicWrapper<CollectionManagerWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
@@ -189,6 +203,10 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
     private static Action<int, Guid, string, bool> Convert(InAction<ModSettingsChangedArguments> a)
         => (type, collection, mod, inherited) => a(new ModSettingsChangedArguments((ModSettingChange)type, collection, mod, inherited));
+
+    /// <inheritdoc />
+    protected override string IpcLabel
+        => GetCollectionManagerAdapter.Label;
 }
 
 /// <summary> The arguments for the <see cref="CollectionManagerWrapper.ModSettingsChanged"/> event. </summary>

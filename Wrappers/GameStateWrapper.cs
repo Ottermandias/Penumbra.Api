@@ -11,12 +11,6 @@ namespace Penumbra.Api.Wrappers;
 /// <summary> A wrapper around some persistent functions to query the game state from Penumbra. </summary>
 public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, GameStateWrapper.Method>, IBasicWrapper<GameStateWrapper>
 {
-    /// <summary> Request the corresponding adapter from Penumbra and create a wrapper. </summary>
-    /// <param name="pluginInterface"> The plugin interface. </param>
-    /// <returns> A game state wrapper. </returns>
-    public static GameStateWrapper Request(IDalamudPluginInterface pluginInterface)
-        => new GetGameStateAdapter(pluginInterface).Invoke();
-
     /// <summary> Get the game object currently being created. </summary>
     public GameObject* LastGameObject
         => (GameObject*)Invoke<nint>(Method.GetLastGameObject);
@@ -104,6 +98,10 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
         GameObjectResourceResolved,
     }
 
+    /// <summary> Create a new game state wrapper without a connection to an adapter. </summary>
+    public GameStateWrapper()
+    { }
+
     private GameStateWrapper(IIdDataShareAdapter adapter)
         : base(adapter)
     { }
@@ -120,6 +118,10 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
 
     private static Action<nint, string, string> Convert(InAction<GameObjectResourceResolvedArguments> a)
         => (x, y, z) => a(new GameObjectResourceResolvedArguments(x, y, z));
+
+    /// <inheritdoc />
+    protected override string IpcLabel
+        => GetGameStateAdapter.Label;
 }
 
 /// <summary> The arguments for the <see cref="CreatingCharacterBase"/> event. </summary>

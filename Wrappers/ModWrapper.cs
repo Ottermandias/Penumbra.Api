@@ -147,4 +147,8 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
     /// <inheritdoc/>
     static ModWrapper? IBasicWrapper<ModWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new ModWrapper(adapter);
+
+    /// <inheritdoc />
+    protected override string IpcLabel
+        => string.Empty;
 }

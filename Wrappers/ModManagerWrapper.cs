@@ -1,5 +1,4 @@
 using System.IO;
-using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.IpcSubscribers;
@@ -11,12 +10,6 @@ namespace Penumbra.Api.Wrappers;
 public sealed class ModManagerWrapper
     : BasicWrapper<ModManagerWrapper, ModManagerWrapper.Method>, IBasicWrapper<ModManagerWrapper>
 {
-    /// <summary> Request the corresponding adapter from Penumbra and create a wrapper. </summary>
-    /// <param name="pluginInterface"> The plugin interface. </param>
-    /// <returns> A mod manager wrapper. </returns>
-    public static ModManagerWrapper Request(IDalamudPluginInterface pluginInterface)
-        => new GetModManagerAdapter(pluginInterface).Invoke();
-
     /// <summary> Get the number of installed mods. </summary>
     public int Count
         => Invoke<int>(Method.Count);
@@ -61,6 +54,10 @@ public sealed class ModManagerWrapper
         ModDirectory,
     }
 
+    /// <summary> Create a new mod manager wrapper without a connection to an adapter. </summary>
+    public ModManagerWrapper()
+    { }
+
     private ModManagerWrapper(IIdDataShareAdapter adapter)
         : base(adapter)
     { }
@@ -68,4 +65,8 @@ public sealed class ModManagerWrapper
     /// <inheritdoc/>
     static ModManagerWrapper? IBasicWrapper<ModManagerWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
         => adapter is null ? null : new ModManagerWrapper(adapter);
+
+    /// <inheritdoc />
+    protected override string IpcLabel
+        => GetModManagerAdapter.Label;
 }

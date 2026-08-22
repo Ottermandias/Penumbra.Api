@@ -3,12 +3,11 @@ using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
-using Penumbra.Api.Wrappers;
 
 namespace Penumbra.Api.IpcSubscribers;
 
 /// <inheritdoc cref="IPenumbraApiGameState.GetGameStateAdapter"/>
-public sealed class GetGameStateAdapter(IDalamudPluginInterface pi)
+internal sealed class GetGameStateAdapter(IDalamudPluginInterface pi)
     : FuncSubscriber<IIdDataShareAdapter>(pi, Label)
 {
     /// <summary> The label. </summary>
@@ -17,10 +16,6 @@ public sealed class GetGameStateAdapter(IDalamudPluginInterface pi)
     /// <summary> The label as UTF8 string. </summary>
     public static ReadOnlySpan<byte> LabelU8
         => "Penumbra.GetGameStateAdapter"u8;
-
-    /// <inheritdoc cref="IPenumbraApiGameState.GetGameStateAdapter"/>
-    public new GameStateWrapper Invoke()
-        => BasicWrapper.Create<GameStateWrapper>(base.Invoke())!;
 
     /// <summary> Create a provider. </summary>
     public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiGameState api)

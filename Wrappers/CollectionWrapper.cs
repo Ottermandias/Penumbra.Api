@@ -196,4 +196,8 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
     private CollectionWrapper(IIdDataShareAdapter adapter)
         : base(adapter)
     { }
+
+    /// <inheritdoc />
+    protected override string IpcLabel
+        => string.Empty;
 }
