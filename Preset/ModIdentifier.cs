@@ -5,6 +5,28 @@ using System.Text.Json;
 
 namespace Penumbra.Api.Preset;
 
+/// <summary> A comparer for mod identifiers. </summary>
+public sealed class ModIdentifierComparer : IComparer<ModIdentifier>
+{
+    /// <summary> The instance for the comparer. </summary>
+    public static readonly ModIdentifierComparer Instance = new();
+
+    /// <inheritdoc />
+    public int Compare(ModIdentifier lhs, ModIdentifier rhs)
+    {
+        var leftName       = lhs.Name.Length is 0 ? lhs.Identifier : lhs.Name;
+        var rightName      = rhs.Name.Length is 0 ? rhs.Identifier : rhs.Name;
+        var nameComparison = string.Compare(leftName, rightName, StringComparison.CurrentCulture);
+        if (nameComparison is not 0)
+            return nameComparison;
+
+        return string.Compare(lhs.Identifier, rhs.Identifier, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private ModIdentifierComparer()
+    { }
+}
+
 /// <summary> Methods to use on a mod identifier. </summary>
 public static class ModIdentifierExtensions
 {
