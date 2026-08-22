@@ -46,7 +46,8 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     /// <returns> An enumeration of collection references. </returns>
     /// <remarks> These collection references should not be kept alive long-term. Dispose after use. </remarks>
     public IEnumerable<CollectionWrapper> Enumerate()
-        => Invoke<IEnumerable<IIdDataShareAdapter>>(Method.GetEnumerable)?.Select(BasicWrapper.Create<CollectionWrapper>).OfType<CollectionWrapper>()
+        => Invoke<IEnumerable<IIdDataShareAdapter>>(Method.GetEnumerable)?.Select(BasicWrapper.Create<CollectionWrapper>)
+                .OfType<CollectionWrapper>()
          ?? [];
 
     /// <summary> Get the identifying information for all available collections without creating reference wrappers. </summary>
@@ -82,20 +83,32 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     public CollectionWrapper? TryGetForObject(int objectIndex, bool onlyIndividual = false)
         => BasicWrapper.Create<CollectionWrapper>(Invoke<int, bool, IIdDataShareAdapter>(Method.TryGetForObject, objectIndex, onlyIndividual));
 
-    /// <summary> Get only the ID of the collection currently affecting a game object by its index. </summary>
+    /// <summary> Get only the Identity of the collection currently affecting a game object by its index. </summary>
+    /// <param name="type"> The type of collection assignment to query. </param>
+    /// <returns> The Identity of the collection for the type, which may be null. </returns>
+    public (Guid Identifier, string Name, int Index)? TypeCollectionId(ApiCollectionType type)
+        => Invoke<int, (Guid Identifier, string Name, int Index)?>(Method.GetTypeCollectionIdentity, (int)type);
+
+    /// <summary> Get only the Identity of the collection currently affecting a game object by its index. </summary>
     /// <param name="objectIndex"> The index of the object to query. </param>
-    /// <returns> The GUID of the collection affecting the object, which is the default-assigned collection if the object does not exist. </returns>
-    public Guid ObjectCollectionId(int objectIndex)
-        => Invoke<int, Guid>(Method.GetPlayerCollectionId, objectIndex);
+    /// <returns> The Identity of the collection affecting the object, which is the default-assigned collection if the object does not exist. </returns>
+    public (Guid Identifier, string Name, int Index) ObjectCollectionId(int objectIndex)
+        => Invoke<int, (Guid Identifier, string Name, int Index)>(Method.GetPlayerCollectionIdentity, objectIndex);
 
     /// <summary> Get a reference to the collection currently affecting the player character. </summary>
     /// <remarks> This collection reference should not be kept alive long-term. Use with using. </remarks>
     public CollectionWrapper? PlayerCollection
         => BasicWrapper.Create<CollectionWrapper>(Invoke<IIdDataShareAdapter>(Method.GetPlayerCollection));
 
-    /// <summary> Get only the ID of the collection currently affecting the player character, which is the default-assigned collection if the player does not exist. </summary>
-    public Guid PlayerCollectionId
-        => Invoke<Guid>(Method.GetPlayerCollectionId);
+    /// <summary> Get only the Identity of the collection currently affecting the player character, which is the default-assigned collection if the player does not exist. </summary>
+    public (Guid Identifier, string Name, int Index) PlayerCollectionId
+        => Invoke<(Guid Identifier, string Name, int Index)>(Method.GetPlayerCollectionIdentity);
+
+    /// <summary> Check whether the given item name is affected by the current collection and return the responsible mods, if any. </summary>
+    /// <param name="itemName"> The name of the item to check. </param>
+    /// <returns> All mods affecting the queried item. </returns>
+    public IEnumerable<ModIdentifier> CheckCurrentChangedItems(string itemName)
+        => Invoke<string, IEnumerable<ModIdentifier>>(Method.CheckCurrentChangedItems, itemName)!;
 
     /// <summary> The methods available for a collection manager adapter. </summary>
     public enum Method
@@ -136,14 +149,20 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
         /// <inheritdoc cref="CollectionManagerWrapper.GetNames"/>
         GetNames,
 
+        /// <inheritdoc cref="CollectionManagerWrapper.TypeCollectionId"/>
+        GetTypeCollectionIdentity,
+
         /// <inheritdoc cref="CollectionManagerWrapper.ObjectCollectionId"/>
-        GetObjectCollectionId,
+        GetObjectCollectionIdentity,
 
         /// <inheritdoc cref="CollectionManagerWrapper.PlayerCollectionId"/>
-        GetPlayerCollectionId,
+        GetPlayerCollectionIdentity,
 
         /// <inheritdoc cref="CollectionManagerWrapper.PlayerCollection"/>
         GetPlayerCollection,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.CheckCurrentChangedItems"/>
+        CheckCurrentChangedItems,
     }
 
     /// <inheritdoc/>
