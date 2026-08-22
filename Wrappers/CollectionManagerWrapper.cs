@@ -121,6 +121,9 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     /// <summary> The methods available for a collection manager adapter. </summary>
     public enum Method
     {
+        /// <inheritdoc cref="Version"/>
+        Version = BasicWrapper.VersionMethod,
+
         /// <inheritdoc cref="CollectionManagerWrapper.GetById"/>
         GetById,
 

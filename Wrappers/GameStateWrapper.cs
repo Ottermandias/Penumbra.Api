@@ -76,6 +76,9 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
     /// <summary> The methods available for a game state adapter. </summary>
     public enum Method
     {
+        /// <inheritdoc cref="Version"/>
+        Version = BasicWrapper.VersionMethod,
+
         /// <inheritdoc cref="GameStateWrapper.GameObjectFromDrawObject"/>
         GameObjectFromDrawObject,
 

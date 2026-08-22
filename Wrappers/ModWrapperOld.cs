@@ -40,7 +40,7 @@ public readonly struct ModWrapperOld(IDisposable mod) : IDisposable
 
     /// <summary> The version of the mod. </summary>
     public string Version
-        => (string)Adapter[(int)ModWrapper.Method.Version]!;
+        => (string)Adapter[(int)ModWrapper.Method.ModVersion]!;
 
     /// <summary> The website of the mod. </summary>
     public string Website

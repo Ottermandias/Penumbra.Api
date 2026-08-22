@@ -42,6 +42,9 @@ public sealed class ModManagerWrapper
     /// <summary> The methods available for a mod manager adapter. </summary>
     public enum Method
     {
+        /// <inheritdoc cref="Version"/>
+        Version = BasicWrapper.VersionMethod,
+
         /// <inheritdoc cref="ModManagerWrapper.GetByIndex"/>
         GetByIndex,
 

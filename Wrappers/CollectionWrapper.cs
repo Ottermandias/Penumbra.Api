@@ -129,6 +129,9 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
     /// <summary> The available properties for collection mod adapter and wrapper. </summary>
     public enum Method
     {
+        /// <inheritdoc cref="Version"/>
+        Version = BasicWrapper.VersionMethod,
+
         /// <inheritdoc cref="CollectionWrapper.Index"/>
         GetIndex,
 

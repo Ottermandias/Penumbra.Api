@@ -32,8 +32,8 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
         => Invoke<string>(Method.Description) ?? string.Empty;
 
     /// <summary> The version of the mod. </summary>
-    public string Version
-        => Invoke<string>(Method.Version) ?? string.Empty;
+    public string ModVersion
+        => Invoke<string>(Method.ModVersion) ?? string.Empty;
 
     /// <summary> The website of the mod. </summary>
     public string Website
@@ -82,59 +82,62 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
     /// <summary> The available properties for the mod adapter and wrapper. </summary>
     public enum Method
     {
+        /// <inheritdoc cref="Version"/>
+        Version = BasicWrapper.VersionMethod,
+
         /// <inheritdoc cref="ModWrapper.ModPath"/>
-        ModPath = 0,
+        ModPath,
 
         /// <inheritdoc cref="ModWrapper.Index"/>
-        Index = 1,
+        Index,
 
         /// <inheritdoc cref="ModWrapper.Name"/>
-        Name = 2,
+        Name,
 
         /// <inheritdoc cref="ModWrapper.Identifier"/>
-        Identifier = 3,
+        Identifier,
 
         /// <inheritdoc cref="ModWrapper.Author"/>
-        Author = 4,
+        Author,
 
         /// <inheritdoc cref="ModWrapper.Description"/>
-        Description = 5,
+        Description,
 
-        /// <inheritdoc cref="ModWrapper.Version"/>
-        Version = 6,
+        /// <inheritdoc cref="ModWrapper.ModVersion"/>
+        ModVersion,
 
         /// <inheritdoc cref="ModWrapper.Website"/>
-        Website = 7,
+        Website,
 
         /// <inheritdoc cref="ModWrapper.Image"/>
-        Image = 8,
+        Image,
 
         /// <inheritdoc cref="ModWrapper.SortName"/>
-        SortName = 9,
+        SortName,
 
         /// <inheritdoc cref="ModWrapper.Folder"/>
-        Folder = 10,
+        Folder,
 
         /// <inheritdoc cref="ModWrapper.FullPath"/>
-        FullPath = 11,
+        FullPath,
 
         /// <inheritdoc cref="ModWrapper.ImportDate"/>
-        ImportDate = 12,
+        ImportDate,
 
         /// <inheritdoc cref="ModWrapper.LastConfigEdit"/>
-        LastConfigEdit = 13,
+        LastConfigEdit,
 
         /// <inheritdoc cref="ModWrapper.Favorite"/>
-        Favorite = 14,
+        Favorite,
 
         /// <inheritdoc cref="ModWrapper.ModTags"/>
-        ModTags = 15,
+        ModTags,
 
         /// <inheritdoc cref="ModWrapper.LocalTags"/>
-        LocalTags = 16,
+        LocalTags,
 
         /// <inheritdoc cref="ModWrapper.RequiredFeatures"/>
-        RequiredFeatures = 17,
+        RequiredFeatures,
     }
 
     private ModWrapper(IIdDataShareAdapter adapter)
