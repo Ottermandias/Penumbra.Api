@@ -126,6 +126,41 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
                 modIndex)
          ?? [];
 
+    /// <summary> This event gets fired when any setting in any collection changes. </summary>
+    /// <returns><inheritdoc cref="ModSettingChangedDelegate" /></returns>
+    public event InAction<ModSettingChangedArguments>? ModSettingChanged
+    {
+        add => Invoke(Method.SubscribeModSettingChanged,      CreateModSettingDelegate(value));
+        remove => Invoke(Method.UnsubscribeModSettingChanged, RemoveModSettingDelegate(value));
+    }
+
+    public readonly record struct ModSettingChangedArguments(ModSettingChange Type, Guid CollectionId, string ModIdentifier, bool Inherited);
+
+    private Action<int, Guid, string, bool>? RemoveModSettingDelegate(InAction<ModSettingChangedArguments>? action)
+    {
+        if (action is null)
+            return null;
+
+        if (!DelegateMap.TryGetValue(action, out var del))
+            return null;
+
+        return del as Action<int, Guid, string, bool>;
+    }
+
+    private Action<int, Guid, string, bool>? CreateModSettingDelegate(InAction<ModSettingChangedArguments>? action)
+    {
+        if (action is null)
+            return null;
+
+        DelegateMap.TryAdd(action, Map);
+        return Map;
+
+        void Map(int type, Guid collection, string mod, bool inherited)
+        {
+            action(new ModSettingChangedArguments((ModSettingChange)type, collection, mod, inherited));
+        }
+    }
+
     /// <summary> The available properties for collection mod adapter and wrapper. </summary>
     public enum Method
     {
@@ -185,6 +220,12 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
 
         /// <inheritdoc cref="CollectionWrapper.EnumerateGroups"/>
         EnumerateGroups,
+
+        /// <inheritdoc cref="CollectionWrapper.ModSettingChanged"/>
+        SubscribeModSettingChanged,
+
+        /// <inheritdoc cref="CollectionWrapper.ModSettingChanged"/>
+        UnsubscribeModSettingChanged,
     }
 
     static CollectionWrapper? IBasicWrapper<CollectionWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)

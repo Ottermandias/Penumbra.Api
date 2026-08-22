@@ -93,7 +93,7 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     /// <param name="objectIndex"> The index of the object to query. </param>
     /// <returns> The Identity of the collection affecting the object, which is the default-assigned collection if the object does not exist. </returns>
     public (Guid Identifier, string Name, int Index) ObjectCollectionId(int objectIndex)
-        => Invoke<int, (Guid Identifier, string Name, int Index)>(Method.GetPlayerCollectionIdentity, objectIndex);
+        => Invoke<int, (Guid Identifier, string Name, int Index)>(Method.GetObjectCollectionIdentity, objectIndex);
 
     /// <summary> Get a reference to the collection currently affecting the player character. </summary>
     /// <remarks> This collection reference should not be kept alive long-term. Use with using. </remarks>
@@ -163,6 +163,9 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
         /// <inheritdoc cref="CollectionManagerWrapper.CheckCurrentChangedItems"/>
         CheckCurrentChangedItems,
+		
+		/// <inheritdoc cref="CollectionManagerWrapper.ModSettingsChanged"/>
+        ModSettingsChanged,
     }
 
     /// <inheritdoc/>

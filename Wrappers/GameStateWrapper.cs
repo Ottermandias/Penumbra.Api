@@ -43,6 +43,39 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
     public void SetCutsceneParent(ushort changedObject, ushort newParentIndex)
         => Invoke(Method.SetCutsceneActor, changedObject, newParentIndex);
 
+    /// <summary>
+    ///   Triggered when a character base is created and a corresponding gameObject could be found,
+    ///   before the Draw Object is actually created, so customize and equipdata can be manipulated beforehand.
+    /// </summary>
+    /// <returns><inheritdoc cref="CreatingCharacterBaseDelegate"/></returns>
+    public event Action<nint, Guid, nint, nint, nint> CreatingCharacterBase
+    {
+        add => Invoke(Method.SubscribeCreatingCharacterBase,      value);
+        remove => Invoke(Method.UnsubscribeCreatingCharacterBase, value);
+    }
+
+    /// <summary>
+    ///   Triggered after a character base was created if a corresponding gameObject could be found,
+    ///   so you can apply flag changes after finishing.
+    /// </summary>
+    /// <returns><inheritdoc cref="CreatedCharacterBaseDelegate"/></returns>
+    public event Action<nint, Guid, nint> CreatedCharacterBase
+    {
+        add => Invoke(Method.SubscribeCreatedCharacterBase,    value);
+        remove => Invoke(Method.UnsubscribeCreatedCharacterBase, value);
+    }
+
+    /// <summary>
+    ///   Triggered whenever a resource is redirected by Penumbra for a specific, identified game object.
+    ///   Does not trigger if the resource is not requested for a known game object.
+    /// </summary>
+    /// <returns><inheritdoc cref="GameObjectResourceResolvedDelegate"/></returns>
+    public event Action<nint, string, string> GameObjectResourceResolved
+    {
+        add => Invoke(Method.SubscribeGameObjectResourceResolved,      value);
+        remove => Invoke(Method.UnsubscribeGameObjectResourceResolved, value);
+    }
+
     /// <summary> The methods available for a game state adapter. </summary>
     public enum Method
     {
@@ -60,6 +93,24 @@ public sealed unsafe class GameStateWrapper : BasicWrapper<GameStateWrapper, Gam
 
         /// <inheritdoc cref="GameStateWrapper.LastGameObject"/>
         GetLastGameObject,
+
+        /// <inheritdoc cref="GameStateWrapper.CreatingCharacterBase"/>
+        SubscribeCreatingCharacterBase,
+
+        /// <inheritdoc cref="GameStateWrapper.CreatingCharacterBase"/>
+        UnsubscribeCreatingCharacterBase,
+
+        /// <inheritdoc cref="GameStateWrapper.CreatedCharacterBase"/>
+        SubscribeCreatedCharacterBase,
+
+        /// <inheritdoc cref="GameStateWrapper.CreatedCharacterBase"/>
+        UnsubscribeCreatedCharacterBase,
+
+        /// <inheritdoc cref="GameStateWrapper.GameObjectResourceResolved"/>
+        SubscribeGameObjectResourceResolved,
+
+        /// <inheritdoc cref="GameStateWrapper.GameObjectResourceResolved"/>
+        UnsubscribeGameObjectResourceResolved,
     }
 
     private GameStateWrapper(IIdDataShareAdapter adapter)
