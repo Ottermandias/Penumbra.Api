@@ -13,7 +13,7 @@ public static class SettingPresetExtensions
     public static readonly SettingPresetData EmptyData = Create();
 
     /// <summary> Readonly methods to use on the data for a setting preset. </summary>
-    extension(ref readonly SettingPresetData data)
+    extension(in SettingPresetData data)
     {
         /// <summary> An empty preset. </summary>
         public static SettingPresetData Empty

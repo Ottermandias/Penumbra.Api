@@ -76,6 +76,22 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     public CollectionWrapper? TryGetForObject(int objectIndex, bool onlyIndividual = false)
         => BasicWrapper.Create<CollectionWrapper>(Invoke<int, bool, IIdDataShareAdapter>(Method.TryGetForObject, objectIndex, onlyIndividual));
 
+    /// <summary> Get only the Identity of a collection by its current internal index. </summary>
+    public (Guid Identifier, string Name, int Index)? IdentityByIndex(int index)
+        => Invoke<int, (Guid Identifier, string Name, int Index)?>(Method.GetByIndexIdentity, index);
+
+    /// <summary> Get only the Identity of a collection by its persistent Identifier. </summary>
+    public (Guid Identifier, string Name, int Index)? IdentityById(Guid id)
+        => Invoke<Guid, (Guid Identifier, string Name, int Index)?>(Method.GetByIdIdentity, id);
+
+    /// <summary> Get only the Identity of a collection by its name. </summary>
+    public (Guid Identifier, string Name, int Index)? IdentityByName(string name)
+        => Invoke<string, (Guid Identifier, string Name, int Index)?>(Method.GetByNameIdentity, name);
+
+    /// <summary> Get only the Identity of a collection by its string identifier, which can be its name or a long enough part of its GUID. </summary>
+    public (Guid Identifier, string Name, int Index)? IdentityByIdentifier(string identifier)
+        => Invoke<string, (Guid Identifier, string Name, int Index)?>(Method.GetByIdentifierIdentity, identifier);
+
     /// <summary> Get only the Identity of the collection currently affecting a game object by its index. </summary>
     /// <param name="type"> The type of collection assignment to query. </param>
     /// <returns> The Identity of the collection for the type, which may be null. </returns>
@@ -187,6 +203,18 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
         /// <inheritdoc cref="CollectionManagerWrapper.RemoveAllTemporarySettingsObject"/>
         RemoveAllTemporarySettingsObject,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.IdentityByIndex"/>
+        GetByIndexIdentity,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.IdentityById"/>
+        GetByIdIdentity,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.IdentityByName"/>
+        GetByNameIdentity,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.IdentityByIdentifier"/>
+        GetByIdentifierIdentity,
     }
 
     /// <summary> Create a new collection manager wrapper without a connection to an adapter. </summary>
