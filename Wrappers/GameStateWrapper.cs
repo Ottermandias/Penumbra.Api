@@ -1,4 +1,3 @@
-using Dalamud.Plugin;
 using Dalamud.Plugin.Ipc;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using FFXIVClientStructs.FFXIV.Client.Graphics.Scene;
