@@ -126,6 +126,12 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
                 modIndex)
          ?? [];
 
+    /// <summary> Draw a tooltip about what changes would be applied by the given preset. </summary>
+    /// <param name="modIndex"> The mod to target. </param>
+    /// <param name="preset"> The preset to apply. </param>
+    public void DrawPresetTooltip(int modIndex, in SettingPresetData preset)
+        => Invoke(Method.DrawPresetTooltip, modIndex, preset);
+
     /// <summary> The available properties for collection mod adapter and wrapper. </summary>
     public enum Method
     {
@@ -188,6 +194,9 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
 
         /// <inheritdoc cref="CollectionWrapper.EnumerateGroups"/>
         EnumerateGroups,
+
+        /// <inheritdoc cref="CollectionWrapper.DrawPresetTooltip"/>
+        DrawPresetTooltip
     }
 
     static CollectionWrapper? IBasicWrapper<CollectionWrapper>.CreateWrapper(IIdDataShareAdapter? adapter)
