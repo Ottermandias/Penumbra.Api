@@ -138,6 +138,13 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
         remove => RemoveDelegate(Method.ModSettingsChanged, value);
     }
 
+    /// <summary> Invoked whenever mod settings change in any collection. </summary>
+    public event InAction<CollectionChangedArguments>? CollectionChanged
+    {
+        add => AddDelegate(Method.CollectionChanged, value, Convert);
+        remove => RemoveDelegate(Method.CollectionChanged, value);
+    }
+
     /// <summary> The methods available for a collection manager adapter. </summary>
     public enum Method
     {
@@ -215,6 +222,9 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 
         /// <inheritdoc cref="CollectionManagerWrapper.IdentityByIdentifier"/>
         GetByIdentifierIdentity,
+
+        /// <inheritdoc cref="CollectionManagerWrapper.CollectionChanged"/>
+        CollectionChanged,
     }
 
     /// <summary> Create a new collection manager wrapper without a connection to an adapter. </summary>
@@ -232,6 +242,10 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     private static Action<int, Guid, string, bool> Convert(InAction<ModSettingsChangedArguments> a)
         => (type, collection, mod, inherited) => a(new ModSettingsChangedArguments((ModSettingChange)type, collection, mod, inherited));
 
+    private static Action<int, Guid?, Guid?, string> Convert(InAction<CollectionChangedArguments> a)
+        => (type, oldCollection, newCollection, displayName)
+            => a(new CollectionChangedArguments((ApiCollectionType)type, oldCollection, newCollection, displayName));
+
     /// <inheritdoc />
     protected override string IpcLabel
         => GetCollectionManagerAdapter.Label;
@@ -243,3 +257,10 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
 /// <param name="ModIdentifier"> The affected mod's identifier (directory name). </param>
 /// <param name="Inherited"> Whether the change was inherited from a parent collection or not. </param>
 public readonly record struct ModSettingsChangedArguments(ModSettingChange Type, Guid Collection, string ModIdentifier, bool Inherited);
+
+/// <summary> The arguments for the <see cref="CollectionManagerWrapper.CollectionChanged"/> event. </summary>
+/// <param name="Type"> The type of the changed collection assignment. This can be undefined in <see cref="ApiCollectionType"/> if it is an individual assignment. </param>
+/// <param name="OldCollection"> The collection assigned to this type before, if any. </param>
+/// <param name="NewCollection"> The newly assigned collection, if the assignment was not removed. </param>
+/// <param name="DisplayName"> If <paramref name="Type"/> refers to an individual collection, this is the display name of the individuum, otherwise empty. </param>
+public readonly record struct CollectionChangedArguments(ApiCollectionType Type, Guid? OldCollection, Guid? NewCollection, string DisplayName);
