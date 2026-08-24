@@ -95,3 +95,16 @@ public enum ApiCollectionType : byte
     Interface = 0xE1,
     Current   = 0xE2,
 }
+
+/// <summary> Further collection types for the non-API version. </summary>
+public static class ApiCollectionTypeExtensions
+{
+    /// <summary> The numeric value for individual collection assignments, not available in the API. </summary>
+    public const byte Individual = 0xE3;
+
+    /// <summary> The numeric value for collection deletions or creations, not available in the API. </summary>
+    public const byte Inactive = 0xE4;
+
+    /// <summary> The numeric value for temporary collection deletions or creations, not available in the API. </summary>
+    public const byte Temporary = 0xE5;
+}
