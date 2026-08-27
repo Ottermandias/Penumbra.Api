@@ -3,6 +3,8 @@ global using SettingPresetData = (System.Collections.Generic.Dictionary<(System.
     _priority, short Version, bool _hasPriority, byte _state);
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Luna;
 
 namespace Penumbra.Api.Preset;
 
@@ -287,6 +289,51 @@ public static class SettingPresetExtensions
             }
 
             return false;
+        }
+
+        /// <summary> Parse a preset from the given JSON element. </summary>
+        public static SettingPresetData FromElement(in JsonElement element)
+            => element.Deserialize<SettingPresetData>(Options);
+    }
+
+    private static readonly JsonSerializerOptions Options = CreateOptions(JsonFunctions.SerializerOptions);
+
+    private static JsonSerializerOptions CreateOptions(JsonSerializerOptions original)
+    {
+        var ret = new JsonSerializerOptions(original);
+        ret.Converters.Add(new Converter());
+        return ret;
+    }
+
+    /// <inheritdoc/>
+    private sealed class Converter : JsonConverter<SettingPresetData>
+    {
+        /// <inheritdoc/>
+        public override SettingPresetData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType is JsonTokenType.Null)
+                return SettingPresetData.Empty;
+
+            if (reader.TokenType is not JsonTokenType.StartObject)
+                throw new JsonException($"Invalid token type to convert {nameof(SettingPresetData)}.");
+
+            var ret   = SettingPresetData.Create();
+            var limit = reader.CreateObjectLimit();
+            while (limit.Read(ref reader))
+            {
+                if (!ret.ParseJsonProperties(ref reader))
+                    reader.Skip();
+            }
+
+            return ret;
+        }
+
+        /// <inheritdoc/>
+        public override void Write(Utf8JsonWriter writer, SettingPresetData value, JsonSerializerOptions options)
+        {
+            writer.WriteStartObject();
+            value.WriteJsonProperties(writer);
+            writer.WriteEndObject();
         }
     }
 }
