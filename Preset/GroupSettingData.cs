@@ -3,6 +3,7 @@ global using GroupSettingData =
 using System.Diagnostics;
 using System.Linq;
 using System.Text.Json;
+using Luna;
 
 namespace Penumbra.Api.Preset;
 
@@ -145,60 +146,33 @@ public static class GroupSettingDataExtensions
         public bool ReadJson(ref Utf8JsonReader j)
         {
             Debug.Assert(j.TokenType is JsonTokenType.PropertyName);
-            if (j.ValueTextEquals("DisableAllUnknown"u8))
+            if (j.BoolProperty("DisableAllUnknown"u8, out var b))
             {
-                data.DisableAllUnknown = j.GetBoolean();
+                data.DisableAllUnknown = b;
                 return true;
             }
 
-            if (!j.ValueTextEquals("Options"u8))
+            if (!j.ArrayProperty("Options"u8, out var arrayLimit, true))
                 return false;
 
             // Read Options dictionary.
             data.Options.Clear();
-            if (!j.Read())
-                throw new JsonException("Unexpected end after array property Options.");
-
-            if (j.TokenType is JsonTokenType.Null)
-                return true;
-
-            if (j.TokenType is not JsonTokenType.StartArray)
-                throw new JsonException($"Unexpected value type {j.TokenType} for array property Options.");
-
-            var limit = j.CurrentDepth;
-            while (j.Read())
+            while(arrayLimit.Read(ref j))
             {
-                if (j.TokenType is JsonTokenType.EndArray && j.CurrentDepth == limit)
-                    break;
-
-                // This should not be able to happen?
-                if (j.CurrentDepth < limit)
-                    throw new JsonException("Invalid JSON: Left object depth without ending it.");
-
                 if (j.TokenType is not JsonTokenType.StartObject)
                     continue;
 
-                var     limit2 = j.CurrentDepth;
-                Guid?   guid   = null;
-                string? name   = null;
-                var     state  = OptionState.Ignored;
-                while (j.Read())
+                Guid?   guid        = null;
+                string? name        = null;
+                var     state       = OptionState.Ignored;
+                var     objectLimit = j.CreateObjectLimit();
+                while(objectLimit.Read(ref j))
                 {
-                    if (j.TokenType is JsonTokenType.EndObject && j.CurrentDepth == limit2)
-                        break;
-
-                    // This should not be able to happen?
-                    if (j.CurrentDepth < limit2)
-                        throw new JsonException("Invalid JSON: Left object depth without ending it.");
-
                     if (j.TokenType is not JsonTokenType.PropertyName)
                         continue;
 
-                    if (j.ValueTextEquals("State"u8))
+                    if(j.CheckProperty("State"u8))
                     {
-                        if (!j.Read())
-                            throw new JsonException("Unexpected end after OptionState property State.");
-
                         state = j.TokenType switch
                         {
                             JsonTokenType.Null  => OptionState.Ignored,
