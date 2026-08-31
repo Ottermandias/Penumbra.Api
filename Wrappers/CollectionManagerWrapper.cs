@@ -148,7 +148,13 @@ public sealed class CollectionManagerWrapper : BasicWrapper<CollectionManagerWra
     /// <summary> The methods available for a collection manager adapter. </summary>
     public enum Method
     {
-        /// <inheritdoc cref="Version"/>
+        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Disposed"/>
+        DisposedEvent = BasicWrapper.DisposedEventMethod,
+
+        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Alive"/>
+        Alive = BasicWrapper.AliveMethod,
+
+        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Version"/>
         Version = BasicWrapper.VersionMethod,
 
         /// <inheritdoc cref="CollectionManagerWrapper.GetById"/>
