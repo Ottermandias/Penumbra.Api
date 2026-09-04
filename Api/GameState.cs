@@ -1,4 +1,5 @@
 using Dalamud.Plugin.Ipc;
+using Luna;
 using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
@@ -13,7 +14,7 @@ public interface IPenumbraApiGameState
 
     /// <summary> Get a data share adapter for game state handling. </summary>
     /// <param name="owner"> The requesting plugin for the adapter. </param>
-    public IIdDataShareAdapter GetGameStateAdapter(string owner);
+    public IIdDataShareAdapter GetGameStateAdapter(CallerPlugin owner);
 
     /// <summary>
     /// Obtain the parent game object index for an unnamed cutscene actor by its <paramref name="actorIdx">index</paramref>.

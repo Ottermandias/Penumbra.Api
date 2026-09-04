@@ -1,4 +1,5 @@
 using Dalamud.Plugin.Ipc;
+using Luna;
 using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
@@ -11,7 +12,7 @@ public interface IPenumbraApiCollection
 
     /// <summary> Get a data share adapter for collection handling. </summary>
     /// <param name="owner"> The requesting plugin for the adapter. </param>
-    public IIdDataShareAdapter GetCollectionManagerAdapter(string owner);
+    public IIdDataShareAdapter GetCollectionManagerAdapter(CallerPlugin owner);
 
     /// <summary> Returns all collections for which either
     /// <list type="number">
