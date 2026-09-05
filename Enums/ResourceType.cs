@@ -159,6 +159,9 @@ public enum ResourceType : uint
     /// <summary> .skp files. </summary>
     Skp = 0x00736B70,
 
+    /// <summary> Shader Parameter files. </summary>
+    Spm = 0x0073706D,
+
     /// <summary> Staining Template files. </summary>
     Stm = 0x0073746D,
 
