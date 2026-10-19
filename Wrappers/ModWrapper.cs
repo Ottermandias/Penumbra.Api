@@ -79,6 +79,19 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
     public ulong RequiredFeatures
         => Invoke<ulong>(Method.RequiredFeatures);
 
+    /// <summary> Get the best matching index of a specific group in the mod. </summary>
+    /// <param name="group"> The group identifier. </param>
+    /// <returns> -1 if no matching group was found, the best matching groups' index otherwise, as well as the full identifier. </returns>
+    public (int GroupIndex, ModObjectIdentifier Group) FindGroup(ModObjectIdentifier group)
+        => Invoke<ModObjectIdentifier, (int GroupIndex, ModObjectIdentifier Group)>(Method.FindGroup, group);
+
+    /// <summary> Get the best matching index of a specific option in the mod, optionally restricted to a specific group by index. </summary>
+    /// <param name="option"> The option identifier. </param>
+    /// <param name="group"> The index of the group the option search is restricted to. </param>
+    /// <returns> -1 if no matching option was found, the best matching options' index otherwise, as well as the full identifier. </returns>
+    public (int OptionIndex, ModObjectIdentifier Option) FindOption(ModObjectIdentifier option, int group = -1)
+        => Invoke<ModObjectIdentifier, int, (int GroupIndex, ModObjectIdentifier Group)>(Method.FindOption, option, group);
+
     /// <summary> The available properties for the mod adapter and wrapper. </summary>
     public enum Method
     {
@@ -144,6 +157,12 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
 
         /// <inheritdoc cref="ModWrapper.RequiredFeatures"/>
         RequiredFeatures,
+
+        /// <inheritdoc cref="ModWrapper.FindGroup"/>
+        FindGroup,
+
+        /// <inheritdoc cref="ModWrapper.FindOption"/>
+        FindOption,
     }
 
     private ModWrapper(IIdDataShareAdapter adapter)
