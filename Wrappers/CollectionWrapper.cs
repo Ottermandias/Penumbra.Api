@@ -135,15 +135,6 @@ public sealed class CollectionWrapper : BasicWrapper<CollectionWrapper, Collecti
     /// <summary> The available properties for collection mod adapter and wrapper. </summary>
     public enum Method
     {
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Disposed"/>
-        DisposedEvent = BasicWrapper.DisposedEventMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.IsDisposed"/>
-        IsDisposed = BasicWrapper.IsDisposedMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Version"/>
-        Version = BasicWrapper.VersionMethod,
-
         /// <inheritdoc cref="CollectionWrapper.Index"/>
         GetIndex,
 

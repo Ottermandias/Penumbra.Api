@@ -54,15 +54,6 @@ public sealed class ModManagerWrapper
     /// <summary> The methods available for a mod manager adapter. </summary>
     public enum Method
     {
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Disposed"/>
-        DisposedEvent = BasicWrapper.DisposedEventMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.IsDisposed"/>
-        IsDisposed = BasicWrapper.IsDisposedMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Version"/>
-        Version = BasicWrapper.VersionMethod,
-
         /// <inheritdoc cref="ModManagerWrapper.GetByIndex"/>
         GetByIndex,
 

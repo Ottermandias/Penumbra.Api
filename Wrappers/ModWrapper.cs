@@ -95,15 +95,6 @@ public sealed class ModWrapper : BasicWrapper<ModWrapper, ModWrapper.Method>, IB
     /// <summary> The available properties for the mod adapter and wrapper. </summary>
     public enum Method
     {
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Disposed"/>
-        DisposedEvent = BasicWrapper.DisposedEventMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.IsDisposed"/>
-        IsDisposed = BasicWrapper.IsDisposedMethod,
-
-        /// <inheritdoc cref="BasicWrapper{TSelf,TEnum}.Version"/>
-        Version = BasicWrapper.VersionMethod,
-
         /// <inheritdoc cref="ModWrapper.ModPath"/>
         ModPath,
 
