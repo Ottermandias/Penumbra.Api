@@ -1,4 +1,5 @@
 using Dalamud.Plugin;
+using Dalamud.Plugin.Ipc;
 using Luna;
 using Penumbra.Api.Api;
 using Penumbra.Api.Enums;
@@ -105,4 +106,20 @@ public sealed class ApplyPresetPlayer(IDalamudPluginInterface pi)
     public static FuncProvider<int, ModIdentifier, SettingPresetData, int, int, string, int> Provider(IDalamudPluginInterface pi,
         IPenumbraApiPresets api)
         => new(pi, Label, (a, b, c, d, e, f) => (int)api.ApplyPresetPlayer(a, b, c, (PresetApplyMode)d, e, f));
+}
+
+/// <inheritdoc cref="IPenumbraApiPresets.GetPresetManagerAdapter"/>
+internal sealed class GetPresetManagerAdapter(IDalamudPluginInterface pi)
+    : FuncSubscriber<IIdDataShareAdapter>(pi, Label)
+{
+    /// <summary> The label. </summary>
+    public const string Label = $"Penumbra.{nameof(GetPresetManagerAdapter)}";
+
+    /// <summary> The label as UTF8 string. </summary>
+    public static ReadOnlySpan<byte> LabelU8
+        => "Penumbra.GetPresetManagerAdapter"u8;
+
+    /// <summary> Create a provider. </summary>
+    public static FuncProvider<IIdDataShareAdapter> Provider(IDalamudPluginInterface pi, IPenumbraApiPresets api)
+        => new(pi, Label, api.GetPresetManagerAdapter);
 }

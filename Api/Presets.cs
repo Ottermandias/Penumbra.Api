@@ -1,3 +1,5 @@
+using Dalamud.Plugin.Ipc;
+using Luna;
 using Penumbra.Api.Enums;
 
 namespace Penumbra.Api.Api;
@@ -40,4 +42,8 @@ public interface IPenumbraApiPresets
     /// <param name="source"> A string to describe the source of those temporary settings. This is displayed to the user. </param>
     /// <returns> ModMissing, InvalidArgument, TemporarySettingDisallowed, TemporarySettingImpossible or Success. </returns>
     public PenumbraApiEc ApplyPresetPlayer(int objectIndex, in ModIdentifier mod, in SettingPresetData preset, PresetApplyMode mode, int key, string source);
+
+    /// <returns> Get a data share adapter for preset handling. </returns>
+    /// <param name="owner"> The requesting plugin for the adapter. </param>
+    public IIdDataShareAdapter GetPresetManagerAdapter(CallerPlugin owner);
 }
